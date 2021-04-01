@@ -31,7 +31,8 @@ import Dropdown from './main-layout-drawer-list/Dropdown';
 import SecondListItem from './main-layout-drawer-list/SecondListItem';
 import Header from './main-layout-header/Header';
 
-
+/** Utils */
+import Echo from '../../utils/echo'
 
 
 const MainLayout = ({ auth, children, mainLayout }) => 
@@ -54,6 +55,13 @@ const MainLayout = ({ auth, children, mainLayout }) =>
 
     useEffect(() => {
         dispatch(AUTH.authUser());
+
+        Echo()
+            .private('invoice.created')
+            .listen('NewInvoiceEvent', response => {
+                console.log(response)
+            });
+
     }, []);
 
     return auth.user && (
