@@ -29,14 +29,11 @@ import Typography from '@material-ui/core/Typography'
 import PATH from './../../../routes/path';
 
 
-
-
 const forgotPasswordUseStyles = makeStyles((theme) => ({
     forgotPasswordContainer: {
         marginTop: theme.spacing(3)
     }
 }))
-
 
 const ForgotPasswordForm = ({ alert, auth }) => 
 {

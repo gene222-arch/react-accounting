@@ -3,7 +3,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 /** Routes config */
-import { PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes } from './routes'
+import { PRIVATE_ROUTES, AUTH_ROUTES, EMAIL_VERIFICATION_ROUTES, RenderRoutes } from './routes'
 
 /** Layouts */
 import AuthLayout from './views/layouts/AuthLayout';
@@ -20,11 +20,17 @@ const App = ({ history }) =>
 			<Switch>
 				<Route path='/auth/:path?'>
 					<AuthLayout>
-						<RenderRoutes routes={ PUBLIC_ROUTES } />
+						<RenderRoutes routes={ AUTH_ROUTES } />
 					</AuthLayout>
 				</Route>
 
-				<Route path='/:path?' exact>
+				<Route path='/email/:path?'>
+					<AuthLayout>
+						<RenderRoutes routes={ EMAIL_VERIFICATION_ROUTES } />
+					</AuthLayout>
+				</Route>
+
+				<Route path='/:path?'>
 					<MainLayout>
 						<RenderRoutes routes={ PRIVATE_ROUTES } />
 					</MainLayout>

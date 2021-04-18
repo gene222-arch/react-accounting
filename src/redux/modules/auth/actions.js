@@ -23,9 +23,17 @@ const {
     REGISTRATION_SUCCESS,
     REGISTRATION_FAILED,
 
+    RESEND_EMAIL_VERIFICATION_START,
+    RESEND_EMAIL_VERIFICATION_SUCCESS,
+    RESEND_EMAIL_VERIFICATION_FAILED,
+
     RESET_PASSWORD_START,
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
+
+    VERIFY_EMAIL_START,
+    VERIFY_EMAIL_SUCCESS,
+    VERIFY_EMAIL_FAILED
 } = ACTION_TYPES;
 
 
@@ -109,14 +117,13 @@ export const logoutFailed = (payload) => ({
 /**
  * Registration
  */
- export const register = (payload) => ({
+export const register = (payload) => ({
     type: REGISTER_START,
     payload
 });
 
-export const registrationSuccess = (payload) => ({
-    type: REGISTRATION_SUCCESS,
-    payload
+export const registrationSuccess = () => ({
+    type: REGISTRATION_SUCCESS
 });
 
 export const registrationFailed = (payload) => ({
@@ -126,19 +133,53 @@ export const registrationFailed = (payload) => ({
 
 
 /**
+ * Resend email verification
+ */
+export const resendEmailVerification = () => ({
+    type: RESEND_EMAIL_VERIFICATION_START
+});
+
+export const resendEmailVerificationSuccess = () => ({
+    type: RESEND_EMAIL_VERIFICATION_SUCCESS
+});
+
+export const resendEmailVerificationFailed = (payload) => ({
+    type: RESEND_EMAIL_VERIFICATION_FAILED,
+    payload
+});
+
+
+/**
  * Reset password
  */
 
- export const resetPassword = (payload) => ({
+export const resetPassword = (payload) => ({
     type: RESET_PASSWORD_START,
     payload
 });
 
-export const resetPasswordSuccess = (payload) => ({
+export const resetPasswordSuccess = () => ({
     type: RESET_PASSWORD_SUCCESS
 });
 
 export const resetPasswordFailed = (payload) => ({
     type: RESET_PASSWORD_FAILED,
+    payload
+});
+
+/**
+ * Verify email
+ */
+export const verifyEmail = (payload) => ({
+    type: VERIFY_EMAIL_START,
+    payload
+});
+
+export const verifyEmailSuccess = () => ({
+    type: VERIFY_EMAIL_SUCCESS
+});
+
+export const verifyEmailFailed = (payload) => ({
+    type: VERIFY_EMAIL_FAILED,
     payload
 });

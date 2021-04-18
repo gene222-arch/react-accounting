@@ -55,13 +55,6 @@ const MainLayout = ({ auth, children, mainLayout }) =>
 
     useEffect(() => {
         dispatch(AUTH.authUser());
-
-        Echo()
-            .private('invoice.created')
-            .listen('NewInvoiceEvent', response => {
-                console.log(response)
-            });
-
     }, []);
 
     return auth.user && (

@@ -7,7 +7,9 @@ import { loginAsync, logoutAsync } from './../../../services/auth/login';
 import { registerAsync } from './../../../services/auth/register';
 import { fetchAuthAsync } from './../../../services/auth/auth';
 import { forgotPasswordAsync } from './../../../services/auth/forgot.password';
+import { resendEmailVerificationAsync } from './../../../services/auth/resend.email.verification';
 import { resetPasswordAsync } from './../../../services/auth/reset.password';
+import { verifyEmailAsync } from './../../../services/auth/verify.email';
 
 /** Actions and types */
 import ACTION_TYPES from './action.types'
@@ -22,9 +24,13 @@ import {
     registrationFailed, 
     logoutSuccess,
     logoutFailed,
-    resetPasswordFailed
+    resetPasswordFailed,
+    resendEmailVerificationSuccess,
+    resendEmailVerificationFailed,
+    verifyEmailFailed,
 } from './actions';
 import * as ALERT from './../alert/actions';
+import { resetPasswordSuccess } from './actions';
 
 /** Auth selectors */
 import { getAuth } from './selector';
@@ -35,7 +41,6 @@ import PATH from './../../../routes/path';
 
 /** Error messages */
 import { ERROR_MESSAGE_ON_LOGIN, ERROR_MESSAGE_ON_REGISTER } from './../../../config/alertMessages';
-import { resetPasswordSuccess } from './actions';
 
 
 
@@ -46,7 +51,9 @@ const {
     LOGIN_START,
     LOGOUT_START,
     REGISTER_START,
-    RESET_PASSWORD_START
+    RESEND_EMAIL_VERIFICATION_START,
+    RESET_PASSWORD_START,
+    VERIFY_EMAIL_START,
 } = ACTION_TYPES;
 
 
@@ -110,7 +117,7 @@ function* loginSaga (payload)
         const { status, data } = yield call(loginAsync, payload);
         const data_ = data;
 
-        if (status === 'Success')
+        if (status === 'success') 
         {
             const { access_token, expires_at, data } = data_;
 
@@ -173,19 +180,23 @@ function* loginSaga (payload)
 function* registerSaga (payload)
 {
     try {
-        const { status, data } = yield call(registerAsync, payload);
-        const data_ = data;
+        const { data, status, message } = yield call(registerAsync, payload);
 
-        if (status === 'Success')
+        if (status === 'success') 
         {
-            const { access_token, expires_at, data } = data_;
+            const { access_token } = data;
 
-            Cookies.set('access_token', access_token, expires_at);
-    
-            yield put(registrationSuccess(data));
-    
-            yield put(push(PATH.DASHBOARD));
+            Cookies.set('access_token', access_token);
+
+            yield put(registrationSuccess());
+            
+            yield put(ALERT.showAlert({
+                status,
+                message
+            }));
         }
+
+        yield put(push(PATH.EMAIL_VERIFICATION));
 
     } catch ({ message }) {
 
@@ -202,6 +213,33 @@ function* registerSaga (payload)
 }
 
 
+function* resendEmailVerificationSaga ()
+{
+    try {
+        const { message, status } = yield call(resendEmailVerificationAsync);
+
+        if (status === 'success') 
+        {
+            yield put(resendEmailVerificationSuccess());
+
+            yield put(ALERT.showAlert({
+                status,
+                message
+            }));            
+        }
+
+    } catch ({ message }) {
+        yield put(resendEmailVerificationFailed({
+            errorMessages: message
+        }));
+        
+        yield put(ALERT.showAlert({
+            status: 'error',
+            message
+        }));
+    }
+}
+
 /**
  * Reset the user's password
  */
@@ -214,7 +252,7 @@ function* resetPasswordSaga (payload)
         yield put(resetPasswordSuccess());
 
         yield put(ALERT.showAlert({
-            status: 'success',
+            status,
             message
         }));
         
@@ -231,6 +269,20 @@ function* resetPasswordSaga (payload)
             message: message
         }));
 
+    }
+}
+
+function* verifyEmailSaga (payload)
+{
+    try {
+        const data = yield call(verifyEmailAsync, payload);
+
+        console.log(data)
+    } catch ({ message }) {
+        
+        yield put(verifyEmailFailed({
+            errorMessages: message
+        }));
     }
 }
 
@@ -288,6 +340,16 @@ function* registerWatcher ()
     }
 }
 
+function* resendEmailVerificationWatcher ()
+{
+    while (true) 
+    {
+        yield take(RESEND_EMAIL_VERIFICATION_START);
+
+        yield call(resendEmailVerificationSaga);
+    }
+}
+
 function* resetPasswordWatcher ()
 {
     while (true) 
@@ -298,7 +360,15 @@ function* resetPasswordWatcher ()
     }
 }
 
+function* verifyEmailWatcher ()
+{
+    while (true) 
+    {
+        const { payload } = yield take(VERIFY_EMAIL_START);
 
+        yield call(verifyEmailSaga, payload);
+    }
+}
 
 
 /**
@@ -313,6 +383,8 @@ export default function* ()
         loginWatcher(),
         logoutWatcher(),
         registerWatcher(),
+        resendEmailVerificationWatcher(),
         resetPasswordWatcher(),
+        verifyEmailWatcher()
     ]);
 }

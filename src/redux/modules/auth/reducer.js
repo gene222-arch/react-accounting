@@ -24,16 +24,23 @@ const {
     REGISTRATION_SUCCESS,
     REGISTRATION_FAILED,
 
+    RESEND_EMAIL_VERIFICATION_START,
+    RESEND_EMAIL_VERIFICATION_SUCCESS,
+    RESEND_EMAIL_VERIFICATION_FAILED,
+
     RESET_PASSWORD_START,
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
 
+    VERIFY_EMAIL_START,
+    VERIFY_EMAIL_SUCCESS,
+    VERIFY_EMAIL_FAILED
 } = ACTION_TYPES;
 
 
 const ERROR_DEFAULT = {
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: ''
 };
@@ -56,8 +63,10 @@ export default (state = initialState, { type, payload }) =>
         case LOGIN_START: 
         case LOGOUT_START:
         case REGISTER_START:
+        case RESEND_EMAIL_VERIFICATION_START:
         case FORGOT_PASSWORD_START:
         case RESET_PASSWORD_START:
+        case VERIFY_EMAIL_START:
             return {
                 ...state,
                 isLoading: true,
@@ -98,39 +107,6 @@ export default (state = initialState, { type, payload }) =>
                 error: payload.errorMessages
             };   
             
-        case REGISTRATION_SUCCESS: 
-            return {
-                ...state,
-                isLoading: false,
-                isAuthenticated: true,
-                user: payload.user,
-                permissions: payload.permissions,
-                error: ERROR_DEFAULT,
-            };
-            
-        case REGISTRATION_FAILED: 
-            return {
-                ...state,
-                isLoading: false,
-                isAuthenticated: false,
-                user: ERROR_DEFAULT,
-                error: payload.errorMessages
-            };            
-            
-        case RESET_PASSWORD_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                error: ERROR_DEFAULT,
-            };   
-
-        case RESET_PASSWORD_FAILED:
-            return {
-                ...state,
-                isLoading: false,
-                error: payload.errorMessages
-            };   
-
         case LOGOUT_SUCCESS: 
             return {
                 ...state,
@@ -146,6 +122,60 @@ export default (state = initialState, { type, payload }) =>
                 isLoading: false,
                 error: payload.errorMessages
             };
+
+        case REGISTRATION_SUCCESS: 
+            return {
+                ...state,
+                isLoading: false,
+                error: ERROR_DEFAULT,
+            };
+            
+        case REGISTRATION_FAILED: 
+            return {
+                ...state,
+                isLoading: false,
+                error: payload.errorMessages
+            };        
+            
+        case RESEND_EMAIL_VERIFICATION_SUCCESS:
+            return {
+                ...state,
+                isLoading: false
+            };
+
+        case RESEND_EMAIL_VERIFICATION_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                error: payload.errorMessages
+            };
+            
+        case RESET_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                error: ERROR_DEFAULT,
+            };   
+
+        case RESET_PASSWORD_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                error: payload.errorMessages
+            };   
+
+        case VERIFY_EMAIL_SUCCESS:
+            return {
+                ...state,
+                isLoading: false
+            };   
+            
+        case VERIFY_EMAIL_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                error: payload.errorMessages
+            };   
             
         default:
             return state;

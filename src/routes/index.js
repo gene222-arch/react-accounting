@@ -6,16 +6,18 @@ import PATH from './path'
 
 /** Lazy components */
 const Dashboard = lazy(() => import('../views/pages/Dashboard'))
+const EmailVerification = lazy(() => import('./../views/pages/auth/EmailVerification'))
+const EmailVerified = lazy(() => import('./../views/pages/auth/EmailVerified'))
 const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPasswordForm'))
 const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
 const NotFound = lazy(() => import('../views/pages/errors/NotFound'))
-const PublicRoute = lazy(() => import('./PublicRoute'));
-const PrivateRoute = lazy(() => import('./PrivateRoute'));
+const PublicRoute = lazy(() => import('./PublicRoute'))
+const PrivateRoute = lazy(() => import('./PrivateRoute'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
 
 
-export const PUBLIC_ROUTES = [
+export const AUTH_ROUTES = [
     {
         path: PATH.FORGOT_PASSWORD,
         key: 'ForgotPasswordForm',
@@ -53,6 +55,30 @@ export const PUBLIC_ROUTES = [
         restricted: false
     },
 ];
+
+
+export const EMAIL_VERIFICATION_ROUTES = [
+    {
+        path: PATH.EMAIL_VERIFICATION,
+        key: 'EmailVerification',
+        icon: '',
+        exact: true,
+        component: EmailVerification,
+        access: '',
+        restricted: true,
+        
+    },
+    {
+        path: PATH.EMAIL_VERIFIED,
+        key: 'EmailVerified',
+        icon: '',
+        exact: true,
+        component: EmailVerified,
+        access: '',
+        restricted: true,
+        
+    },
+]
 
 
 export const PRIVATE_ROUTES = [

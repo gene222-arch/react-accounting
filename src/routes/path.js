@@ -5,7 +5,9 @@ const PATH =
     LOGIN: '/auth/sign-in',
     LOGOUT: '/logout',
     REGISTER: '/auth/create-an-account',
-    RESET_PASSWORD: '/auth/forgot-password/reset'
+    EMAIL_VERIFICATION: '/email/resend',
+    EMAIL_VERIFIED: '/email/verify-email',
+    RESET_PASSWORD: '/auth/forgot-password/reset',
 
 };
 

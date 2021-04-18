@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import * as Cookie from './cookies'
 
-export default (history = null) => 
+export default () => 
 {
     let headers = {};
 
