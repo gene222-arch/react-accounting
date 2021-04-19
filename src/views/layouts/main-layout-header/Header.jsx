@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 /** Material UI Components */
 import Button from '@material-ui/core/Button';
-import { Menu, MenuItem, Typography, makeStyles } from '@material-ui/core';
+import { Menu, MenuItem, Typography, makeStyles, Grid } from '@material-ui/core';
 
 /** Material UI Icons */
 import Avatar from '@material-ui/core/Avatar';
@@ -37,9 +37,18 @@ const Header = ({ user, handleClickLogout }) =>
                 style={{ backgroundColor: 'transparent' }}
                 onClick={ handleClick }
             >
-                <Typography variant="h6" color="initial">
-                    <Avatar className={ classes.userAvatar }>{ user.first_name.substr(0, 1) }</Avatar>
-                </Typography>
+                <Grid container spacing={1} alignItems='center'>
+                    <Grid item>
+                        <Typography variant="h6" color="initial">
+                            <Avatar className={ classes.userAvatar }>{ user.first_name.substr(0, 1) }</Avatar> 
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="subtitle2" color="initial">
+                            { user.first_name }
+                        </Typography>
+                    </Grid>
+                </Grid>
             </Button>
             <Menu
                 id="header"

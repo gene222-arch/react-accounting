@@ -22,7 +22,7 @@ export const loginFormUseStyles = makeStyles((theme) => ({
 }));
 
 
-const drawerWidth = 240;
+const drawerWidth = 270;
 
 export const mainLayoutUseStyles = makeStyles((theme) => ({
     root: {
@@ -34,6 +34,7 @@ export const mainLayoutUseStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
+        backgroundColor: '#FFF'
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -46,13 +47,16 @@ export const mainLayoutUseStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: 36,
     },
+    menuBarIcon: {
+        color: '#2c2c2c'
+    },
     hide: {
         display: 'none',
     },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        whiteSpace: 'nowrap',
+        whiteSpace: 'nowrap'
     },
     drawerOpen: {
         width: drawerWidth,
@@ -72,6 +76,8 @@ export const mainLayoutUseStyles = makeStyles((theme) => ({
             width: theme.spacing(9) + 1,
         },
     },
+    drawerList: {
+    },
     toolbar: {
         display: 'flex',
         alignItems: 'center',
@@ -89,7 +95,8 @@ export const mainLayoutUseStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(7)
     },
     header: {
-        flexGrow: 1
+        flexGrow: 1,
+        color: '#2c2c2c'
     },
 }));
 
