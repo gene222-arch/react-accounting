@@ -1,5 +1,6 @@
 const PATH = 
 {
+    CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types',
     DASHBOARD: '/',
     FORGOT_PASSWORD: '/auth/forgot-password/email',
     LOGIN: '/auth/sign-in',
@@ -8,7 +9,6 @@ const PATH =
     EMAIL_VERIFICATION: '/email/resend',
     EMAIL_VERIFIED: '/email/verify-email',
     RESET_PASSWORD: '/auth/forgot-password/reset',
-
 };
 
 

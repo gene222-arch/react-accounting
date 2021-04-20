@@ -275,9 +275,7 @@ function* resetPasswordSaga (payload)
 function* verifyEmailSaga (payload)
 {
     try {
-        const data = yield call(verifyEmailAsync, payload);
-
-        console.log(data)
+        yield call(verifyEmailAsync, payload);
     } catch ({ message }) {
         
         yield put(verifyEmailFailed({

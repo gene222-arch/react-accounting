@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PATH from './path'
 
 /** Lazy components */
+const ChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/ChartOfAccountType'))
 const Dashboard = lazy(() => import('../views/pages/Dashboard'))
 const EmailVerification = lazy(() => import('./../views/pages/auth/EmailVerification'))
 const EmailVerified = lazy(() => import('./../views/pages/auth/EmailVerified'))
@@ -82,6 +83,15 @@ export const EMAIL_VERIFICATION_ROUTES = [
 
 
 export const PRIVATE_ROUTES = [
+    {
+        path: PATH.CHART_OF_ACCOUNT_TYPE,
+        key: 'ChartOfAccountType',
+        icon: '',
+        exact: true,
+        component: ChartOfAccountType,
+        access: 'View Chart of Account Types',
+        restricted: true
+    },
     {
         path: PATH.DASHBOARD,
         key: 'Dashboard',

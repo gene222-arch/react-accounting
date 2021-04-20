@@ -5,6 +5,7 @@ import { connectRouter } from 'connected-react-router'
 /** Module Reducers */
 import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
+import chartOfAccountTypeReducer from './modules/chart-of-account-type/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 
 
@@ -15,7 +16,8 @@ const rootReducer = (history) => combineReducers({
 
     /** reducers */
     auth: authReducer,
-    mainLayout: mainLayoutReducer
+    mainLayout: mainLayoutReducer,
+    chartOfAccountType: chartOfAccountTypeReducer
 });
 
 export default rootReducer;
