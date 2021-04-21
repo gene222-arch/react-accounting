@@ -11,6 +11,7 @@ const {
 
     TOGGLE_DOUBLE_ENTRY,
     SELECT_DOUBLE_ENTRY_CHART_OF_ACCOUNT,
+    SELECT_DOUBLE_ENTRY_CHART_OF_ACCOUNT_TYPE,
     SELECT_DOUBLE_ENTRY_JOURNAL_ENTRY,
 
     TOGGLE_ITEMS,
@@ -111,6 +112,7 @@ const initialState = {
     /** Double Entry */
     doubleEntry: false,
     doubleEntryChartOfAccount: false,
+    doubleEntryChartOfAccountType: false,
     doubleEntryJournalEntry: false,
 
     /** Items */
@@ -171,6 +173,7 @@ export default (state = initialState, { type }) =>
         doubleEntryDashboard,
         doubleEntry,
         doubleEntryChartOfAccount,
+        doubleEntryChartOfAccountType,
         doubleEntryJournalEntry,
         items,
         itemsItem,
@@ -271,9 +274,19 @@ export default (state = initialState, { type }) =>
                 ...DEFAULT_STATE, 
                 doubleEntry: true,
                 doubleEntryChartOfAccount: !doubleEntryChartOfAccount, 
-                currentSelectedItem: 'Main',
-                currentSelectedDropdown: 'Chart of Accounts',
+                currentSelectedItem: 'Chart of Accounts',
+                currentSelectedDropdown: 'doubleEntry',
                 currentSelectedDropdownItem: 'doubleEntryChartOfAccount'
+            };
+
+        case SELECT_DOUBLE_ENTRY_CHART_OF_ACCOUNT_TYPE: 
+            return { 
+                ...DEFAULT_STATE, 
+                doubleEntry: true,
+                doubleEntryChartOfAccount: !doubleEntryChartOfAccount, 
+                currentSelectedItem: 'Chart of Account Types',
+                currentSelectedDropdown: 'doubleEntry',
+                currentSelectedDropdownItem: 'doubleEntryChartOfAccountType'
             };
 
         case SELECT_DOUBLE_ENTRY_JOURNAL_ENTRY: 

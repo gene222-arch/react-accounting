@@ -64,6 +64,8 @@ const MainLayout = ({ auth, children, mainLayout }) =>
 
     const selectDoubleEntryChartOfAccount = () => dispatch(MAIN_LAYOUT.selectDoubleEntryChartOfAccount());
 
+    const selectDoubleEntryChartOfAccountType = () => dispatch(MAIN_LAYOUT.selectDoubleEntryChartOfAccountType());
+
     const selectDoubleEntryJournalEntry = () => dispatch(MAIN_LAYOUT.selectDoubleEntryJournalEntry());
 
     const toggleItems = () => dispatch(MAIN_LAYOUT.toggleItems());
@@ -197,9 +199,11 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                     <DoubleEntry 
                         openDoubleEntry={ mainLayout.doubleEntry } 
                         doubleEntryChartOfAccount={ mainLayout.doubleEntryChartOfAccount }
+                        doubleEntryChartOfAccountType={ mainLayout.doubleEntryChartOfAccountType }
                         doubleEntryJournalEntry={ mainLayout.doubleEntryJournalEntry }
                         toggleDoubleEntry={ toggleDoubleEntry }
                         selectDoubleEntryChartOfAccount= { selectDoubleEntryChartOfAccount }
+                        selectDoubleEntryChartOfAccountType={ selectDoubleEntryChartOfAccountType }
                         selectDoubleEntryJournalEntry= { selectDoubleEntryJournalEntry }
                         classes={ classes.collapseChildren }
                     />

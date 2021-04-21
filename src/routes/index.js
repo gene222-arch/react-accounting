@@ -5,7 +5,6 @@ import { Route, Switch } from 'react-router-dom'
 import PATH from './path'
 
 /** Lazy components */
-const ChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/ChartOfAccountType'))
 const Dashboard = lazy(() => import('../views/pages/Dashboard'))
 const EmailVerification = lazy(() => import('./../views/pages/auth/EmailVerification'))
 const EmailVerified = lazy(() => import('./../views/pages/auth/EmailVerified'))
@@ -16,6 +15,9 @@ const PublicRoute = lazy(() => import('./PublicRoute'))
 const PrivateRoute = lazy(() => import('./PrivateRoute'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
+const ChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/ChartOfAccountType'))
+const CreateChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/CreateChartOfAccountType'))
+const UpdateChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/UpdateChartOfAccountType'))
 
 
 export const AUTH_ROUTES = [
@@ -84,21 +86,39 @@ export const EMAIL_VERIFICATION_ROUTES = [
 
 export const PRIVATE_ROUTES = [
     {
-        path: PATH.CHART_OF_ACCOUNT_TYPE,
-        key: 'ChartOfAccountType',
-        icon: '',
-        exact: true,
-        component: ChartOfAccountType,
-        access: 'View Chart of Account Types',
-        restricted: true
-    },
-    {
         path: PATH.DASHBOARD,
         key: 'Dashboard',
         icon: '',
         exact: true,
         component: Dashboard,
         access: 'View Dashboard',
+        restricted: true
+    },
+    {
+        path: PATH.CHART_OF_ACCOUNT_TYPE,
+        key: 'ChartOfAccountType',
+        icon: '',
+        exact: true,
+        component: ChartOfAccountType,
+        access: 'Manage Chart of Account Types',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_CHART_OF_ACCOUNT_TYPE,
+        key: 'CreateChartOfAccountType',
+        icon: '',
+        exact: true,
+        component: CreateChartOfAccountType,
+        access: 'Manage Chart of Account Types',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_CHART_OF_ACCOUNT_TYPE,
+        key: 'UpdateChartOfAccountType',
+        icon: '',
+        exact: true,
+        component: UpdateChartOfAccountType,
+        access: 'Manage Chart of Account Types',
         restricted: true
     },
 ];

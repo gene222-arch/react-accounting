@@ -16,7 +16,6 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import MaterialTableAction from './MaterialTableAction';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -39,16 +38,15 @@ const tableIcons = {
 };
 
 const MaterialTable = (props) => (
-	<MaterialTable_ 
-		icons={ tableIcons } 
-		{ ...props }
-		components={{
-			Action: props => {
-				console.log(props)
-				return <MaterialTableAction {...props}/>
-			}
-		}}
-	/>
+    <MaterialTable_ 
+        options={{  
+            selection: true,
+            actionsColumnIndex: -1,
+            showTextRowsSelected: false
+        }} 
+        icons={ tableIcons } 
+        { ...props } 
+    />
 )
 
 export default MaterialTable

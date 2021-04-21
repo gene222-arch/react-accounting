@@ -12,6 +12,7 @@ const {
     TOGGLE_DOUBLE_ENTRY,
     SELECT_DOUBLE_ENTRY_CHART_OF_ACCOUNT,
     SELECT_DOUBLE_ENTRY_JOURNAL_ENTRY,
+    SELECT_DOUBLE_ENTRY_CHART_OF_ACCOUNT_TYPE,
     
     TOGGLE_ITEMS,
     SELECT_ITEMS_ITEM,
@@ -84,6 +85,10 @@ export const toggleDoubleEntry = () => ({
 
 export const selectDoubleEntryChartOfAccount = () => ({
     type: SELECT_DOUBLE_ENTRY_CHART_OF_ACCOUNT
+});
+
+export const selectDoubleEntryChartOfAccountType = () => ({
+    type: SELECT_DOUBLE_ENTRY_CHART_OF_ACCOUNT_TYPE
 });
 
 export const selectDoubleEntryJournalEntry = () => ({
