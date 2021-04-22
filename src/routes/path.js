@@ -9,10 +9,15 @@ const PATH =
     FORGOT_PASSWORD: '/auth/forgot-password/email',
     RESET_PASSWORD: '/auth/forgot-password/reset',
 
-    /** Chart of account type paths */
+    /** Chart of account types */
     CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types',
     CREATE_CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types/new',
     UPDATE_CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types/:id/edit',
+
+    /** Chart of accounts */
+    CHART_OF_ACCOUNT: '/double-entry/chart-of-accounts',
+    CREATE_CHART_OF_ACCOUNT: '/double-entry/chart-of-accounts/new',
+    UPDATE_CHART_OF_ACCOUNT: '/double-entry/chart-of-accounts/:id/edit',
 };
 
 

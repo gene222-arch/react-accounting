@@ -15,9 +15,12 @@ const PublicRoute = lazy(() => import('./PublicRoute'))
 const PrivateRoute = lazy(() => import('./PrivateRoute'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
-const ChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/ChartOfAccountType'))
-const CreateChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/CreateChartOfAccountType'))
-const UpdateChartOfAccountType = lazy(() => import('../views/pages/chart-of-account-type/UpdateChartOfAccountType'))
+const ChartOfAccountType = lazy(() => import('../views/pages/double-entry/chart-of-account-type/ChartOfAccountType'))
+const CreateChartOfAccountType = lazy(() => import('../views/pages/double-entry/chart-of-account-type/CreateChartOfAccountType'))
+const UpdateChartOfAccountType = lazy(() => import('../views/pages/double-entry/chart-of-account-type/UpdateChartOfAccountType'))
+const ChartOfAccount = lazy(() => import('../views/pages/double-entry/chart-of-account/ChartOfAccount'))
+const CreateChartOfAccount = lazy(() => import('../views/pages/double-entry/chart-of-account/CreateChartOfAccount'))
+const UpdateChartOfAccount = lazy(() => import('../views/pages/double-entry/chart-of-account/UpdateChartOfAccount'))
 
 
 export const AUTH_ROUTES = [
@@ -119,6 +122,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateChartOfAccountType,
         access: 'Manage Chart of Account Types',
+        restricted: true
+    },
+    {
+        path: PATH.CHART_OF_ACCOUNT,
+        key: 'ChartOfAccount',
+        icon: '',
+        exact: true,
+        component: ChartOfAccount,
+        access: 'Manage Chart of Accounts',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_CHART_OF_ACCOUNT,
+        key: 'CreateChartOfAccount',
+        icon: '',
+        exact: true,
+        component: CreateChartOfAccount,
+        access: 'Manage Chart of Accounts',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_CHART_OF_ACCOUNT,
+        key: 'UpdateChartOfAccount',
+        icon: '',
+        exact: true,
+        component: UpdateChartOfAccount,
+        access: 'Manage Chart of Accounts',
         restricted: true
     },
 ];

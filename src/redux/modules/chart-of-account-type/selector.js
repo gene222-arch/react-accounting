@@ -1,4 +1,3 @@
-
 import { createSelector } from 'reselect';
 
 const getChartOfAccountType = state => state.chartOfAccountType;

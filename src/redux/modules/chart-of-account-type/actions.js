@@ -77,17 +77,17 @@ export const updateChartOfAccountTypeFailed = (payload) => ({
  * Delete one or multiple records
  */
 
-export const destroyChartOfAccountType = (payload) => ({
+export const destroyChartOfAccountTypes = (payload) => ({
     type: DESTROY_CHART_OF_ACCOUNT_TYPES_START,
     payload
 });
 
-export const destroyChartOfAccountTypeSuccess = (payload) => ({
+export const destroyChartOfAccountTypesSuccess = (payload) => ({
     type: DESTROY_CHART_OF_ACCOUNT_TYPES_SUCCESS,
     payload
 });
 
-export const destroyChartOfAccountTypeFailed = (payload) => ({
+export const destroyChartOfAccountTypesFailed = (payload) => ({
     type: DESTROY_CHART_OF_ACCOUNT_TYPES_FAILED,
     payload
 });

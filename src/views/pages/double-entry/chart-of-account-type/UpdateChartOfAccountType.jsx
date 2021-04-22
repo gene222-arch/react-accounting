@@ -3,15 +3,15 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Selectors */
-import { selectChartOfAccountType } from './../../../redux/modules/chart-of-account-type/selector';
-import { selectAlert } from './../../../redux/modules/alert/selector'
+import { selectChartOfAccountType } from '../../../../redux/modules/chart-of-account-type/selector';
+import { selectAlert } from '../../../../redux/modules/alert/selector'
 
 /** Actions */
-import * as CHART_OF_ACCOUNT_TYPE from './../../../redux/modules/chart-of-account-type/actions';
-import * as ALERT from './../../../redux/modules/alert/actions';
+import * as CHART_OF_ACCOUNT_TYPE from '../../../../redux/modules/chart-of-account-type/actions';
+import * as ALERT from '../../../../redux/modules/alert/actions';
 
 /** API */
-import { findAsync } from '../../../services/double-entry/chart.of.account.types';
+import { findAsync } from '../../../../services/double-entry/chart.of.account.type';
 
 /** Material UI Components */
 import InputLabel from '@material-ui/core/InputLabel';
@@ -22,7 +22,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import AlertPopUp from './../../../components/AlertPopUp';
+
+/** Components */
+import AlertPopUp from './../../../../components/AlertPopUp';
 
 
 
@@ -46,7 +48,7 @@ const UpdateChartOfAccountType = ({ alert, chartOfAccountTypeProp, match }) =>
 
     const handleChange = (e) => setChartOfAccountTypeState({ ...chartOfAccountTypeState, [e.target.name]: e.target.value });
 
-    const onLoadFetch = async () => 
+    const onLoadFetchById = async () => 
     {
         try {
             const { message, status, data } = await findAsync({ id });
@@ -66,7 +68,7 @@ const UpdateChartOfAccountType = ({ alert, chartOfAccountTypeProp, match }) =>
     const onSubmit = () => dispatch(CHART_OF_ACCOUNT_TYPE.updateChartOfAccountType(chartOfAccountTypeState));
 
     useEffect(() => {
-        onLoadFetch();
+        onLoadFetchById();
     }, []);
 
     return (

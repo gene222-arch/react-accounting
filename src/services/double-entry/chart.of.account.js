@@ -3,7 +3,7 @@ import axiosInstance from '../../utils/axiosInstance'
 export const fetchAllAsync = async () => 
 {
     return await axiosInstance()
-        .get('/double-entry/chart-of-account-types')
+        .get('/double-entry/chart-of-accounts')
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -11,7 +11,7 @@ export const fetchAllAsync = async () =>
 export const findAsync = async ({ id }) => 
 {
     return await axiosInstance()
-        .get(`/double-entry/chart-of-account-types/${id}`)
+        .get(`/double-entry/chart-of-accounts/${id}`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -19,7 +19,7 @@ export const findAsync = async ({ id }) =>
 export const createAsync = async (payload) => 
 {
     return await axiosInstance()
-        .post('/double-entry/chart-of-account-types', payload)
+        .post('/double-entry/chart-of-accounts', payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -27,7 +27,7 @@ export const createAsync = async (payload) =>
 export const updateAsync = async (payload) => 
 {
     return await axiosInstance()
-        .put(`/double-entry/chart-of-account-types/${payload.id}`, payload)
+        .put(`/double-entry/chart-of-accounts/${payload.id}`, payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -35,7 +35,7 @@ export const updateAsync = async (payload) =>
 export const destroyAsync = async (payload) => 
 {
     return await axiosInstance()
-        .delete('/double-entry/chart-of-account-types/', {
+        .delete('/double-entry/chart-of-accounts/', {
             data: payload
         })
         .then(response => response.data)

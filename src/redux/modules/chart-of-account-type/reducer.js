@@ -39,7 +39,15 @@ const initialState = {
     error: ERROR_DEFAULT
 }
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, { type, payload }) => 
+{
+    const {
+        isLoading,
+        chartOfAccountTypes,
+        chartOfAccountType,
+        error
+    } = state;
+
     switch (type) {
 
     case CREATE_CHART_OF_ACCOUNT_TYPE_START:
@@ -98,6 +106,7 @@ export default (state = initialState, { type, payload }) => {
         return {
             ...state,
             isLoading: false,
+            chartOfAccountTypes: chartOfAccountTypes.filter(chartOfAccountType => !payload.ids.includes(chartOfAccountType.id)),
             error: ERROR_DEFAULT
         };
         

@@ -3,20 +3,24 @@ import { put, take, call, all } from 'redux-saga/effects';
 import ACTION_TYPES from './action.types';
 
 /** Api calls */
-import { fetchAllAsync, createAsync, updateAsync, destroyAsync } from '../../../services/double-entry/chart.of.account.types';
+import { fetchAllAsync, createAsync, updateAsync, destroyAsync } from '../../../services/double-entry/chart.of.account.type';
 
 /** Actions */
 import { 
     getChartOfAccountTypesSuccess, 
     getChartOfAccountTypesFailed, 
-    destroyChartOfAccountTypeSuccess, 
-    destroyChartOfAccountTypeFailed, 
-    updateChartOfAccountTypeSuccess, 
+    destroyChartOfAccountTypesSuccess, 
+    destroyChartOfAccountTypesFailed, 
     createChartOfAccountTypeSuccess, 
     createChartOfAccountTypeFailed, 
+    updateChartOfAccountTypeSuccess, 
     updateChartOfAccountTypeFailed 
 } from './actions';
 import * as ALERT from './../alert/actions';
+
+/** Alert messages */
+import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
+
 
 const {
     GET_CHART_OF_ACCOUNT_TYPES_START,
@@ -33,8 +37,6 @@ function* fetchChartOfAccountTypesSaga ()
 {
     try {
         const { status, message, data } = yield call(fetchAllAsync);
-
-        console.log(data);
 
         if (status === 'success')
         {
@@ -71,7 +73,7 @@ function* createChartOfAccountTypeSaga (payload)
 
         yield put(ALERT.showAlert({
             status: 'error',
-            message: 'Could not save the data, please fix the problem.'
+            message: ERROR_MESSAGE_ON_CREATE
         }));
     }
 }
@@ -96,18 +98,30 @@ function* updateChartOfAccountTypeSaga (payload)
 
     } catch ({ message }) {
         yield put(updateChartOfAccountTypeFailed({ errorMessages: message }));
+
+        yield put(ALERT.showAlert({
+            status: 'error',
+            message: ERROR_MESSAGE_ON_UPDATE
+        }));
     }
 }
 
 function* destroyChartOfAccountTypesSaga (payload)
 {
-        try {
-            yield put(destroyChartOfAccountTypeSuccess({ ids: payload.ids }));
+    try {
+        const { status, message, data } = yield call(destroyAsync, payload);
 
-            const { status, message, data } = yield call(destroyAsync, payload);
+        if (status !== 'success')
+        {
+
+        }
+        else 
+        {
+            yield put(destroyChartOfAccountTypesSuccess(payload));
+        }
 
     } catch ({ message }) {
-        yield put(destroyChartOfAccountTypeFailed({ errorMessages: message }));
+        yield put(destroyChartOfAccountTypesFailed({ errorMessages: message }));
     }
 }
 
@@ -125,7 +139,7 @@ function* fetchChartOfAccountTypesWatcher ()
     }
 }
 
-function* createChartOfAccountTypesWatcher ()
+function* createChartOfAccountTypeWatcher ()
 {
     while (true) 
     {
@@ -135,7 +149,7 @@ function* createChartOfAccountTypesWatcher ()
     }
 }
 
-function* updateChartOfAccountTypesWatcher ()
+function* updateChartOfAccountTypeWatcher ()
 {
     while (true) 
     {
@@ -145,7 +159,7 @@ function* updateChartOfAccountTypesWatcher ()
     }
 }
 
-function* deleteChartOfAccountTypesWatcher ()
+function* destroyChartOfAccountTypesWatcher ()
 {
     while (true) 
     {
@@ -163,9 +177,9 @@ export default function* ()
 {
     yield all([
         fetchChartOfAccountTypesWatcher(),
-        createChartOfAccountTypesWatcher(),
-        updateChartOfAccountTypesWatcher(),
-        deleteChartOfAccountTypesWatcher()
+        createChartOfAccountTypeWatcher(),
+        updateChartOfAccountTypeWatcher(),
+        destroyChartOfAccountTypesWatcher()
     ]);
 }
 

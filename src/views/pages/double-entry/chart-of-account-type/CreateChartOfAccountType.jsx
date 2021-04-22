@@ -3,12 +3,12 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Selectors */
-import { selectChartOfAccountType } from './../../../redux/modules/chart-of-account-type/selector';
-import { selectAlert } from './../../../redux/modules/alert/selector'
+import { selectChartOfAccountType } from './../../../../redux/modules/chart-of-account-type/selector';
+import { selectAlert } from './../../../../redux/modules/alert/selector'
 
 /** Actions */
-import * as CHART_OF_ACCOUNT_TYPE from './../../../redux/modules/chart-of-account-type/actions';
-import * as ALERT from './../../../redux/modules/alert/actions';
+import * as CHART_OF_ACCOUNT_TYPE from './../../../../redux/modules/chart-of-account-type/actions';
+import * as ALERT from './../../../../redux/modules/alert/actions';
 
 
 /** Material UI Components */
@@ -22,7 +22,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
 /** Components */
-import AlertPopUp from './../../../components/AlertPopUp';
+import AlertPopUp from './../../../../components/AlertPopUp';
 
 
 const CHART_OF_ACCOUNT_CATEGORIES = [
