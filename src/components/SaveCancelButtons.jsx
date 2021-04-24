@@ -31,13 +31,14 @@ const SaveCancelButtons = ({ isLoading = false, cancelBtnCallback, saveBtnCallba
 
     return (
         <>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} justify='flex-end'>
                 <Grid item>
                     <Button 
                         variant="contained" 
                         color="default"
                         onClick={ cancelBtnCallback }
                         className={ classes.cancelBtn }
+                        disabled={ isLoading }
                     >
                         Cancel
                     </Button>

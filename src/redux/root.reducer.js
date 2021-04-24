@@ -7,6 +7,7 @@ import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
 import chartOfAccountTypeReducer from './modules/chart-of-account-type/reducer'
 import chartOfAccountReducer from './modules/chart-of-account/reducer'
+import journalEntryReducer from './modules/journal-entry/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 
 
@@ -17,9 +18,10 @@ const rootReducer = (history) => combineReducers({
 
     /** reducers */
     auth: authReducer,
-    mainLayout: mainLayoutReducer,
     chartOfAccountType: chartOfAccountTypeReducer,
     chartOfAccount: chartOfAccountReducer,
+    journalEntry: journalEntryReducer,
+    mainLayout: mainLayoutReducer,
 });
 
 export default rootReducer;

@@ -19,7 +19,7 @@ const {
 
 } = ACTION_TYPES;
 
-const CHART_OF_ACCOUNT_DEFAULT = {
+const CHART_OF_ACCOUNT_DEFAULT_PROPS = {
     id: 0,
     chart_of_account_type_id: 0,
     name: '',
@@ -28,7 +28,7 @@ const CHART_OF_ACCOUNT_DEFAULT = {
     enabled: ''
 }
 
-const ERROR_DEFAULT = {
+const ERROR_DEFAULT_PROPS = {
     chart_of_account_type_id: 0,
     name: '',
     code: '',
@@ -39,8 +39,8 @@ const ERROR_DEFAULT = {
 const initialState = {
     isLoading: false,
     chartOfAccounts: [],
-    chartOfAccount: CHART_OF_ACCOUNT_DEFAULT,
-    error: ERROR_DEFAULT
+    chartOfAccount: CHART_OF_ACCOUNT_DEFAULT_PROPS,
+    error: ERROR_DEFAULT_PROPS
 }
 
 export default (state = initialState, { type, payload }) => 
@@ -68,7 +68,7 @@ export default (state = initialState, { type, payload }) =>
             ...state, 
             isLoading: false,
             chartOfAccounts: payload.chartOfAccounts,
-            error: ERROR_DEFAULT,
+            error: ERROR_DEFAULT_PROPS,
         };
     
     case GET_CHART_OF_ACCOUNTS_FAILED:
@@ -82,7 +82,7 @@ export default (state = initialState, { type, payload }) =>
         return {
             ...state,
             isLoading: false,
-            error: ERROR_DEFAULT
+            error: ERROR_DEFAULT_PROPS
         };
 
     case CREATE_CHART_OF_ACCOUNT_FAILED:
@@ -96,7 +96,7 @@ export default (state = initialState, { type, payload }) =>
         return {
             ...state,
             isLoading: false,
-            error: ERROR_DEFAULT
+            error: ERROR_DEFAULT_PROPS
         };
         
     case UPDATE_CHART_OF_ACCOUNT_FAILED:
@@ -111,7 +111,7 @@ export default (state = initialState, { type, payload }) =>
             ...state,
             isLoading: false,
             chartOfAccounts: chartOfAccounts.filter(chartOfAccount => !payload.ids.includes(chartOfAccount.id)),
-            error: ERROR_DEFAULT
+            error: ERROR_DEFAULT_PROPS
         };
         
     case DESTROY_CHART_OF_ACCOUNTS_FAILED:

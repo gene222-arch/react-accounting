@@ -1,6 +1,8 @@
 /** Libraries */
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 /** Routes config */
 import { PRIVATE_ROUTES, AUTH_ROUTES, EMAIL_VERIFICATION_ROUTES, RenderRoutes } from './routes'
@@ -16,7 +18,7 @@ import NotFound from './views/pages/errors/NotFound';
 const App = ({ history }) => 
 {
 	return (
-		<>
+		<MuiPickersUtilsProvider utils={ DateFnsUtils }>
 			<Switch>
 				<Route path='/auth/:path?'>
 					<AuthLayout>
@@ -38,7 +40,7 @@ const App = ({ history }) =>
 
 				<Route component={ NotFound } />
 			</Switch>
-		</>
+		</MuiPickersUtilsProvider>
 	)
 }
 

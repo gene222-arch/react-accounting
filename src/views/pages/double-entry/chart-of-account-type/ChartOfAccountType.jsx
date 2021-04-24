@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import MaterialTable from '../../../../components/MaterialTable'
 
 /** Selectors */
 import { selectChartOfAccountType } from './../../../../redux/modules/chart-of-account-type/selector';
-import * as CHART_OF_ACCOUNT_TYPE from './../../../../redux/modules/chart-of-account-type/actions';
+import { selectAlert } from '../../../../redux/modules/alert/selector';
 
-/** Material UI Components */
-import Button from '@material-ui/core/Button'
+/** Actions */
+import * as CHART_OF_ACCOUNT_TYPE from './../../../../redux/modules/chart-of-account-type/actions';
+import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Icons */
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
+import AddButton from './../../../../components/AddButton';
+import DeleteButton from '../../../../components/DeleteButton';
+import AlertPopUp from './../../../../components/AlertPopUp';
+
+import PATH from '../../../../routes/path'
 
 
+const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.length 
+    ? <AddButton onClickEventCallback={ handleClickRedirect } />
+    : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
-const ActionButton = ({ ids, handleClickDestroy }) => !ids.length 
-    ? <Button variant="text" color="default" > <AddIcon /> </Button>
-    : <Button variant="text" color="default" onClick={ handleClickDestroy }> <DeleteIcon /> </Button>
-
-const ChartOfAccountType = ({ chartOfAccountType }) => 
+const ChartOfAccountType = ({ alert, chartOfAccountType }) => 
 {
     const dispatch = useDispatch();
+    const history = useHistory();
     
     const [ ids, setIds ] = useState([])
     
@@ -48,12 +53,23 @@ const ChartOfAccountType = ({ chartOfAccountType }) =>
 
     return (
         <div>
+            <AlertPopUp 
+                status={ alert.status }
+                message={ alert.message }
+                open={ alert.isOpen }
+                handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
+            />
             <MaterialTable
                 columns={ columns }      
                 data={ chartOfAccountType.chartOfAccountTypes }  
                 isLoading={ chartOfAccountType.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
-                title={ <ActionButton ids={ ids } handleClickDestroy={ handleClickDestroy }/> }
+                title={ 
+                    <ActionButton 
+                    ids={ ids } 
+                    handleClickRedirect = { () => history.push(PATH.CREATE_JOURNAL_ENTRY) }
+                    handleClickDestroy={ handleClickDestroy }
+                /> }
                 onSelectionChange={rows => onSelectionChange(rows)}
             />            
         </div>
@@ -61,6 +77,7 @@ const ChartOfAccountType = ({ chartOfAccountType }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
+    alert: selectAlert,
     chartOfAccountType: selectChartOfAccountType
 });
 

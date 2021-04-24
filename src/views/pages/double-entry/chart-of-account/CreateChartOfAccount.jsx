@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useHistory } from 'react-router-dom';
 
 /** Selectors */
 import { selectChartOfAccount } from './../../../../redux/modules/chart-of-account/selector';
@@ -12,26 +13,27 @@ import * as CHART_OF_ACCOUNT from './../../../../redux/modules/chart-of-account/
 import * as CHART_OF_ACCOUNT_TYPE from './../../../../redux/modules/chart-of-account-type/actions';
 import * as ALERT from './../../../../redux/modules/alert/actions';
 
-
 /** Material UI Components */
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 
 /** Components */
 import AlertPopUp from './../../../../components/AlertPopUp';
 import SaveCancelButtons from './../../../../components/SaveCancelButtons';
 
+import PATH from './../../../../routes/path';
+
+
 const CreateChartOfAccount = ({ alert, chartOfAccountProp, chartOfAccountTypeProp }) => 
 {
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const { isLoading, chartOfAccount, error } = chartOfAccountProp;

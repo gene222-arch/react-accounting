@@ -18,6 +18,11 @@ const PATH =
     CHART_OF_ACCOUNT: '/double-entry/chart-of-accounts',
     CREATE_CHART_OF_ACCOUNT: '/double-entry/chart-of-accounts/new',
     UPDATE_CHART_OF_ACCOUNT: '/double-entry/chart-of-accounts/:id/edit',
+
+    /** Journale entries */
+    JOURNAL_ENTRY: '/double-entry/journal-entries',
+    CREATE_JOURNAL_ENTRY: '/double-entry/journal-entries/new',
+    UPDATE_JOURNAL_ENTRY: '/double-entry/journal-entries/:id/edit'
 };
 
 

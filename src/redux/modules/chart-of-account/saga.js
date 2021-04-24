@@ -37,7 +37,11 @@ function* fetchChartOfAccountsSaga ()
     try {
         const { status, message, data } = yield call(fetchAllAsync);
 
-        if (status === 'success')
+        if (status !== 'success')
+        {
+        }
+
+        if (status === 'success') 
         {
             const chartOfAccounts = data.map(chartOfAccount => ({
                 ...chartOfAccount,
@@ -63,7 +67,8 @@ function* createChartOfAccountSaga (payload)
         {
 
         }
-        else 
+
+        if (status === 'success') 
         {
             yield put(createChartOfAccountSuccess(payload));
 
@@ -91,7 +96,8 @@ function* updateChartOfAccountSaga (payload)
         if (status !== 'success')
         {
         }
-        else 
+        
+        if (status === 'success') 
         {
             yield put(updateChartOfAccountSuccess(payload));
             
@@ -114,9 +120,14 @@ function* updateChartOfAccountSaga (payload)
 function* destroyChartOfAccountsSaga (payload)
 {
     try {
+        const { message, status } = yield call(destroyAsync, payload);
+
         yield put(destroyChartOfAccountsSuccess(payload));
 
-        yield call(destroyAsync, payload);
+        yield put(ALERT.showAlert({
+            status,
+            message 
+        }));
 
     } catch ({ message }) {
         yield put(destroyChartOfAccountsFailed({ errorMessages: message }));

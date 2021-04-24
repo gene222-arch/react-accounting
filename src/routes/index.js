@@ -21,7 +21,9 @@ const UpdateChartOfAccountType = lazy(() => import('../views/pages/double-entry/
 const ChartOfAccount = lazy(() => import('../views/pages/double-entry/chart-of-account/ChartOfAccount'))
 const CreateChartOfAccount = lazy(() => import('../views/pages/double-entry/chart-of-account/CreateChartOfAccount'))
 const UpdateChartOfAccount = lazy(() => import('../views/pages/double-entry/chart-of-account/UpdateChartOfAccount'))
-
+const JournalEntry = lazy(() => import('../views/pages/double-entry/journal-entry/JournalEntry'))
+const CreateJournalEntry = lazy(() => import('../views/pages/double-entry/journal-entry/CreateJournalEntry'))
+const UpdateJournalEntry = lazy(() => import('../views/pages/double-entry/journal-entry/UpdateJournalEntry'))
 
 export const AUTH_ROUTES = [
     {
@@ -149,6 +151,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateChartOfAccount,
         access: 'Manage Chart of Accounts',
+        restricted: true
+    },
+    {
+        path: PATH.JOURNAL_ENTRY,
+        key: 'JournalEntry',
+        icon: '',
+        exact: true,
+        component: JournalEntry,
+        access: 'Manage Journal Entries',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_JOURNAL_ENTRY,
+        key: 'CreateJournalEntry',
+        icon: '',
+        exact: true,
+        component: CreateJournalEntry,
+        access: 'Manage Journal Entries',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_JOURNAL_ENTRY,
+        key: 'UpdateJournalEntry',
+        icon: '',
+        exact: true,
+        component: UpdateJournalEntry,
+        access: 'Manage Journal Entries',
         restricted: true
     },
 ];

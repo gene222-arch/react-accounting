@@ -1,71 +1,64 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import MaterialTable from '../../../../components/MaterialTable'
 
 /** Selectors */
-import { selectChartOfAccount } from './../../../../redux/modules/chart-of-account/selector';
+import { createStructuredSelector } from 'reselect';
+import { selectJournalEntry } from './../../../../redux/modules/journal-entry/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 
 /** Actions */
-import * as CHART_OF_ACCOUNT from './../../../../redux/modules/chart-of-account/actions';
+import * as JOURNAL_ENTRY from '../../../../redux/modules/journal-entry/actions'
 import * as ALERT from '../../../../redux/modules/alert/actions'
-
-/** Material UI Components */
-import Switch from '@material-ui/core/Switch';
-
-/** Material Ui Styles */
-import { makeStyles } from '@material-ui/core';
 
 /** Components */
 import AddButton from './../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from './../../../../components/AlertPopUp';
+import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
 
 import PATH from './../../../../routes/path';
 
+/** Material Ui Styles */
+import { makeStyles, Typography } from '@material-ui/core';
 
 
-const chartOfAccountUseStyles = makeStyles(theme => ({
+
+
+const journalEntryUseStyles = makeStyles(theme => ({
 }));
 
 const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.length 
     ? <AddButton onClickEventCallback={ handleClickRedirect } />
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
-const ChartOfAccount = ({ alert, chartOfAccount }) => 
+const JournalEntry = ({ alert, journalEntry }) => 
 {
-    const history = useHistory();
-    const classes = chartOfAccountUseStyles();
+    const classes = journalEntryUseStyles();
     const dispatch = useDispatch();
-    
+    const history = useHistory();
+
     const [ ids, setIds ] = useState([]);
-    
+
     const columns = [
         { title: 'id', field: 'id', hidden: true },
-        { title: 'Type', field: 'type' },
-        { title: 'Code', field: 'code' },
-        { title: 'Name', field: 'name' },
-        { title: 'Description', field: 'description' },
         { 
-            title: 'Enabled', 
-            field: 'enabled',
-            render: row => (
-                <Switch
-                    checked={ Boolean(row.enabled) }
-                    inputProps={{ 'aria-label': 'secondary checkbox' }}
-                />
-            )
+            title: 'Date', 
+            field: 'date',
+            render: row => <StyledNavLink to={ PATH.UPDATE_JOURNAL_ENTRY.replace(':id', row.id) } text={ row.date } />
         },
+        { title: 'Amount', field: 'amount' },
+        { title: 'Reference', field: 'reference' },
+        { title: 'Description', field: 'description' }
     ];
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(CHART_OF_ACCOUNT.getChartOfAccounts());
+    const onLoadFetchAll = () => dispatch(JOURNAL_ENTRY.getJournalEntries());
 
     const handleClickDestroy = () => {
-        dispatch(CHART_OF_ACCOUNT.destroyChartOfAccounts({ ids }));
+        dispatch(JOURNAL_ENTRY.destroyJournalEntries({ ids }));
         setIds([]);
     };
 
@@ -74,7 +67,7 @@ const ChartOfAccount = ({ alert, chartOfAccount }) =>
     }, []);
 
     return (
-        <div>
+        <>
             <AlertPopUp 
                 status={ alert.status }
                 message={ alert.message }
@@ -83,25 +76,25 @@ const ChartOfAccount = ({ alert, chartOfAccount }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ chartOfAccount.chartOfAccounts }  
-                isLoading={ chartOfAccount.isLoading }
+                data={ journalEntry.journalEntries }  
+                isLoading={ journalEntry.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
                         classes={ classes } 
                         ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_CHART_OF_ACCOUNT) }
+                        handleClickRedirect = { () => history.push(PATH.CREATE_JOURNAL_ENTRY) }
                         handleClickDestroy={ handleClickDestroy }
                     /> }
                 onSelectionChange={rows => onSelectionChange(rows)}
-            />            
-        </div>
+            />   
+        </>
     )
 }
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    chartOfAccount: selectChartOfAccount
+    journalEntry: selectJournalEntry
 });
 
-export default connect(mapStateToProps, null)(ChartOfAccount)
+export default connect(mapStateToProps, null)(JournalEntry)

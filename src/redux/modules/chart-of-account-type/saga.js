@@ -38,8 +38,10 @@ function* fetchChartOfAccountTypesSaga ()
     try {
         const { status, message, data } = yield call(fetchAllAsync);
 
-        if (status === 'success')
-        {
+        if (status !== 'success') {
+        }
+        
+        if (status === 'success') {
             yield put(getChartOfAccountTypesSuccess({ chartOfAccountTypes: data }));
         }
 
@@ -54,12 +56,10 @@ function* createChartOfAccountTypeSaga (payload)
     try {
         const { status, message, data } = yield call(createAsync, payload);
 
-        if (status !== 'success')
-        {
-
+        if (status !== 'success') {
         }
-        else 
-        {
+
+        if (status === 'success') {
             yield put(createChartOfAccountTypeSuccess(payload));
 
             yield put(ALERT.showAlert({
@@ -83,11 +83,10 @@ function* updateChartOfAccountTypeSaga (payload)
     try {
         const { status, message, data } = yield call(updateAsync, payload);
 
-        if (status !== 'success')
-        {
+        if (status !== 'success') {
         }
-        else 
-        {
+        
+        if (status === 'success') { 
             yield put(updateChartOfAccountTypeSuccess(payload));
             
             yield put(ALERT.showAlert({
@@ -109,16 +108,14 @@ function* updateChartOfAccountTypeSaga (payload)
 function* destroyChartOfAccountTypesSaga (payload)
 {
     try {
-        const { status, message, data } = yield call(destroyAsync, payload);
+        const { data, message, status } = yield call(destroyAsync, payload);
 
-        if (status !== 'success')
-        {
+        yield put(destroyChartOfAccountTypesSuccess(payload));
 
-        }
-        else 
-        {
-            yield put(destroyChartOfAccountTypesSuccess(payload));
-        }
+        yield put(ALERT.showAlert({
+            status, 
+            message
+        }));
 
     } catch ({ message }) {
         yield put(destroyChartOfAccountTypesFailed({ errorMessages: message }));
