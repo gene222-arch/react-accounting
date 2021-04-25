@@ -19,8 +19,18 @@ const Inventory = ({
     selectInventoryStockAdjustment,
     selectInventoryVendor,
     selectInventoryWarehouse,
-    classes 
+    classes,
+    permissions
 }) => {
+
+    const canManageStockAdjustments = permissions.includes('Manage Stock Adjustments');
+    const canManageVendors = permissions.includes('Manage Vendors');
+    const canManageWarehouses = permissions.includes('Manage Warehouses');
+
+    if (!(canManageStockAdjustments || canManageVendors || canManageWarehouses)) {
+        return '';
+    }
+
     return (
         <>
             <ListItem button onClick={ toggleInventory }>
@@ -39,25 +49,37 @@ const Inventory = ({
             >
                 <List component="div" disablePadding>
                     {/* Stock adjustments */}
-                    <ListItem button selected={ inventoryStockAdjustment } onClick={ selectInventoryStockAdjustment }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Stock adjustments</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageStockAdjustments && (
+                            <ListItem button selected={ inventoryStockAdjustment } onClick={ selectInventoryStockAdjustment }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Stock adjustments</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
 
                     {/* Vendors */}
-                    <ListItem button selected={ inventoryVendor } onClick={ selectInventoryVendor }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Vendors</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageVendors && (
+                            <ListItem button selected={ inventoryVendor } onClick={ selectInventoryVendor }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Vendors</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
                     
                     {/* Warehouses */}
-                    <ListItem button selected={ inventoryWarehouse } onClick={ selectInventoryWarehouse }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Warehouses</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageWarehouses && (
+                            <ListItem button selected={ inventoryWarehouse } onClick={ selectInventoryWarehouse }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Warehouses</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
                 </List>
             </Collapse>            
         </>

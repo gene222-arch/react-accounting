@@ -193,6 +193,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectPayrollDashboard= { selectPayrollDashboard }
                         selectDoubleEntryDashboard= { selectDoubleEntryDashboard }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />
 
                     {/* Double Entry */}
@@ -206,6 +207,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectDoubleEntryChartOfAccountType={ selectDoubleEntryChartOfAccountType }
                         selectDoubleEntryJournalEntry= { selectDoubleEntryJournalEntry }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />
 
                     {/* Items */}
@@ -219,6 +221,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectItemsCategory= { selectItemsCategory }
                         selectItemsDiscount= { selectItemsDiscount }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />                
 
                     {/* Inventory */}
@@ -232,6 +235,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectInventoryVendor= { selectInventoryVendor }
                         selectInventoryWarehouse= { selectInventoryWarehouse }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />   
 
                     {/* Sales */}
@@ -249,6 +253,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectSalesRevenue= { selectSalesRevenue }
                         selectSalesCustomer= { selectSalesCustomer }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />  
 
                     {/* Purchases */}
@@ -262,6 +267,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectPurchasesCreditNote={ selectPurchasesCreditNote }
                         selectPurchasesPayment= { selectPurchasesPayment }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />  
 
                     {/* Banking */}
@@ -277,6 +283,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectBankingTransaction= { selectBankingTransaction }
                         selectBankingReconciliation= { selectBankingReconciliation }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />  
 
                     {/* Payroll */}
@@ -288,15 +295,20 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         selectPayrollPayCalendar={ selectPayrollPayCalendar }
                         selectPayrollRunPayroll= { selectPayrollRunPayroll }
                         classes={ classes.collapseChildren }
+                        permissions={ auth.permissions }
                     />  
 
                     {/* Reports */}
-                    <ListItem button selected={ mainLayout.reports } onClick={ selectReports }>
-                        <ListItemIcon>
-                            <EqualizerIcon fontSize='small' />
-                        </ListItemIcon>
-                        <ListItemText primary={'Reports'} />
-                    </ListItem>
+                    {
+                        auth.permissions.includes('Can View Reports') && (
+                            <ListItem button selected={ mainLayout.reports } onClick={ selectReports }>
+                                <ListItemIcon>
+                                    <EqualizerIcon fontSize='small' />
+                                </ListItemIcon>
+                                <ListItemText primary={'Reports'} />
+                            </ListItem>
+                        )
+                    }
 
                     {/* Settings */}
                     <ListItem button selected={ mainLayout.settings } onClick={ selectSettings }>

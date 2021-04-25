@@ -24,8 +24,18 @@ const Dashboards = ({
     selectMainDashboard, 
     selectPayrollDashboard, 
     selectDoubleEntryDashboard,
-    classes 
+    classes,
+    permissions
 }) => {
+
+    const canViewDoubleEntryDashboard = permissions.includes('View Double Entry Dashboard');
+    const canViewMainDashboard = permissions.includes('View Main Dashboard');
+    const canViewPayrollDashboard = permissions.includes('View Payroll Dashboard');
+
+    if (!(canViewDoubleEntryDashboard || canViewMainDashboard || canViewPayrollDashboard)) {
+        return '';
+    }
+
     return (
         <>
             <ListItem button onClick={ toggleDashboards }>
@@ -44,31 +54,43 @@ const Dashboards = ({
             >
                 <List component="div" disablePadding>
                     {/* Main dashboard */}
-                    <StyledNavLink to={ PATH.MAIN_DASHBOARD } text= {
-                        <ListItem button selected={ mainDashboard } onClick={ selectMainDashboard }>
-                           <ListItemText primary={
-                               <Typography variant="subtitle2" color="initial">Main</Typography>
-                           }/>
-                       </ListItem>
-                    } />
+                    {
+                        canViewMainDashboard && (
+                            <StyledNavLink to={ PATH.MAIN_DASHBOARD } text= {
+                                <ListItem button selected={ mainDashboard } onClick={ selectMainDashboard }>
+                                   <ListItemText primary={
+                                       <Typography variant="subtitle2" color="initial">Main</Typography>
+                                   }/>
+                               </ListItem>
+                            } />
+                        )
+                    }
 
                     {/* Payroll dashboard */}
-                    <StyledNavLink to={ PATH.PAYROLL_DASHBOARD } text= {
-                        <ListItem button selected={ payrollDashboard } onClick={ selectPayrollDashboard }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">Payroll</Typography>
-                            }/>
-                        </ListItem>
-                    } />
+                    {
+                        canViewPayrollDashboard && (
+                            <StyledNavLink to={ PATH.PAYROLL_DASHBOARD } text= {
+                                <ListItem button selected={ payrollDashboard } onClick={ selectPayrollDashboard }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Payroll</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
+                        )
+                    }
 
                     {/* Double entry dashboard */}
-                    <StyledNavLink to={ PATH.DOUBLE_ENTRY_DASHBOARD } text= {
-                        <ListItem button selected={ doubleEntryDashboard } onClick={ selectDoubleEntryDashboard }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">Double Entry</Typography>
-                            }/>
-                        </ListItem>
-                    } />
+                    {
+                        canViewDoubleEntryDashboard && (
+                            <StyledNavLink to={ PATH.DOUBLE_ENTRY_DASHBOARD } text= {
+                                <ListItem button selected={ doubleEntryDashboard } onClick={ selectDoubleEntryDashboard }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Double Entry</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
+                        )
+                    }
                 </List>
             </Collapse>            
         </>

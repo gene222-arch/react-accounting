@@ -23,8 +23,20 @@ const Sales = ({
     selectSalesEstimate,
     selectSalesRevenue,
     selectSalesCustomer,
-    classes 
+    classes,
+    permissions
 }) => {
+
+    const canManageDebitNotes = permissions.includes('Manage Debit Notes');
+    const canManageEstimates = permissions.includes('Manage Estimate Invoices');
+    const canManageInvoices = permissions.includes('Manage Invoices');
+    const canManageRevenues = permissions.includes('Manage Revenues');
+    const canManageCustomers = permissions.includes('Manage Customers');
+
+    if (!(canManageDebitNotes || canManageEstimates || canManageInvoices || canManageRevenues || canManageCustomers)) {
+        return '';
+    }
+
     return (
         <>
             <ListItem button onClick={ toggleSales }>
@@ -43,39 +55,59 @@ const Sales = ({
             >
                 <List component="div" disablePadding>
                     {/* Debit Notes */}
-                    <ListItem button selected={ salesDebitNote } onClick={ selectSalesDebitNote }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Debit Notes</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageDebitNotes && (
+                            <ListItem button selected={ salesDebitNote } onClick={ selectSalesDebitNote }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Debit Notes</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
 
                     {/* Estimates */}
-                    <ListItem button selected={ salesEstimate } onClick={ selectSalesEstimate }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Estimates</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageEstimates && (
+                            <ListItem button selected={ salesEstimate } onClick={ selectSalesEstimate }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Estimates</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
 
                     {/* Invoices */}
-                    <ListItem button selected={ salesInvoice } onClick={ selectSalesInvoice }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Invoices</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageInvoices && (
+                            <ListItem button selected={ salesInvoice } onClick={ selectSalesInvoice }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Invoices</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
 
                     {/* Revenues */}
-                    <ListItem button selected={ salesRevenue } onClick={ selectSalesRevenue }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Revenues</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageRevenues && (
+                            <ListItem button selected={ salesRevenue } onClick={ selectSalesRevenue }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Revenues</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
                     
                     {/* Customers */}
-                    <ListItem button selected={ salesCustomer } onClick={ selectSalesCustomer }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Customers</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageCustomers && (
+                            <ListItem button selected={ salesCustomer } onClick={ selectSalesCustomer }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Customers</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
                 </List>
             </Collapse>            
         </>

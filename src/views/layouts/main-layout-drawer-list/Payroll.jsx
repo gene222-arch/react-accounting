@@ -17,8 +17,17 @@ const Payroll = ({
     togglePayroll, 
     selectPayrollPayCalendar,
     selectPayrollRunPayroll,
-    classes 
+    classes,
+    permissions 
 }) => {
+
+    const canManagePayCalendars = permissions.includes('Manage Pay Calendars');
+    const canManagePayrolls = permissions.includes('Manage Payrolls');
+
+    if (!(canManagePayCalendars || canManagePayrolls)) {
+        return '';
+    }
+
     return (
         <>
             <ListItem button onClick={ togglePayroll }>
@@ -37,18 +46,26 @@ const Payroll = ({
             >
                 <List component="div" disablePadding>
                     {/* Pay Calendar */}
-                    <ListItem button selected={ payrollPayCalendar } onClick={ selectPayrollPayCalendar }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Pay Calendar</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManagePayCalendars && (
+                            <ListItem button selected={ payrollPayCalendar } onClick={ selectPayrollPayCalendar }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Pay Calendar</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
 
                     {/* Run Payroll */}
-                    <ListItem button selected={ payrollRunPayroll } onClick={ selectPayrollRunPayroll }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Run Payroll</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManagePayrolls && (
+                            <ListItem button selected={ payrollRunPayroll } onClick={ selectPayrollRunPayroll }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Run Payroll</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
                 </List>
             </Collapse>            
         </>

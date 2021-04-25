@@ -24,8 +24,17 @@ const DoubleEntry = ({
     selectDoubleEntryChartOfAccount,
     selectDoubleEntryChartOfAccountType,
     selectDoubleEntryJournalEntry,
-    classes 
+    classes,
+    permissions
 }) => {
+    const canManageChartOfAccounts = permissions.includes('Manage Chart Of Accounts');
+    const canManageChartOfAccountTypes = permissions.includes('Manage Chart of Account Types');
+    const canManageJournalEntries = permissions.includes('Manage Journal Entries');
+
+    if (!(canManageChartOfAccounts || canManageChartOfAccountTypes || canManageJournalEntries)) {
+        return '';
+    }
+
     return (
         <>
             <ListItem button onClick={ toggleDoubleEntry }>
@@ -44,34 +53,46 @@ const DoubleEntry = ({
             >
                 <List component="div" disablePadding>
                     {/* Chart of Accounts */}
-                    <StyledNavLink to={ PATH.CHART_OF_ACCOUNT } text={ 
-                        <ListItem button selected={ doubleEntryChartOfAccount } onClick={ selectDoubleEntryChartOfAccount }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">
-                                    Chart of Accounts
-                                </Typography>
-                            }/>
-                        </ListItem>
-                     } />
+                    {
+                        canManageChartOfAccounts && (
+                            <StyledNavLink to={ PATH.CHART_OF_ACCOUNT } text={ 
+                                <ListItem button selected={ doubleEntryChartOfAccount } onClick={ selectDoubleEntryChartOfAccount }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">
+                                            Chart of Accounts
+                                        </Typography>
+                                    }/>
+                                </ListItem>
+                             } />
+                        )
+                    }
 
                     {/* Chart of Account Types */}
-                    <StyledNavLink to={ PATH.CHART_OF_ACCOUNT_TYPE } text={ 
-                        <ListItem button selected={ doubleEntryChartOfAccountType } onClick={ selectDoubleEntryChartOfAccountType }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">Chart of Account Types</Typography>
-                            }/>
-                        </ListItem>
-                     } />
+                    {
+                        canManageChartOfAccountTypes && (
+                            <StyledNavLink to={ PATH.CHART_OF_ACCOUNT_TYPE } text={ 
+                                <ListItem button selected={ doubleEntryChartOfAccountType } onClick={ selectDoubleEntryChartOfAccountType }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Chart of Account Types</Typography>
+                                    }/>
+                                </ListItem>
+                             } />
+                        )
+                    }
 
                     {/* Journal Entries */}
-                    <StyledNavLink to={ PATH.JOURNAL_ENTRY } text={ 
-                        <ListItem button selected={ doubleEntryJournalEntry } onClick={ selectDoubleEntryJournalEntry }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">Journal Entries</Typography>
-                            }/>
-                        </ListItem>
-                     } 
-                    />
+                    {
+                        canManageJournalEntries && (
+                            <StyledNavLink to={ PATH.JOURNAL_ENTRY } text={ 
+                                <ListItem button selected={ doubleEntryJournalEntry } onClick={ selectDoubleEntryJournalEntry }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Journal Entries</Typography>
+                                    }/>
+                                </ListItem>
+                             } 
+                            />
+                        )
+                    }
                 </List>
             </Collapse>            
         </>

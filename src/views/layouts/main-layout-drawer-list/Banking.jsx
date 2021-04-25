@@ -21,8 +21,19 @@ const Banking = ({
     selectBankingTransfer,
     selectBankingTransaction,
     selectBankingReconciliation,
-    classes 
+    classes,
+    permissions 
 }) => {
+
+    const canManageAccounts = permissions.includes('Manage Accounts');
+    const canManageTransfers = permissions.includes('Manage Bank Account Transfers');
+    const canViewTransactions = permissions.includes('View Bank Account Transactions');
+    const canManageReconciliations = permissions.includes('Manage Bank Account Reconciliations');
+
+    if (!(canManageAccounts || canManageTransfers || canManageReconciliations || canViewTransactions)) {
+        return '';
+    }
+
     return (
         <>
             <ListItem button onClick={ toggleBanking }>
@@ -41,32 +52,48 @@ const Banking = ({
             >
                 <List component="div" disablePadding>
                     {/* Accounts */}
-                    <ListItem button selected={ bankingAccount } onClick={ selectBankingAccount }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Accounts</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageAccounts && (
+                            <ListItem button selected={ bankingAccount } onClick={ selectBankingAccount }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Accounts</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
 
                     {/* Transfers */}
-                    <ListItem button selected={ bankingTransfer } onClick={ selectBankingTransfer }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Transfers</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageTransfers && (
+                            <ListItem button selected={ bankingTransfer } onClick={ selectBankingTransfer }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Transfers</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
                     
                     {/* Transactions */}
-                    <ListItem button selected={ bankingTransaction } onClick={ selectBankingTransaction }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Transactions</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canViewTransactions && (
+                            <ListItem button selected={ bankingTransaction } onClick={ selectBankingTransaction }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Transactions</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
 
                     {/* Reconciliations */}
-                    <ListItem button selected={ bankingReconciliation } onClick={ selectBankingReconciliation }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Reconciliations</Typography>
-                        }/>
-                    </ListItem>
+                    {
+                        canManageReconciliations && (
+                            <ListItem button selected={ bankingReconciliation } onClick={ selectBankingReconciliation }>
+                                <ListItemText primary={
+                                    <Typography variant="subtitle2" color="initial">Reconciliations</Typography>
+                                }/>
+                            </ListItem>
+                        )
+                    }
                 </List>
             </Collapse>            
         </>

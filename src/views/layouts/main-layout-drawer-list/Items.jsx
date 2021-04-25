@@ -24,8 +24,18 @@ const Items = ({
     selectItemsItem,
     selectItemsCategory,
     selectItemsDiscount,
-    classes 
+    classes,
+    permissions
 }) => {
+
+    const canManageItems = permissions.includes('Manage Items');
+    const canManageCategories = permissions.includes('Manage Categories');
+    const canManageDiscounts = permissions.includes('Manage Discounts');
+
+    if (!(canManageItems || canManageCategories || canManageDiscounts)) {
+        return '';
+    }
+
     return (
         <>
             <ListItem button onClick={ toggleItems }>
@@ -44,31 +54,43 @@ const Items = ({
             >
                 <List component="div" disablePadding>
                     {/* Item */}
-                    <StyledNavLink to={ PATH.ITEM } text={ 
-                        <ListItem button selected={ itemsItem } onClick={ selectItemsItem }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">Item</Typography>
-                            }/>
-                        </ListItem>
-                    } />
+                    {
+                        canManageItems && (
+                            <StyledNavLink to={ PATH.ITEM } text={ 
+                                <ListItem button selected={ itemsItem } onClick={ selectItemsItem }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Item</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
+                        )
+                    }
 
                     {/* Category */}
-                    <StyledNavLink to={ PATH.CATEGORY } text={ 
-                        <ListItem button selected={ itemsCategory } onClick={ selectItemsCategory }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">Category</Typography>
-                            }/>
-                        </ListItem>
-                    } />
+                    {
+                        canManageCategories && (
+                            <StyledNavLink to={ PATH.CATEGORY } text={ 
+                                <ListItem button selected={ itemsCategory } onClick={ selectItemsCategory }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Category</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
+                        )
+                    }
                     
                     {/* Discount */}
-                    <StyledNavLink to={ PATH.DISCOUNT } text={ 
-                        <ListItem button selected={ itemsDiscount } onClick={ selectItemsDiscount }>
-                            <ListItemText primary={
-                                <Typography variant="subtitle2" color="initial">Discount</Typography>
-                            }/>
-                        </ListItem>
-                    } />
+                    {
+                        canManageDiscounts && (
+                            <StyledNavLink to={ PATH.DISCOUNT } text={ 
+                                <ListItem button selected={ itemsDiscount } onClick={ selectItemsDiscount }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Discount</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
+                        )
+                    }
                 </List>
             </Collapse>            
         </>
