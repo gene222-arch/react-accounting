@@ -22,8 +22,9 @@ const
 /**
  * Fetching records
  */
-export const getChartOfAccounts = () => ({
-   type: GET_CHART_OF_ACCOUNTS_START
+export const getChartOfAccounts = (payload = {}) => ({
+   type: GET_CHART_OF_ACCOUNTS_START,
+   payload
 });
 
 export const getChartOfAccountsSuccess = (payload) => ({

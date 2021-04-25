@@ -5,7 +5,9 @@ import { Route, Switch } from 'react-router-dom'
 import PATH from './path'
 
 /** Lazy components */
-const Dashboard = lazy(() => import('../views/pages/Dashboard'))
+const MainDashboard = lazy(() => import('../views/pages/dashboards/main/MainDashboard'))
+const PayrollDashboard = lazy(() => import('../views/pages/dashboards/payroll/PayrollDashboard'))
+const DoubleEntryDashboard = lazy(() => import('../views/pages/dashboards/double-entry/DoubleEntryDashboard'))
 const EmailVerification = lazy(() => import('./../views/pages/auth/EmailVerification'))
 const EmailVerified = lazy(() => import('./../views/pages/auth/EmailVerified'))
 const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPasswordForm'))
@@ -91,12 +93,30 @@ export const EMAIL_VERIFICATION_ROUTES = [
 
 export const PRIVATE_ROUTES = [
     {
-        path: PATH.DASHBOARD,
-        key: 'Dashboard',
+        path: PATH.MAIN_DASHBOARD,
+        key: 'MainDashboard',
         icon: '',
         exact: true,
-        component: Dashboard,
-        access: 'View Dashboard',
+        component: MainDashboard,
+        access: 'View Main Dashboard',
+        restricted: true
+    },
+    {
+        path: PATH.PAYROLL_DASHBOARD,
+        key: 'PayrollDashboard',
+        icon: '',
+        exact: true,
+        component: PayrollDashboard,
+        access: 'View Payroll Dashboard',
+        restricted: true
+    },
+    {
+        path: PATH.DOUBLE_ENTRY_DASHBOARD,
+        key: 'DoubleEntryDashboard',
+        icon: '',
+        exact: true,
+        component: DoubleEntryDashboard,
+        access: 'View Double Entry Dashboard',
         restricted: true
     },
     {

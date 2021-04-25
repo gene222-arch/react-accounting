@@ -9,6 +9,11 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
+/** Components */
+import StyledNavLink from '../../../components/styled-components/StyledNavLink'
+
+import PATH from './../../../routes/path';
+
 
 const DoubleEntry = ({ 
     openDoubleEntry, 
@@ -39,25 +44,34 @@ const DoubleEntry = ({
             >
                 <List component="div" disablePadding>
                     {/* Chart of Accounts */}
-                    <ListItem button selected={ doubleEntryChartOfAccount } onClick={ selectDoubleEntryChartOfAccount }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Chart of Accounts</Typography>
-                        }/>
-                    </ListItem>
+                    <StyledNavLink to={ PATH.CHART_OF_ACCOUNT } text={ 
+                        <ListItem button selected={ doubleEntryChartOfAccount } onClick={ selectDoubleEntryChartOfAccount }>
+                            <ListItemText primary={
+                                <Typography variant="subtitle2" color="initial">
+                                    Chart of Accounts
+                                </Typography>
+                            }/>
+                        </ListItem>
+                     } />
 
                     {/* Chart of Account Types */}
-                    <ListItem button selected={ doubleEntryChartOfAccountType } onClick={ selectDoubleEntryChartOfAccountType }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Chart of Account Types</Typography>
-                        }/>
-                    </ListItem>
+                    <StyledNavLink to={ PATH.CHART_OF_ACCOUNT_TYPE } text={ 
+                        <ListItem button selected={ doubleEntryChartOfAccountType } onClick={ selectDoubleEntryChartOfAccountType }>
+                            <ListItemText primary={
+                                <Typography variant="subtitle2" color="initial">Chart of Account Types</Typography>
+                            }/>
+                        </ListItem>
+                     } />
 
                     {/* Journal Entries */}
-                    <ListItem button selected={ doubleEntryJournalEntry } onClick={ selectDoubleEntryJournalEntry }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Journal Entries</Typography>
-                        }/>
-                    </ListItem>
+                    <StyledNavLink to={ PATH.JOURNAL_ENTRY } text={ 
+                        <ListItem button selected={ doubleEntryJournalEntry } onClick={ selectDoubleEntryJournalEntry }>
+                            <ListItemText primary={
+                                <Typography variant="subtitle2" color="initial">Journal Entries</Typography>
+                            }/>
+                        </ListItem>
+                     } 
+                    />
                 </List>
             </Collapse>            
         </>

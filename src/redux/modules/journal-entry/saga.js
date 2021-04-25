@@ -64,14 +64,14 @@ function* createJournalEntrySaga (payload)
         {
         }
 
-        if (status === 'success') 
-        {
-            yield put(createJournalEntrySuccess());
-
+        if (status === 'success') {
+            
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
+
+            yield put(createJournalEntrySuccess());
 
             yield put(push(PATH.JOURNAL_ENTRY));
         }
@@ -100,12 +100,12 @@ function* updateJournalEntrySaga (payload)
         
         if (status === 'success') 
         {
-            yield put(updateJournalEntrySuccess());
-
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
+
+            yield put(updateJournalEntrySuccess());
 
             yield put(push(PATH.JOURNAL_ENTRY));
         }

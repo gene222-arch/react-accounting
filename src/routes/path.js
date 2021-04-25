@@ -1,6 +1,5 @@
 const PATH = 
 {
-    DASHBOARD: '/',
     LOGIN: '/auth/sign-in',
     LOGOUT: '/logout',
     REGISTER: '/auth/create-an-account',
@@ -8,6 +7,11 @@ const PATH =
     EMAIL_VERIFIED: '/email/verify-email',
     FORGOT_PASSWORD: '/auth/forgot-password/email',
     RESET_PASSWORD: '/auth/forgot-password/reset',
+
+    /** Dashboards */
+    MAIN_DASHBOARD: '/',
+    PAYROLL_DASHBOARD: '/payroll',
+    DOUBLE_ENTRY_DASHBOARD: '/double-entry',
 
     /** Chart of account types */
     CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types',
@@ -22,7 +26,7 @@ const PATH =
     /** Journale entries */
     JOURNAL_ENTRY: '/double-entry/journal-entries',
     CREATE_JOURNAL_ENTRY: '/double-entry/journal-entries/new',
-    UPDATE_JOURNAL_ENTRY: '/double-entry/journal-entries/:id/edit'
+    UPDATE_JOURNAL_ENTRY: '/double-entry/journal-entries/:id/edit',
 };
 
 

@@ -283,7 +283,7 @@ export default (state = initialState, { type }) =>
             return { 
                 ...DEFAULT_STATE, 
                 doubleEntry: true,
-                doubleEntryChartOfAccount: !doubleEntryChartOfAccount, 
+                doubleEntryChartOfAccountType: !doubleEntryChartOfAccountType, 
                 currentSelectedItem: 'Chart of Account Types',
                 currentSelectedDropdown: 'doubleEntry',
                 currentSelectedDropdownItem: 'doubleEntryChartOfAccountType'

@@ -1,9 +1,9 @@
 import axiosInstance from '../../utils/axiosInstance'
 
-export const fetchAllAsync = async () => 
+export const fetchAllAsync = async ({ enabled }) => 
 {
     return await axiosInstance()
-        .get('/double-entry/chart-of-accounts')
+        .get(`/double-entry/chart-of-accounts?enabled=${enabled}`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

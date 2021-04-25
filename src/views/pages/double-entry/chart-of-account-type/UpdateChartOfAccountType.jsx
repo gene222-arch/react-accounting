@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -25,7 +26,9 @@ import Button from '@material-ui/core/Button'
 
 /** Components */
 import AlertPopUp from './../../../../components/AlertPopUp';
+import SaveCancelButtons from './../../../../components/SaveCancelButtons';
 
+import PATH from './../../../../routes/path';
 
 
 const CHART_OF_ACCOUNT_CATEGORIES = [
@@ -39,6 +42,7 @@ const CHART_OF_ACCOUNT_CATEGORIES = [
 const UpdateChartOfAccountType = ({ alert, chartOfAccountTypeProp, match }) => 
 {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const { isLoading: isUpdating, chartOfAccountType, error } = chartOfAccountTypeProp;
     const id = match.params.id;
@@ -65,7 +69,7 @@ const UpdateChartOfAccountType = ({ alert, chartOfAccountTypeProp, match }) =>
         setIsLoading(false);
     }
 
-    const onSubmit = () => dispatch(CHART_OF_ACCOUNT_TYPE.updateChartOfAccountType(chartOfAccountTypeState));
+    const onSubmitUpdateCOAType = () => dispatch(CHART_OF_ACCOUNT_TYPE.updateChartOfAccountType(chartOfAccountTypeState));
 
     useEffect(() => {
         onLoadFetchById();
@@ -81,7 +85,7 @@ const UpdateChartOfAccountType = ({ alert, chartOfAccountTypeProp, match }) =>
             />
             {
                 !isLoading && (
-                    <form noValidate onSubmit={ onSubmit }>
+                    <form noValidate onSubmit={ onSubmitUpdateCOAType }>
                         <Grid container spacing={1}>
                             <Grid item>
                                 <FormControl error={ Boolean(error.category) }>
@@ -124,26 +128,11 @@ const UpdateChartOfAccountType = ({ alert, chartOfAccountTypeProp, match }) =>
                                 />
                             </Grid>
                         </Grid>
-                        <Grid container spacing={1}>
-                            <Grid item>
-                                <Button 
-                                    variant="contained" 
-                                    color="default"
-                                >
-                                    Cancel
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button 
-                                    variant="contained" 
-                                    color="default" 
-                                    onClick={ onSubmit }
-                                    disabled={ isUpdating }
-                                >
-                                    { !isUpdating ? 'Save' : 'Saving' }
-                                </Button>
-                            </Grid>
-                        </Grid>
+                        <SaveCancelButtons 
+                            isLoading={ isUpdating }
+                            cancelBtnCallback={ () => history.push(PATH.CHART_OF_ACCOUNT_TYPE) }
+                            saveBtnCallback={ onSubmitUpdateCOAType }
+                        />
                     </form>
                 )
             }

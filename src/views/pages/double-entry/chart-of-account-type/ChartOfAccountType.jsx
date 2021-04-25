@@ -16,6 +16,7 @@ import * as ALERT from '../../../../redux/modules/alert/actions'
 import AddButton from './../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from './../../../../components/AlertPopUp';
+import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
 
 import PATH from '../../../../routes/path'
 
@@ -33,7 +34,11 @@ const ChartOfAccountType = ({ alert, chartOfAccountType }) =>
     
     const columns = [
         { title: 'id', field: 'id', hidden: true },
-        { title: 'Category', field: 'category' },
+        { 
+            title: 'Category', 
+            field: 'category',
+            render: row => <StyledNavLink to={ PATH.UPDATE_CHART_OF_ACCOUNT_TYPE.replace(':id', row.id) } text={ row.category } /> 
+        },
         { title: 'Name', field: 'name' },
         { title: 'Description', field: 'description' },
     ];
@@ -67,7 +72,7 @@ const ChartOfAccountType = ({ alert, chartOfAccountType }) =>
                 title={ 
                     <ActionButton 
                     ids={ ids } 
-                    handleClickRedirect = { () => history.push(PATH.CREATE_JOURNAL_ENTRY) }
+                    handleClickRedirect = { () => history.push(PATH.CREATE_CHART_OF_ACCOUNT_TYPE) }
                     handleClickDestroy={ handleClickDestroy }
                 /> }
                 onSelectionChange={rows => onSelectionChange(rows)}

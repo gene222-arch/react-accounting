@@ -114,7 +114,7 @@ const CreateJournalEntry = ({ alert, chartOfAccountProp, journalEntryProp }) =>
 
     const handleChangeJournalEntry = (e) => setJournalEntryState({ ...journalEntryState, [e.target.name]: e.target.value })
 
-    const onLoadFetchAllChartOfAccounts = () => dispatch(CHART_OF_ACCOUNT.getChartOfAccounts());
+    const onLoadFetchAllChartOfAccounts = () => dispatch(CHART_OF_ACCOUNT.getChartOfAccounts({ enabled: true }));
 
     const onSubmitCreateJournalEntry = () => {
         

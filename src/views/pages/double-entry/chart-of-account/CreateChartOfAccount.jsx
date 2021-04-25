@@ -48,7 +48,7 @@ const CreateChartOfAccount = ({ alert, chartOfAccountProp, chartOfAccountTypePro
             : setChartOfAccountState({ ...chartOfAccountState, [name]: value });
     }
 
-    const onSubmit = () => dispatch(CHART_OF_ACCOUNT.createChartOfAccount(chartOfAccountState));
+    const onSubmitCreateCOA = () => dispatch(CHART_OF_ACCOUNT.createChartOfAccount(chartOfAccountState));
 
     useEffect(() => {
         dispatch(CHART_OF_ACCOUNT_TYPE.getChartOfAccountTypes());
@@ -62,7 +62,7 @@ const CreateChartOfAccount = ({ alert, chartOfAccountProp, chartOfAccountTypePro
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <form noValidate onSubmit={ onSubmit }>
+            <form noValidate onSubmit={ onSubmitCreateCOA }>
                 <Grid container spacing={1}>
                     <Grid item>
                         <TextField
@@ -86,7 +86,7 @@ const CreateChartOfAccount = ({ alert, chartOfAccountProp, chartOfAccountTypePro
                     </Grid>
                     <Grid item>
                         <FormControl error={ Boolean(error.chart_of_account_type_id) }>
-                        <InputLabel >Type</InputLabel>
+                        <InputLabel>Type</InputLabel>
                         <Select
                             value={ chartOfAccountState.chart_of_account_type_id }
                             onChange={ handleChange }
@@ -106,7 +106,7 @@ const CreateChartOfAccount = ({ alert, chartOfAccountProp, chartOfAccountTypePro
                                 ))
                             }
                         </Select>
-                                <FormHelperText>{ error.chart_of_account_type_id }</FormHelperText>
+                                <FormHelperText>{ error.chart_of_account_type_id || '' }</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item>
@@ -134,7 +134,7 @@ const CreateChartOfAccount = ({ alert, chartOfAccountProp, chartOfAccountTypePro
                 <SaveCancelButtons 
                     isLoading={ isLoading }
                     cancelBtnCallback={ () => history.push(PATH.CHART_OF_ACCOUNT) }
-                    saveBtnCallback={ onSubmit }
+                    saveBtnCallback={ onSubmitCreateCOA }
                 />
             </form>
         </>

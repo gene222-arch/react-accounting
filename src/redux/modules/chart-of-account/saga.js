@@ -1,4 +1,5 @@
 import { put, take, call, all } from 'redux-saga/effects';
+import {  push } from 'connected-react-router'
 /** Action types */
 import ACTION_TYPES from './action.types';
 
@@ -21,6 +22,8 @@ import * as ALERT from './../alert/actions';
 /** Alert messages */
 import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 
+import PATH from './../../../routes/path';
+
 const {
     GET_CHART_OF_ACCOUNTS_START,
     CREATE_CHART_OF_ACCOUNT_START,
@@ -32,13 +35,12 @@ const {
  * Sagas
  */
 
-function* fetchChartOfAccountsSaga ()
+function* fetchChartOfAccountsSaga (payload)
 {
     try {
-        const { status, message, data } = yield call(fetchAllAsync);
+        const { status, message, data } = yield call(fetchAllAsync, payload);
 
-        if (status !== 'success')
-        {
+        if (status !== 'success') {
         }
 
         if (status === 'success') 
@@ -63,19 +65,19 @@ function* createChartOfAccountSaga (payload)
     try {
         const { status, message, data } = yield call(createAsync, payload);
 
-        if (status !== 'success')
-        {
+        if (status !== 'success') {
 
         }
 
-        if (status === 'success') 
-        {
+        if (status === 'success') {
             yield put(createChartOfAccountSuccess(payload));
 
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
+
+            yield put(push(PATH.CHART_OF_ACCOUNT));
         }
 
     } catch ({ message }) {
@@ -93,18 +95,18 @@ function* updateChartOfAccountSaga (payload)
     try {
         const { status, message, data } = yield call(updateAsync, payload);
 
-        if (status !== 'success')
-        {
+        if (status !== 'success') {
         }
         
-        if (status === 'success') 
-        {
+        if (status === 'success') {
             yield put(updateChartOfAccountSuccess(payload));
             
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
+
+            yield put(push(PATH.CHART_OF_ACCOUNT));
         }
 
     } catch ({ message }) {
@@ -142,9 +144,9 @@ function* fetchChartOfAccountsWatcher ()
 {
     while (true) 
     {
-        yield take(GET_CHART_OF_ACCOUNTS_START);
+        const { payload } = yield take(GET_CHART_OF_ACCOUNTS_START);
 
-        yield call(fetchChartOfAccountsSaga);
+        yield call(fetchChartOfAccountsSaga, payload);
     }
 }
 

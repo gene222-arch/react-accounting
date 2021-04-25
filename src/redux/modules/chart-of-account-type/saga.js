@@ -1,4 +1,6 @@
 import { put, take, call, all } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
+
 /** Action types */
 import ACTION_TYPES from './action.types';
 
@@ -20,6 +22,8 @@ import * as ALERT from './../alert/actions';
 
 /** Alert messages */
 import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
+
+import PATH from './../../../routes/path';
 
 
 const {
@@ -60,12 +64,15 @@ function* createChartOfAccountTypeSaga (payload)
         }
 
         if (status === 'success') {
-            yield put(createChartOfAccountTypeSuccess(payload));
 
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
+
+            yield put(createChartOfAccountTypeSuccess(payload));
+
+            yield put(push(PATH.CHART_OF_ACCOUNT_TYPE));
         }
 
     } catch ({ message }) {
@@ -87,12 +94,15 @@ function* updateChartOfAccountTypeSaga (payload)
         }
         
         if (status === 'success') { 
-            yield put(updateChartOfAccountTypeSuccess(payload));
-            
+
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
+
+            yield put(updateChartOfAccountTypeSuccess(payload));
+            
+            yield put(push(PATH.CHART_OF_ACCOUNT_TYPE));
         }
 
     } catch ({ message }) {
@@ -110,12 +120,12 @@ function* destroyChartOfAccountTypesSaga (payload)
     try {
         const { data, message, status } = yield call(destroyAsync, payload);
 
-        yield put(destroyChartOfAccountTypesSuccess(payload));
-
         yield put(ALERT.showAlert({
             status, 
             message
         }));
+        
+        yield put(destroyChartOfAccountTypesSuccess(payload));
 
     } catch ({ message }) {
         yield put(destroyChartOfAccountTypesFailed({ errorMessages: message }));

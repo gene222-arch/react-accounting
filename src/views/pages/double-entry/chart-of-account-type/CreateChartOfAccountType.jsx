@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -23,7 +24,9 @@ import Button from '@material-ui/core/Button'
 
 /** Components */
 import AlertPopUp from './../../../../components/AlertPopUp';
+import SaveCancelButtons from './../../../../components/SaveCancelButtons';
 
+import PATH from './../../../../routes/path';
 
 const CHART_OF_ACCOUNT_CATEGORIES = [
     'Assets',
@@ -36,6 +39,7 @@ const CHART_OF_ACCOUNT_CATEGORIES = [
 const CreateChartOfAccountType = ({ alert, chartOfAccountTypeProp }) => 
 {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const { isLoading, chartOfAccountType, error } = chartOfAccountTypeProp;
 
@@ -43,7 +47,7 @@ const CreateChartOfAccountType = ({ alert, chartOfAccountTypeProp }) =>
 
     const handleChange = (e) => setChartOfAccountTypeState({ ...chartOfAccountTypeState, [e.target.name]: e.target.value })
 
-    const onSubmit = () => dispatch(CHART_OF_ACCOUNT_TYPE.createChartOfAccountType(chartOfAccountTypeState));
+    const onSubmitCreateCOAType = () => dispatch(CHART_OF_ACCOUNT_TYPE.createChartOfAccountType(chartOfAccountTypeState));
 
     return (
         <>
@@ -53,7 +57,7 @@ const CreateChartOfAccountType = ({ alert, chartOfAccountTypeProp }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <form noValidate onSubmit={ onSubmit }>
+            <form noValidate onSubmit={ onSubmitCreateCOAType }>
                 <Grid container spacing={1}>
                     <Grid item>
                         <FormControl error={ Boolean(error.category) }>
@@ -96,26 +100,11 @@ const CreateChartOfAccountType = ({ alert, chartOfAccountTypeProp }) =>
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    <Grid item>
-                        <Button 
-                            variant="contained" 
-                            color="default"
-                        >
-                            Cancel
-                        </Button>
-                    </Grid>
-                    <Grid item>
-                        <Button 
-                            variant="contained" 
-                            color="default" 
-                            onClick={ onSubmit }
-                            disabled={ isLoading }
-                        >
-                            { !isLoading ? 'Save' : 'Saving' }
-                        </Button>
-                    </Grid>
-                </Grid>
+                <SaveCancelButtons 
+                    isLoading={ isLoading }
+                    cancelBtnCallback={ () => history.push(PATH.CHART_OF_ACCOUNT_TYPE) }
+                    saveBtnCallback={ onSubmitCreateCOAType }
+                />
             </form>
         </>
     )
