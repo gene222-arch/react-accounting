@@ -9,6 +9,11 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
+/** Components */
+import StyledNavLink from '../../../components/styled-components/StyledNavLink'
+
+import PATH from './../../../routes/path';
+
 
 const Items = ({ 
     openItems, 
@@ -39,25 +44,31 @@ const Items = ({
             >
                 <List component="div" disablePadding>
                     {/* Item */}
-                    <ListItem button selected={ itemsItem } onClick={ selectItemsItem }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Item</Typography>
-                        }/>
-                    </ListItem>
+                    <StyledNavLink to={ PATH.ITEM } text={ 
+                        <ListItem button selected={ itemsItem } onClick={ selectItemsItem }>
+                            <ListItemText primary={
+                                <Typography variant="subtitle2" color="initial">Item</Typography>
+                            }/>
+                        </ListItem>
+                    } />
 
                     {/* Category */}
-                    <ListItem button selected={ itemsCategory } onClick={ selectItemsCategory }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Category</Typography>
-                        }/>
-                    </ListItem>
+                    <StyledNavLink to={ PATH.CATEGORY } text={ 
+                        <ListItem button selected={ itemsCategory } onClick={ selectItemsCategory }>
+                            <ListItemText primary={
+                                <Typography variant="subtitle2" color="initial">Category</Typography>
+                            }/>
+                        </ListItem>
+                    } />
                     
                     {/* Discount */}
-                    <ListItem button selected={ itemsDiscount } onClick={ selectItemsDiscount }>
-                        <ListItemText primary={
-                            <Typography variant="subtitle2" color="initial">Discount</Typography>
-                        }/>
-                    </ListItem>
+                    <StyledNavLink to={ PATH.DISCOUNT } text={ 
+                        <ListItem button selected={ itemsDiscount } onClick={ selectItemsDiscount }>
+                            <ListItemText primary={
+                                <Typography variant="subtitle2" color="initial">Discount</Typography>
+                            }/>
+                        </ListItem>
+                    } />
                 </List>
             </Collapse>            
         </>

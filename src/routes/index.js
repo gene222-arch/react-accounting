@@ -26,6 +26,11 @@ const UpdateChartOfAccount = lazy(() => import('../views/pages/double-entry/char
 const JournalEntry = lazy(() => import('../views/pages/double-entry/journal-entry/JournalEntry'))
 const CreateJournalEntry = lazy(() => import('../views/pages/double-entry/journal-entry/CreateJournalEntry'))
 const UpdateJournalEntry = lazy(() => import('../views/pages/double-entry/journal-entry/UpdateJournalEntry'))
+const Item = lazy(() => import('../views/pages/items/item/Item'))
+const CreateItem = lazy(() => import('../views/pages/items/item/CreateItem'))
+const UpdateItem = lazy(() => import('../views/pages/items/item/UpdateItem'))
+
+
 
 export const AUTH_ROUTES = [
     {
@@ -198,6 +203,34 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateJournalEntry,
         access: 'Manage Journal Entries',
+        restricted: true
+    },
+    ,
+    {
+        path: PATH.ITEM,
+        key: 'Item',
+        icon: '',
+        exact: true,
+        component: Item,
+        access: 'Manage Items',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_ITEM,
+        key: 'CreateItem',
+        icon: '',
+        exact: true,
+        component: CreateItem,
+        access: 'Manage Items',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_ITEM,
+        key: 'UpdateItem',
+        icon: '',
+        exact: true,
+        component: UpdateItem,
+        access: 'Manage Items',
         restricted: true
     },
 ];

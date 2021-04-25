@@ -27,6 +27,21 @@ const PATH =
     JOURNAL_ENTRY: '/double-entry/journal-entries',
     CREATE_JOURNAL_ENTRY: '/double-entry/journal-entries/new',
     UPDATE_JOURNAL_ENTRY: '/double-entry/journal-entries/:id/edit',
+
+    /** Item */
+    ITEM: '/items/items',
+    CREATE_ITEM: '/items/items/new',
+    UPDATE_ITEM: '/items/items/:id/edit',
+
+    /** Category */
+    CATEGORY: '/items/categories',
+    CREATE_CATEGORY: '/items/categories/new',
+    UPDATE_CATEGORY: '/items/categories/:id/edit',
+
+    /** Discount */
+    DISCOUNT: '/items/discounts',
+    CREATE_DISCOUNT: '/items/discounts/new',
+    UPDATE_DISCOUNT: '/items/discounts/:id/edit',
 };
 
 

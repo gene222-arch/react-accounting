@@ -86,27 +86,27 @@ const CreateChartOfAccount = ({ alert, chartOfAccountProp, chartOfAccountTypePro
                     </Grid>
                     <Grid item>
                         <FormControl error={ Boolean(error.chart_of_account_type_id) }>
-                        <InputLabel>Type</InputLabel>
-                        <Select
-                            value={ chartOfAccountState.chart_of_account_type_id }
-                            onChange={ handleChange }
-                            inputProps={{
-                                name: 'chart_of_account_type_id'
-                            }}
-                            fullWidth
-                        >
-                            {
-                                chartOfAccountTypeProp.chartOfAccountTypes.map(chartOfAccountType => (
-                                    <MenuItem 
-                                        key={ chartOfAccountType.id } 
-                                        value={ chartOfAccountType.id }
-                                    >
-                                        { chartOfAccountType.name }
-                                    </MenuItem>
-                                ))
-                            }
-                        </Select>
-                                <FormHelperText>{ error.chart_of_account_type_id || '' }</FormHelperText>
+                            <InputLabel>Type</InputLabel>
+                            <Select
+                                value={ chartOfAccountState.chart_of_account_type_id }
+                                onChange={ handleChange }
+                                inputProps={{
+                                    name: 'chart_of_account_type_id'
+                                }}
+                                fullWidth
+                            >
+                                {
+                                    chartOfAccountTypeProp.chartOfAccountTypes.map(chartOfAccountType => (
+                                        <MenuItem 
+                                            key={ chartOfAccountType.id } 
+                                            value={ chartOfAccountType.id }
+                                        >
+                                            { chartOfAccountType.name }
+                                        </MenuItem>
+                                    ))
+                                }
+                            </Select>
+                            <FormHelperText>{ error.chart_of_account_type_id || '' }</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item>
