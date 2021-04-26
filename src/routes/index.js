@@ -29,7 +29,10 @@ const UpdateJournalEntry = lazy(() => import('../views/pages/double-entry/journa
 const Item = lazy(() => import('../views/pages/items/item/Item'))
 const CreateItem = lazy(() => import('../views/pages/items/item/CreateItem'))
 const UpdateItem = lazy(() => import('../views/pages/items/item/UpdateItem'))
-
+const Settings = lazy(() => import('../views/pages/settings/Settings'))
+const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
+const CreateTax = lazy(() => import('../views/pages/settings/Tax/CreateTax'))
+const UpdateTax = lazy(() => import('../views/pages/settings/Tax/UpdateTax'))
 
 
 export const AUTH_ROUTES = [
@@ -231,6 +234,42 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateItem,
         access: 'Manage Items',
+        restricted: true
+    },
+    {
+        path: PATH.SETTINGS,
+        key: 'Settings',
+        icon: '',
+        exact: true,
+        component: Settings,
+        access: 'Manage Settings',
+        restricted: true
+    },
+    {
+        path: PATH.TAX,
+        key: 'Tax',
+        icon: '',
+        exact: true,
+        component: Tax,
+        access: 'Manage Taxes',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_TAX,
+        key: 'CreateTax',
+        icon: '',
+        exact: true,
+        component: CreateTax,
+        access: 'Manage Taxes',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_TAX,
+        key: 'UpdateTax',
+        icon: '',
+        exact: true,
+        component: UpdateTax,
+        access: 'Manage Taxes',
         restricted: true
     },
 ];

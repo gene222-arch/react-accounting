@@ -7,9 +7,9 @@ import { blue } from '@material-ui/core/colors';
 const navLinkUseStyles = makeStyles(theme => ({
     tableRowNavLink: {
         textDecoration: 'none',
-        color: 'inherit',
+        color: blue[300],
         '&:hover': {
-            color: blue[300]
+            color: blue[500]
         }
     }
 }));
@@ -17,7 +17,6 @@ const navLinkUseStyles = makeStyles(theme => ({
 const StyledNavLink = ({ to, text }) => 
 {
     const classes = navLinkUseStyles();
-
     return <NavLinkRouter to={ to } className={ classes.tableRowNavLink }>{ text }</NavLinkRouter>
 }
 

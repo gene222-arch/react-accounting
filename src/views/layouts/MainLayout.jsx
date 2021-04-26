@@ -41,7 +41,9 @@ import Purchases from './main-layout-drawer-list/Purchases';
 import Banking from './main-layout-drawer-list/Banking';
 import Payroll from './main-layout-drawer-list/Payroll';
 import Header from './main-layout-header/Header';
+import StyledNavLink from '../../components/styled-components/StyledNavLink'
 
+import PATH from './../../routes/path';
 
 
 const MainLayout = ({ auth, children, mainLayout }) => 
@@ -311,12 +313,14 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                     }
 
                     {/* Settings */}
-                    <ListItem button selected={ mainLayout.settings } onClick={ selectSettings }>
-                        <ListItemIcon>
-                            <SettingsIcon fontSize='small' />
-                        </ListItemIcon>
-                        <ListItemText primary={'Settings'} />
-                    </ListItem>
+                    <StyledNavLink to={ PATH.SETTINGS } text={ 
+                        <ListItem button selected={ mainLayout.settings } onClick={ selectSettings }>
+                            <ListItemIcon>
+                                <SettingsIcon fontSize='small' />
+                            </ListItemIcon>
+                            <ListItemText primary={'Settings'} />
+                        </ListItem>
+                    } />
                 </List>
             </Drawer>
 

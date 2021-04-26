@@ -67,8 +67,9 @@ export const destroyItems = (payload) => ({
     payload
 });
 
-export const destroyItemsSuccess = () => ({
-    type: DESTROY_ITEMS_SUCCESS
+export const destroyItemsSuccess = (payload) => ({
+    type: DESTROY_ITEMS_SUCCESS,
+    payload
 });
 
 export const destroyItemsFailed = (payload) => ({

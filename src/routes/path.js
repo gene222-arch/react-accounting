@@ -42,6 +42,12 @@ const PATH =
     DISCOUNT: '/items/discounts',
     CREATE_DISCOUNT: '/items/discounts/new',
     UPDATE_DISCOUNT: '/items/discounts/:id/edit',
+
+    /** Settings */
+    SETTINGS: '/settings',
+    TAX: '/settings/taxes',
+    CREATE_TAX: '/settings/taxes/new',
+    UPDATE_TAX: '/settings/taxes/:id/edit',
 };
 
 
