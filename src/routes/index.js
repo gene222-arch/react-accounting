@@ -43,6 +43,9 @@ const UpdateTax = lazy(() => import('../views/pages/settings/Tax/UpdateTax'))
 const Currency = lazy(() => import('../views/pages/settings/currency/Currency'))
 const CreateCurrency = lazy(() => import('../views/pages/settings/currency/CreateCurrency'))
 const UpdateCurrency = lazy(() => import('../views/pages/settings/currency/UpdateCurrency'))
+const ExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/ExpenseCategory'))
+const CreateExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/CreateExpenseCategory'))
+const UpdateExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/UpdateExpenseCategory'))
 const IncomeCategory = lazy(() => import('../views/pages/settings/income-category/IncomeCategory'))
 const CreateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/CreateIncomeCategory'))
 const UpdateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/UpdateIncomeCategory'))
@@ -336,7 +339,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: CreateIncomeCategory,
-        access: 'Manage Categories',
+        access: 'Manage Income Categories',
         restricted: true
     },
     {
@@ -345,7 +348,34 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: UpdateIncomeCategory,
-        access: 'Manage Categories',
+        access: 'Manage Income Categories',
+        restricted: true
+    },
+    {
+        path: PATH.EXPENSE_CATEGORY,
+        key: 'ExpenseCategory',
+        icon: '',
+        exact: true,
+        component: ExpenseCategory,
+        access: 'Manage Expense Categories',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_EXPENSE_CATEGORY,
+        key: 'CreateExpenseCategory',
+        icon: '',
+        exact: true,
+        component: CreateExpenseCategory,
+        access: 'Manage Expense Categories',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_EXPENSE_CATEGORY,
+        key: 'UpdateExpenseCategory',
+        icon: '',
+        exact: true,
+        component: UpdateExpenseCategory,
+        access: 'Manage Expense Categories',
         restricted: true
     },
     {

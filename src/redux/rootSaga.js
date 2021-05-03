@@ -10,6 +10,7 @@ import discountSaga from '../redux/modules/discount/saga'
 import taxSaga from '../redux/modules/tax/saga'
 import currencySaga from '../redux/modules/currency/saga'
 import incomeCategorySaga from '../redux/modules/income-category/saga'
+import expenseCategorySaga from '../redux/modules/expense-category/saga'
 import companySaga from '../redux/modules/company/saga'
 import journalEntrySaga from '../redux/modules/journal-entry/saga'
 
@@ -26,6 +27,7 @@ export default function* ()
         discountSaga(),
         categorySaga(),
         incomeCategorySaga(),
+        expenseCategorySaga(),
         taxSaga()
     ]);
 }

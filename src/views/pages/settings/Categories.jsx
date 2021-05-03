@@ -11,12 +11,8 @@ import Container from '@material-ui/core/Container'
 import { Card, CardContent } from '@material-ui/core'
 
 /** Material UI Icons */
-import BusinessIcon from '@material-ui/icons/Business';
-import CategoryIcon from '@material-ui/icons/Category';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 /** Components */
 import SettingItem from './SettingItem';
@@ -45,7 +41,7 @@ const Categories = ({ auth }) =>
                                     icon={ MoneyOffIcon }
                                     primaryText='Expense Categories'
                                     secondaryText='....'
-                                    path=''
+                                    path={ PATH.EXPENSE_CATEGORY }
                                 />
                             </Grid>
                          </Grid>
