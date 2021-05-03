@@ -48,6 +48,13 @@ const PATH =
     TAX: '/settings/taxes',
     CREATE_TAX: '/settings/taxes/new',
     UPDATE_TAX: '/settings/taxes/:id/edit',
+    
+    CURRENCY: '/settings/currencies',
+    CREATE_CURRENCY: '/settings/currencies/new',
+    UPDATE_CURRENCY: '/settings/currencies/:id/edit',
+        
+    CREATE_COMPANY: '/settings/company/new',
+    UPDATE_COMPANY: '/settings/company/:id/edit',
 };
 
 

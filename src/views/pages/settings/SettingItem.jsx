@@ -5,7 +5,11 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import ListItemText from '@material-ui/core/ListItemText'
 
-const SettingItem = ({ icon: Icon, primaryText, secondaryText = '' }) => {
+/** Components */
+import StyledNavLink from './../../../components/styled-components/StyledNavLink';
+
+
+const SettingItem = ({ icon: Icon, primaryText, secondaryText = '', path }) => {
     return (
         <>
             <Grid container spacing={1} alignItems='center'>
@@ -13,13 +17,16 @@ const SettingItem = ({ icon: Icon, primaryText, secondaryText = '' }) => {
                     <Icon fontSize='large' button/>
                 </Grid>
                 <Grid item xs={10} sm={10} md={10} lg={10}>
-                    <ListItemText 
-                        primary={
-                            <Typography variant="h6" color="initial">
-                                { primaryText }
-                            </Typography>
-                        } 
-                        secondary={ secondaryText } 
+                    <StyledNavLink to={ path } text={
+                        <ListItemText 
+                            primary={
+                                <Typography variant="h6" color="initial">
+                                    { primaryText }
+                                </Typography>
+                            } 
+                            secondary={ secondaryText } 
+                        />
+                    }
                     />
                 </Grid>
             </Grid>

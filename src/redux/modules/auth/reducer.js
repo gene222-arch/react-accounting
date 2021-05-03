@@ -50,6 +50,7 @@ const initialState =
     isLoading: false,
     isAuthenticated: false,
     user: null,
+    company: null,
     permissions: null,
     error: ERROR_DEFAULT,
 };
@@ -79,6 +80,7 @@ export default (state = initialState, { type, payload }) =>
                 isLoading: false,
                 isAuthenticated: true,
                 user: payload.user,
+                company: payload.company,
                 permissions: payload.permissions,
                 error: ERROR_DEFAULT,
             };
@@ -113,6 +115,7 @@ export default (state = initialState, { type, payload }) =>
                 isLoading: false,
                 isAuthenticated: false,
                 user: null,
+                company: null,
                 error: ERROR_DEFAULT
             };
             

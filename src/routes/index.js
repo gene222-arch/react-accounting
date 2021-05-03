@@ -33,7 +33,11 @@ const Settings = lazy(() => import('../views/pages/settings/Settings'))
 const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
 const CreateTax = lazy(() => import('../views/pages/settings/Tax/CreateTax'))
 const UpdateTax = lazy(() => import('../views/pages/settings/Tax/UpdateTax'))
-
+const Currency = lazy(() => import('../views/pages/settings/currency/Currency'))
+const CreateCurrency = lazy(() => import('../views/pages/settings/currency/CreateCurrency'))
+const UpdateCurrency = lazy(() => import('../views/pages/settings/currency/UpdateCurrency'))
+const CreateCompany = lazy(() => import('../views/pages/settings/company/CreateCompany'))
+const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateCompany'))
 
 export const AUTH_ROUTES = [
     {
@@ -270,6 +274,51 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateTax,
         access: 'Manage Taxes',
+        restricted: true
+    },
+    {
+        path: PATH.CURRENCY,
+        key: 'Currency',
+        icon: '',
+        exact: true,
+        component: Currency,
+        access: 'Manage Currencies',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_CURRENCY,
+        key: 'CreateCurrency',
+        icon: '',
+        exact: true,
+        component: CreateCurrency,
+        access: 'Manage Currencies',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_CURRENCY,
+        key: 'UpdateCurrency',
+        icon: '',
+        exact: true,
+        component: UpdateCurrency,
+        access: 'Manage Currencies',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_COMPANY,
+        key: 'CreateCompany',
+        icon: '',
+        exact: true,
+        component: CreateCompany,
+        access: 'Manage Companies',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_COMPANY,
+        key: 'UpdateCompany',
+        icon: '',
+        exact: true,
+        component: UpdateCompany,
+        access: 'Manage Companies',
         restricted: true
     },
 ];

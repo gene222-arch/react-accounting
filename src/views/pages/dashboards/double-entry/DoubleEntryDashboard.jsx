@@ -56,7 +56,6 @@ const DoubleEntryDashboard = () =>
         try {
             const { data, message, status } = await fetchDashboardAsync();
             
-            console.log(data);
             setDashboardData(data);
         } catch ({ message }) {
             

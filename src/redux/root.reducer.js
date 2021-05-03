@@ -10,6 +10,8 @@ import chartOfAccountReducer from './modules/chart-of-account/reducer'
 import journalEntryReducer from './modules/journal-entry/reducer'
 import itemReducer from './modules/item/reducer'
 import taxReducer from './modules/tax/reducer'
+import currencyReducer from './modules/currency/reducer'
+import companyReducer from './modules/company/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 
 
@@ -25,6 +27,8 @@ const rootReducer = (history) => combineReducers({
     journalEntry: journalEntryReducer,
     item: itemReducer,
     tax: taxReducer,
+    currency: currencyReducer,
+    company: companyReducer,
     mainLayout: mainLayoutReducer
 });
 
