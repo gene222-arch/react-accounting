@@ -9,25 +9,32 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
+/** Components */
+import StyledNavLink from './../../../components/styled-components/StyledNavLink';
+import PATH from './../../../routes/path';
+
 
 const Purchases = ({ 
     openPurchases, 
     purchasesCreditNote,
     purchasesBill,
     purchasesPayment,
+    purchasesVendor,
     togglePurchases, 
     selectPurchasesCreditNote, 
     selectPurchasesBill,
     selectPurchasesPayment,
+    selectPurchasesVendor,
     classes,
     permissions
 }) => {
 
+    const canManageVendors = permissions.includes('Manage Vendors');
     const canManageCreditNotes = permissions.includes('Manage Credit Notes');
     const canManageBills = permissions.includes('Manage Bills');
     const canManagePayments = permissions.includes('Manage Payments');
 
-    if (!(canManageCreditNotes || canManageBills || canManagePayments)) {
+    if (!(canManageCreditNotes || canManageBills || canManagePayments || canManageVendors)) {
         return '';
     }
 
@@ -78,6 +85,19 @@ const Purchases = ({
                                     <Typography variant="subtitle2" color="initial">Payments</Typography>
                                 }/>
                             </ListItem>
+                        )
+                    }
+                    {/* Vendors */}
+                    {
+                        canManageVendors && (
+                            <StyledNavLink to={ PATH.VENDOR } text={
+                                <ListItem button selected={ purchasesVendor } onClick={ selectPurchasesVendor }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Vendors</Typography>
+                                    }/>
+                                </ListItem>
+                            }
+                            />
                         )
                     }
                 </List>

@@ -69,6 +69,11 @@ const PATH =
     EXPENSE_CATEGORY: '/settings/expense-categories',
     CREATE_EXPENSE_CATEGORY: '/settings/expense-categories/new',
     UPDATE_EXPENSE_CATEGORY: '/settings/expense-categories/:id/edit',
+
+    /** Income Category */
+    VENDOR: '/purchases/vendors',
+    CREATE_VENDOR: '/purchases/vendors/new',
+    UPDATE_VENDOR: '/purchases/vendors/:id/edit',
 };
 
 

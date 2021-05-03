@@ -21,7 +21,6 @@ const {
 
     TOGGLE_INVENTORY,
     SELECT_INVENTORY_STOCK_ADJUSTMENT,
-    SELECT_INVENTORY_VENDOR,
     SELECT_INVENTORY_WAREHOUSE,
 
     TOGGLE_SALES,
@@ -35,6 +34,7 @@ const {
     SELECT_PURCHASES_CREDIT_NOTE,
     SELECT_PURCHASES_BILL,
     SELECT_PURCHASES_PAYMENT,
+    SELECT_PURCHASES_VENDOR,
 
     TOGGLE_BANKING,
     SELECT_BANKING_ACCOUNT,
@@ -68,7 +68,6 @@ const DEFAULT_STATE = {
     /** Inventory */
     inventory: false,
     inventoryStockAdjustment: false,
-    inventoryVendor: false,
     inventoryWarehouse: false,
 
     /** Sales */
@@ -83,6 +82,7 @@ const DEFAULT_STATE = {
     purchases: false,
     purchasesBill: false,
     purchasesPayment: false,
+    purchasesVendor: false,
 
     /** Banking */
     banking: false,
@@ -124,7 +124,6 @@ const initialState = {
     /** Inventory */
     inventory: false,
     inventoryStockAdjustment: false,
-    inventoryVendor: false,
     inventoryWarehouse: false,
 
     /** Sales */
@@ -139,6 +138,7 @@ const initialState = {
     purchases: false,
     purchasesBill: false,
     purchasesPayment: false,
+    purchasesVendor: false,
 
     /** Banking */
     banking: false,
@@ -181,7 +181,7 @@ export default (state = initialState, { type }) =>
         itemsDiscount,
         inventory,
         inventoryStockAdjustment,
-        inventoryVendor,
+        purchasesVendor,
         inventoryWarehouse,
         sales,
         salesDebitNote,
@@ -358,14 +358,14 @@ export default (state = initialState, { type }) =>
                 currentSelectedDropdownItem: 'inventoryStockAdjustment'
             };  
 
-        case SELECT_INVENTORY_VENDOR:
+        case SELECT_PURCHASES_VENDOR:
             return {
                 ...DEFAULT_STATE,
                 inventory: true,
-                inventoryVendor: !inventoryVendor,
+                purchasesVendor: !purchasesVendor,
                 currentSelectedItem: 'Vendors',
                 currentSelectedDropdown: 'inventory',
-                currentSelectedDropdownItem: 'inventoryVendor'
+                currentSelectedDropdownItem: 'purchasesVendor'
             };  
 
         case SELECT_INVENTORY_WAREHOUSE:

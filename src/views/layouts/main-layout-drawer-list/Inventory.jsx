@@ -8,26 +8,24 @@ import Collapse from '@material-ui/core/Collapse';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import StyledNavLink from './../../../components/styled-components/StyledNavLink';
 
 
 const Inventory = ({ 
     openInventory, 
     inventoryStockAdjustment,
-    inventoryVendor,
     inventoryWarehouse,
     toggleInventory, 
     selectInventoryStockAdjustment,
-    selectInventoryVendor,
     selectInventoryWarehouse,
     classes,
     permissions
 }) => {
 
     const canManageStockAdjustments = permissions.includes('Manage Stock Adjustments');
-    const canManageVendors = permissions.includes('Manage Vendors');
     const canManageWarehouses = permissions.includes('Manage Warehouses');
 
-    if (!(canManageStockAdjustments || canManageVendors || canManageWarehouses)) {
+    if (!(canManageStockAdjustments || canManageWarehouses)) {
         return '';
     }
 
@@ -54,17 +52,6 @@ const Inventory = ({
                             <ListItem button selected={ inventoryStockAdjustment } onClick={ selectInventoryStockAdjustment }>
                                 <ListItemText primary={
                                     <Typography variant="subtitle2" color="initial">Stock adjustments</Typography>
-                                }/>
-                            </ListItem>
-                        )
-                    }
-
-                    {/* Vendors */}
-                    {
-                        canManageVendors && (
-                            <ListItem button selected={ inventoryVendor } onClick={ selectInventoryVendor }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Vendors</Typography>
                                 }/>
                             </ListItem>
                         )

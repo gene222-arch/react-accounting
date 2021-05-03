@@ -34,7 +34,7 @@ import AlertPopUp from '../../../../components/AlertPopUp';
 
 import PATH from '../../../../routes/path';
 
-const UpdateTax = ({ alert, currencyProp }) => 
+const CreateCurrency = ({ alert, currencyProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const UpdateTax = ({ alert, currencyProp }) =>
             : setCurrencyState({ ...currencyState, [name]: value });
     }
 
-    const onSubmitUpdateCurrency = () => dispatch(CURRENCY.createCurrency(currencyState));
+    const onSubmitCreateCurrency = () => dispatch(CURRENCY.createCurrency(currencyState));
 
     return !isLoading && (
         <div>
@@ -61,7 +61,7 @@ const UpdateTax = ({ alert, currencyProp }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <form onSubmit={ onSubmitUpdateCurrency }>
+            <form onSubmit={ onSubmitCreateCurrency }>
                 <Card>
                     <CardContent>
                         <Grid container spacing={1} alignItems='center'>
@@ -119,7 +119,7 @@ const UpdateTax = ({ alert, currencyProp }) =>
                         <SaveCancelButtons 
                             isLoading={ isLoading }
                             cancelBtnCallback={ () => history.push(PATH.CURRENCY) }
-                            saveBtnCallback={ onSubmitUpdateCurrency }
+                            saveBtnCallback={ onSubmitCreateCurrency }
                         />
                     </CardActions>
                 </Card>
@@ -133,4 +133,4 @@ const mapStateToProps = createStructuredSelector({
     currencyProp: selectCurrency
 });
 
-export default connect(mapStateToProps, null)(UpdateTax)
+export default connect(mapStateToProps, null)(CreateCurrency)

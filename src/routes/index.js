@@ -51,6 +51,9 @@ const CreateIncomeCategory = lazy(() => import('../views/pages/settings/income-c
 const UpdateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/UpdateIncomeCategory'))
 const CreateCompany = lazy(() => import('../views/pages/settings/company/CreateCompany'))
 const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateCompany'))
+const Vendor = lazy(() => import('../views/pages/purchases/vendor/Vendor'))
+const CreateVendor = lazy(() => import('../views/pages/purchases/vendor/CreateVendor'))
+const UpdateVendor = lazy(() => import('../views/pages/purchases/vendor/UpdateVendor'))
 
 export const AUTH_ROUTES = [
     {
@@ -448,6 +451,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateCompany,
         access: 'Manage Companies',
+        restricted: true
+    },
+    {
+        path: PATH.VENDOR,
+        key: 'Vendor',
+        icon: '',
+        exact: true,
+        component: Vendor,
+        access: 'Manage Vendors',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_VENDOR,
+        key: 'CreateVendor',
+        icon: '',
+        exact: true,
+        component: CreateVendor,
+        access: 'Manage Vendors',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_VENDOR,
+        key: 'UpdateVendor',
+        icon: '',
+        exact: true,
+        component: UpdateVendor,
+        access: 'Manage Vendors',
         restricted: true
     },
 ];

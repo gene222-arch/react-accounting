@@ -21,7 +21,6 @@ const {
 
     TOGGLE_INVENTORY,
     SELECT_INVENTORY_STOCK_ADJUSTMENT,
-    SELECT_INVENTORY_VENDOR,
     SELECT_INVENTORY_WAREHOUSE,
 
     TOGGLE_SALES,
@@ -35,6 +34,7 @@ const {
     SELECT_PURCHASES_CREDIT_NOTE,
     SELECT_PURCHASES_BILL,
     SELECT_PURCHASES_PAYMENT,
+    SELECT_PURCHASES_VENDOR,
 
     TOGGLE_BANKING,
     SELECT_BANKING_ACCOUNT,
@@ -127,10 +127,6 @@ export const selectInventoryStockAdjustment = () => ({
     type: SELECT_INVENTORY_STOCK_ADJUSTMENT
 });
 
-export const selectInventoryVendor = () => ({
-    type: SELECT_INVENTORY_VENDOR
-});
-
 export const selectInventoryWarehouse = () => ({
     type: SELECT_INVENTORY_WAREHOUSE
 });
@@ -181,6 +177,10 @@ export const selectPurchasesBill = () => ({
 
 export const selectPurchasesPayment = () => ({
     type: SELECT_PURCHASES_PAYMENT
+});
+
+export const selectPurchasesVendor = () => ({
+    type: SELECT_PURCHASES_VENDOR
 });
 
 /**

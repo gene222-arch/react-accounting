@@ -8,10 +8,12 @@ import MaterialTable from '../../../../components/MaterialTable'
 import { selectItem } from './../../../../redux/modules/item/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 import { selectTax } from './../../../../redux/modules/tax/selector';
+import { selectCategory } from './../../../../redux/modules/category/selector';
 
 /** Actions */
 import * as ITEM from './../../../../redux/modules/item/actions';
 import * as TAX from './../../../../redux/modules/tax/actions';
+import * as CATEGORY from './../../../../redux/modules/category/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Components */
@@ -37,7 +39,7 @@ import PATH from './../../../../routes/path';
 import TrackStock from './TrackStock';
 
 
-const CreateItem = ({ alert, itemProp, tax }) => 
+const CreateItem = ({ alert, category, itemProp, tax }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -61,12 +63,15 @@ const CreateItem = ({ alert, itemProp, tax }) =>
 
     const handleChangeStock = (e) => setStockState({ ...stockState, [e.target.name]: e.target.value });
 
+    const onLoadFetchCategories = () => dispatch(CATEGORY.getCategories());
+
     const onLoadFetchTaxes = () => dispatch(TAX.getTaxes());
 
     const onSubmitCreateItem = () => dispatch(ITEM.createItem(itemState));
 
     useEffect(() => {
         onLoadFetchTaxes();
+        onLoadFetchCategories();
     }, []);
 
     return (
@@ -97,8 +102,8 @@ const CreateItem = ({ alert, itemProp, tax }) =>
                                             fullWidth
                                         >
                                             {
-                                                tax.taxes.map(tax => (
-                                                    <MenuItem value={ tax.id }>{ tax.name }</MenuItem>
+                                                tax.taxes.map(({ id, name }) => (
+                                                    <MenuItem value={ id }>{ name }</MenuItem>
                                                 ))
                                             }
                                         </Select>
@@ -143,7 +148,13 @@ const CreateItem = ({ alert, itemProp, tax }) =>
                                             }}
                                             fullWidth
                                         >
-                                            
+                                            {
+                                                category.categories.map(({ id, name }) => (
+                                                    <MenuItem key={ id } value={ id }>
+                                                        { name }
+                                                    </MenuItem>
+                                                ))
+                                            }
                                         </Select>
                                         <FormHelperText>{ error.category || '' }</FormHelperText>
                                     </FormControl>
@@ -211,6 +222,7 @@ const CreateItem = ({ alert, itemProp, tax }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    category: selectCategory,
     itemProp: selectItem,
     tax: selectTax
 });

@@ -81,8 +81,6 @@ const MainLayout = ({ auth, children, mainLayout }) =>
     const toggleInventory = () => dispatch(MAIN_LAYOUT.toggleInventory());
 
     const selectInventoryStockAdjustment = () => dispatch(MAIN_LAYOUT.selectInventoryStockAdjustment());
-
-    const selectInventoryVendor = () => dispatch(MAIN_LAYOUT.selectInventoryVendor());
     
     const selectInventoryWarehouse = () => dispatch(MAIN_LAYOUT.selectInventoryWarehouse());
 
@@ -105,6 +103,8 @@ const MainLayout = ({ auth, children, mainLayout }) =>
     const selectPurchasesBill = () => dispatch(MAIN_LAYOUT.selectPurchasesBill());
 
     const selectPurchasesPayment = () => dispatch(MAIN_LAYOUT.selectPurchasesPayment());
+
+    const selectPurchasesVendor = () => dispatch(MAIN_LAYOUT.selectPurchasesVendor());
 
     const toggleBanking = () => dispatch(MAIN_LAYOUT.toggleBanking());
 
@@ -230,11 +230,9 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                     <Inventory 
                         openInventory={ mainLayout.inventory }
                         inventoryStockAdjustment={ mainLayout.inventoryStockAdjustment }
-                        inventoryVendor={ mainLayout.inventoryVendor }
                         inventoryWarehouse={ mainLayout.inventoryWarehouse }
                         toggleInventory={ toggleInventory }  
                         selectInventoryStockAdjustment={ selectInventoryStockAdjustment }
-                        selectInventoryVendor= { selectInventoryVendor }
                         selectInventoryWarehouse= { selectInventoryWarehouse }
                         classes={ classes.collapseChildren }
                         permissions={ auth.permissions }
@@ -264,10 +262,12 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                         purchasesCreditNote={ mainLayout.purchasesCreditNote }
                         purchasesBill={ mainLayout.purchasesBill }
                         purchasesPayment={ mainLayout.purchasesPayment }
+                        purchasesVendor={ mainLayout.purchasesVendor }
                         togglePurchases={ togglePurchases }  
                         selectPurchasesBill={ selectPurchasesBill }
                         selectPurchasesCreditNote={ selectPurchasesCreditNote }
                         selectPurchasesPayment= { selectPurchasesPayment }
+                        selectPurchasesVendor= { selectPurchasesVendor }
                         classes={ classes.collapseChildren }
                         permissions={ auth.permissions }
                     />  
