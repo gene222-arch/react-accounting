@@ -5,11 +5,11 @@ import { createStructuredSelector } from 'reselect';
 import MaterialTable from '../../../../components/MaterialTable'
 
 /** Selectors */
-import { selectItem } from './../../../../redux/modules/item/selector';
+import { selectCategory } from './../../../../redux/modules/category/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 
 /** Actions */
-import * as ITEM from './../../../../redux/modules/item/actions';
+import * as CATEGORY from './../../../../redux/modules/category/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Components */
@@ -36,7 +36,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Item = ({ alert, item }) => 
+const Item = ({ alert, category }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -49,17 +49,18 @@ const Item = ({ alert, item }) =>
         { 
             title: 'Name', 
             field: 'name', 
-            render: ({ id, name }) => <StyledNavLink to={ PATH.UPDATE_ITEM.replace(':id', id)} text={ name } />
+            render: ({ id, name }) => <StyledNavLink to={ PATH.UPDATE_CATEGORY.replace(':id', id)} text={ name } />
         },
-        { title: 'Category', field: 'category' },
-        { title: 'Price', field: 'price' },
-        { title: 'Purchase price', field: 'cost' },
+        { 
+            title: 'Hex code', 
+            field: 'hex_code', 
+        },
         { 
             title: 'Enabled', 
-            field: 'is_for_sale',
-            render: ({ is_for_sale }) => (
+            field: 'enabled',
+            render: ({ enabled }) => (
                 <Switch
-                    checked={ Boolean(is_for_sale) }
+                    checked={ Boolean(enabled) }
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                 />
             )
@@ -68,10 +69,10 @@ const Item = ({ alert, item }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(ITEM.getItems());
+    const onLoadFetchAll = () => dispatch(CATEGORY.getCategories());
 
     const handleClickDestroy = () => {
-        dispatch(ITEM.destroyItems({ ids }));
+        dispatch(CATEGORY.destroyCategories({ ids }));
         setIds([]);
     };
 
@@ -89,14 +90,14 @@ const Item = ({ alert, item }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ item.items }  
-                isLoading={ item.isLoading }
+                data={ category.categories }  
+                isLoading={ category.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
                         classes={ classes } 
                         ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_ITEM) }
+                        handleClickRedirect = { () => history.push(PATH.CREATE_CATEGORY) }
                         handleClickDestroy={ handleClickDestroy }
                     /> }
                 onSelectionChange={rows => onSelectionChange(rows)}
@@ -107,7 +108,7 @@ const Item = ({ alert, item }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    item: selectItem
+    category: selectCategory
 });
 
 export default connect(mapStateToProps, null)(Item)

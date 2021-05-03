@@ -29,6 +29,9 @@ const UpdateJournalEntry = lazy(() => import('../views/pages/double-entry/journa
 const Item = lazy(() => import('../views/pages/items/item/Item'))
 const CreateItem = lazy(() => import('../views/pages/items/item/CreateItem'))
 const UpdateItem = lazy(() => import('../views/pages/items/item/UpdateItem'))
+const Category = lazy(() => import('../views/pages/items/category/Category'))
+const CreateCategory = lazy(() => import('../views/pages/items/category/CreateCategory'))
+const UpdateCategory = lazy(() => import('../views/pages/items/category/UpdateCategory'))
 const Settings = lazy(() => import('../views/pages/settings/Settings'))
 const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
 const CreateTax = lazy(() => import('../views/pages/settings/Tax/CreateTax'))
@@ -212,7 +215,6 @@ export const PRIVATE_ROUTES = [
         access: 'Manage Journal Entries',
         restricted: true
     },
-    ,
     {
         path: PATH.ITEM,
         key: 'Item',
@@ -238,6 +240,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateItem,
         access: 'Manage Items',
+        restricted: true
+    },
+    {
+        path: PATH.CATEGORY,
+        key: 'Category',
+        icon: '',
+        exact: true,
+        component: Category,
+        access: 'Manage Categories',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_CATEGORY,
+        key: 'CreateCategory',
+        icon: '',
+        exact: true,
+        component: CreateCategory,
+        access: 'Manage Categories',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_CATEGORY,
+        key: 'UpdateCategory',
+        icon: '',
+        exact: true,
+        component: UpdateCategory,
+        access: 'Manage Categories',
         restricted: true
     },
     {

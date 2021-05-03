@@ -9,6 +9,7 @@ import chartOfAccountTypeReducer from './modules/chart-of-account-type/reducer'
 import chartOfAccountReducer from './modules/chart-of-account/reducer'
 import journalEntryReducer from './modules/journal-entry/reducer'
 import itemReducer from './modules/item/reducer'
+import categoryReducer from './modules/category/reducer'
 import taxReducer from './modules/tax/reducer'
 import currencyReducer from './modules/currency/reducer'
 import companyReducer from './modules/company/reducer'
@@ -26,6 +27,7 @@ const rootReducer = (history) => combineReducers({
     chartOfAccount: chartOfAccountReducer,
     journalEntry: journalEntryReducer,
     item: itemReducer,
+    category: categoryReducer,
     tax: taxReducer,
     currency: currencyReducer,
     company: companyReducer,

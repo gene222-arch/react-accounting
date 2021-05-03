@@ -7,9 +7,11 @@ import MaterialTable from '../../../../components/MaterialTable'
 /** Selectors */
 import { selectItem } from './../../../../redux/modules/item/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectTax } from './../../../../redux/modules/tax/selector';
 
 /** Actions */
 import * as ITEM from './../../../../redux/modules/item/actions';
+import * as TAX from './../../../../redux/modules/tax/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Components */
@@ -34,7 +36,8 @@ import AlertPopUp from './../../../../components/AlertPopUp';
 import PATH from './../../../../routes/path';
 import TrackStock from './TrackStock';
 
-const CreateItem = ({ alert, itemProp }) => 
+
+const CreateItem = ({ alert, itemProp, tax }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -58,10 +61,12 @@ const CreateItem = ({ alert, itemProp }) =>
 
     const handleChangeStock = (e) => setStockState({ ...stockState, [e.target.name]: e.target.value });
 
+    const onLoadFetchTaxes = () => dispatch(TAX.getTaxes());
+
     const onSubmitCreateItem = () => dispatch(ITEM.createItem(itemState));
 
     useEffect(() => {
-        
+        onLoadFetchTaxes();
     }, []);
 
     return (
@@ -91,7 +96,11 @@ const CreateItem = ({ alert, itemProp }) =>
                                             }}
                                             fullWidth
                                         >
-                                            
+                                            {
+                                                tax.taxes.map(tax => (
+                                                    <MenuItem value={ tax.id }>{ tax.name }</MenuItem>
+                                                ))
+                                            }
                                         </Select>
                                         <FormHelperText>{ error.taxes || '' }</FormHelperText>
                                     </FormControl>
@@ -202,7 +211,8 @@ const CreateItem = ({ alert, itemProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    itemProp: selectItem
+    itemProp: selectItem,
+    tax: selectTax
 });
 
 export default connect(mapStateToProps, null)(CreateItem)
