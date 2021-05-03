@@ -32,6 +32,9 @@ const UpdateItem = lazy(() => import('../views/pages/items/item/UpdateItem'))
 const Category = lazy(() => import('../views/pages/items/category/Category'))
 const CreateCategory = lazy(() => import('../views/pages/items/category/CreateCategory'))
 const UpdateCategory = lazy(() => import('../views/pages/items/category/UpdateCategory'))
+const Discount = lazy(() => import('../views/pages/items/discount/Discount'))
+const CreateDiscount = lazy(() => import('../views/pages/items/discount/CreateDiscount'))
+const UpdateDiscount = lazy(() => import('../views/pages/items/discount/UpdateDiscount'))
 const Settings = lazy(() => import('../views/pages/settings/Settings'))
 const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
 const CreateTax = lazy(() => import('../views/pages/settings/Tax/CreateTax'))
@@ -267,6 +270,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateCategory,
         access: 'Manage Categories',
+        restricted: true
+    },
+    {
+        path: PATH.DISCOUNT,
+        key: 'Discount',
+        icon: '',
+        exact: true,
+        component: Discount,
+        access: 'Manage Discounts',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_DISCOUNT,
+        key: 'CreateDiscount',
+        icon: '',
+        exact: true,
+        component: CreateDiscount,
+        access: 'Manage Discounts',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_DISCOUNT,
+        key: 'UpdateDiscount',
+        icon: '',
+        exact: true,
+        component: UpdateDiscount,
+        access: 'Manage Discounts',
         restricted: true
     },
     {
