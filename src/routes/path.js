@@ -49,12 +49,21 @@ const PATH =
     CREATE_TAX: '/settings/taxes/new',
     UPDATE_TAX: '/settings/taxes/:id/edit',
     
+    /** Categories */
+    CATEGORIES: '/settings/categories',
+    /** Currencies */
     CURRENCY: '/settings/currencies',
     CREATE_CURRENCY: '/settings/currencies/new',
     UPDATE_CURRENCY: '/settings/currencies/:id/edit',
         
+    /** Companies */
     CREATE_COMPANY: '/settings/company/new',
     UPDATE_COMPANY: '/settings/company/:id/edit',
+
+    /** Income Category */
+    INCOME_CATEGORY: '/settings/income-categories',
+    CREATE_INCOME_CATEGORY: '/settings/income-categories/new',
+    UPDATE_INCOME_CATEGORY: '/settings/income-categories/:id/edit',
 };
 
 

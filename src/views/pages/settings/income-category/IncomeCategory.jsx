@@ -5,11 +5,11 @@ import { createStructuredSelector } from 'reselect';
 import MaterialTable from '../../../../components/MaterialTable'
 
 /** Selectors */
-import { selectCategory } from './../../../../redux/modules/category/selector';
+import { selectIncomeCategory } from './../../../../redux/modules/income-category/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 
 /** Actions */
-import * as CATEGORY from './../../../../redux/modules/category/actions';
+import * as INCOME_CATEGORY from './../../../../redux/modules/income-category/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Components */
@@ -36,7 +36,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Category = ({ alert, category }) => 
+const IncomeCategory = ({ alert, incomeCategory }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -49,7 +49,7 @@ const Category = ({ alert, category }) =>
         { 
             title: 'Name', 
             field: 'name', 
-            render: ({ id, name }) => <StyledNavLink to={ PATH.UPDATE_CATEGORY.replace(':id', id)} text={ name } />
+            render: ({ id, name }) => <StyledNavLink to={ PATH.UPDATE_INCOME_CATEGORY.replace(':id', id)} text={ name } />
         },
         { 
             title: 'Hex code', 
@@ -69,10 +69,13 @@ const Category = ({ alert, category }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(CATEGORY.getCategories());
+    const onLoadFetchAll = () => {
+        dispatch(INCOME_CATEGORY.getIncomeCategories())
+        console.log(incomeCategory)
+    };
 
     const handleClickDestroy = () => {
-        dispatch(CATEGORY.destroyCategories({ ids }));
+        dispatch(INCOME_CATEGORY.destroyIncomeCategories({ ids }));
         setIds([]);
     };
 
@@ -90,14 +93,14 @@ const Category = ({ alert, category }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ category.categories }  
-                isLoading={ category.isLoading }
+                data={ incomeCategory.incomeCategories }  
+                isLoading={ incomeCategory.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
                         classes={ classes } 
                         ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_CATEGORY) }
+                        handleClickRedirect = { () => history.push(PATH.CREATE_INCOME_CATEGORY) }
                         handleClickDestroy={ handleClickDestroy }
                     /> }
                 onSelectionChange={rows => onSelectionChange(rows)}
@@ -108,7 +111,7 @@ const Category = ({ alert, category }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    category: selectCategory
+    incomeCategory: selectIncomeCategory
 });
 
-export default connect(mapStateToProps, null)(Category)
+export default connect(mapStateToProps, null)(IncomeCategory)

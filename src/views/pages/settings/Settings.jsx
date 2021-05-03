@@ -16,6 +16,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import TollIcon from '@material-ui/icons/Toll';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 /** Components */
 import SettingItem from './SettingItem';
@@ -52,12 +53,12 @@ const Settings = ({ auth }) =>
                                     icon={ CategoryIcon }
                                     primaryText='Categories'
                                     secondaryText='Unlimited categories for income, expense, and item etc...'
-                                    path=''
+                                    path={ PATH.CATEGORIES }
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4} md={4} lg={4}>
                                 <SettingItem
-                                    icon={ AttachMoneyIcon }
+                                    icon={ MonetizationOnIcon }
                                     primaryText='Currencies'
                                     secondaryText='Create and manage currencies and set their rates'
                                     path=''

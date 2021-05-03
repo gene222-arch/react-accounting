@@ -36,12 +36,16 @@ const Discount = lazy(() => import('../views/pages/items/discount/Discount'))
 const CreateDiscount = lazy(() => import('../views/pages/items/discount/CreateDiscount'))
 const UpdateDiscount = lazy(() => import('../views/pages/items/discount/UpdateDiscount'))
 const Settings = lazy(() => import('../views/pages/settings/Settings'))
+const Categories = lazy(() => import('../views/pages/settings/Categories'))
 const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
 const CreateTax = lazy(() => import('../views/pages/settings/Tax/CreateTax'))
 const UpdateTax = lazy(() => import('../views/pages/settings/Tax/UpdateTax'))
 const Currency = lazy(() => import('../views/pages/settings/currency/Currency'))
 const CreateCurrency = lazy(() => import('../views/pages/settings/currency/CreateCurrency'))
 const UpdateCurrency = lazy(() => import('../views/pages/settings/currency/UpdateCurrency'))
+const IncomeCategory = lazy(() => import('../views/pages/settings/income-category/IncomeCategory'))
+const CreateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/CreateIncomeCategory'))
+const UpdateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/UpdateIncomeCategory'))
 const CreateCompany = lazy(() => import('../views/pages/settings/company/CreateCompany'))
 const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateCompany'))
 
@@ -306,6 +310,42 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: Settings,
         access: 'Manage Settings',
+        restricted: true
+    },
+    {
+        path: PATH.CATEGORIES,
+        key: 'Categories',
+        icon: '',
+        exact: true,
+        component: Categories,
+        access: '',
+        restricted: true
+    },
+    {
+        path: PATH.INCOME_CATEGORY,
+        key: 'IncomeCategory',
+        icon: '',
+        exact: true,
+        component: IncomeCategory,
+        access: 'Manage Income Categories',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_INCOME_CATEGORY,
+        key: 'CreateIncomeCategory',
+        icon: '',
+        exact: true,
+        component: CreateIncomeCategory,
+        access: 'Manage Categories',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_INCOME_CATEGORY,
+        key: 'UpdateIncomeCategory',
+        icon: '',
+        exact: true,
+        component: UpdateIncomeCategory,
+        access: 'Manage Categories',
         restricted: true
     },
     {

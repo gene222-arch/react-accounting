@@ -14,6 +14,7 @@ import discountReducer from './modules/discount/reducer'
 import taxReducer from './modules/tax/reducer'
 import currencyReducer from './modules/currency/reducer'
 import companyReducer from './modules/company/reducer'
+import incomeCategoryReducer from './modules/income-category/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 
 
@@ -33,6 +34,7 @@ const rootReducer = (history) => combineReducers({
     tax: taxReducer,
     currency: currencyReducer,
     company: companyReducer,
+    incomeCategory: incomeCategoryReducer,
     mainLayout: mainLayoutReducer
 });
 
