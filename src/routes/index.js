@@ -1,5 +1,4 @@
-import React, { lazy } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { lazy } from 'react'
 
 /** Path */
 import PATH from './path'
@@ -12,9 +11,6 @@ const EmailVerification = lazy(() => import('./../views/pages/auth/EmailVerifica
 const EmailVerified = lazy(() => import('./../views/pages/auth/EmailVerified'))
 const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPasswordForm'))
 const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
-const NotFound = lazy(() => import('../views/pages/errors/NotFound'))
-const PublicRoute = lazy(() => import('./PublicRoute'))
-const PrivateRoute = lazy(() => import('./PrivateRoute'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
 const ChartOfAccountType = lazy(() => import('../views/pages/double-entry/chart-of-account-type/ChartOfAccountType'))
@@ -35,6 +31,9 @@ const UpdateCategory = lazy(() => import('../views/pages/items/category/UpdateCa
 const Discount = lazy(() => import('../views/pages/items/discount/Discount'))
 const CreateDiscount = lazy(() => import('../views/pages/items/discount/CreateDiscount'))
 const UpdateDiscount = lazy(() => import('../views/pages/items/discount/UpdateDiscount'))
+const Customer = lazy(() => import('../views/pages/sales/customer/Customer'))
+const CreateCustomer = lazy(() => import('../views/pages/sales/customer/CreateCustomer'))
+const UpdateCustomer = lazy(() => import('../views/pages/sales/customer/UpdateCustomer'))
 const Settings = lazy(() => import('../views/pages/settings/Settings'))
 const Categories = lazy(() => import('../views/pages/settings/Categories'))
 const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
@@ -310,6 +309,33 @@ export const PRIVATE_ROUTES = [
         restricted: true
     },
     {
+        path: PATH.CUSTOMER,
+        key: 'Customer',
+        icon: '',
+        exact: true,
+        component: Customer,
+        access: 'Manage Customers',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_CUSTOMER,
+        key: 'CreateCustomer',
+        icon: '',
+        exact: true,
+        component: CreateCustomer,
+        access: 'Manage Customers',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_CUSTOMER,
+        key: 'UpdateCustomer',
+        icon: '',
+        exact: true,
+        component: UpdateCustomer,
+        access: 'Manage Customers',
+        restricted: true
+    },
+    {
         path: PATH.SETTINGS,
         key: 'Settings',
         icon: '',
@@ -481,28 +507,3 @@ export const PRIVATE_ROUTES = [
         restricted: true
     },
 ];
-
-
-export const RenderRoutes = ({ routes }) => 
-{
-    return (
-        <Switch>
-            {
-                routes.map(({ key, path, strict, exact, restricted, component: Component }) => (
-                    <Route
-                        key={ key }
-                        path={ path }
-                        strict={ strict }
-                        exact={ exact }
-                        render={ props => {
-                            return restricted 
-                                ? <PrivateRoute Component={ Component } { ...props }/>
-                                : <PublicRoute Component={ Component } { ...props } />
-                        }}
-                    />
-                ))
-            }
-            <Route component={NotFound} />
-        </Switch>
-    )
-}

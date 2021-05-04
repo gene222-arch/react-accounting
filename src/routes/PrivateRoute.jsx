@@ -1,23 +1,15 @@
 import React from 'react'
-import { connect } from 'react-redux';
-
-/** Utils */
-import * as Cookie from '../utils/cookies'
-
-/** Selectors */
-import { createStructuredSelector } from 'reselect';
-import { selectAuth } from './../redux/modules/auth/selector';
 
 /** Components */
 import Forbidden from './../views/pages/errors/Forbidden';
 
 
-const PrivateRoute = ({ auth, Component, ...props }) => 
+const PrivateRoute = ({ isAuthenticated = false, component: Component, ...props }) => 
 {
     return (
         <>
             {
-                !auth.isAuthenticated
+                !isAuthenticated
                     ? <Forbidden />
                     : <Component { ...props } />
             }
@@ -25,8 +17,4 @@ const PrivateRoute = ({ auth, Component, ...props }) =>
     )
 }
 
-const mapStateToProps = () => createStructuredSelector({
-    auth: selectAuth
-})
-
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default PrivateRoute;

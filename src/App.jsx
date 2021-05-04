@@ -5,7 +5,8 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 /** Routes config */
-import { PRIVATE_ROUTES, AUTH_ROUTES, EMAIL_VERIFICATION_ROUTES, RenderRoutes } from './routes'
+import { PRIVATE_ROUTES, AUTH_ROUTES, EMAIL_VERIFICATION_ROUTES } from './routes'
+import RenderRoutes from './routes/RenderRoutes'
 
 /** Layouts */
 import AuthLayout from './views/layouts/AuthLayout';

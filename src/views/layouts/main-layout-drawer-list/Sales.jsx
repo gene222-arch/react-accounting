@@ -9,6 +9,11 @@ import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
+/** Components */
+import StyledNavLink from './../../../components/styled-components/StyledNavLink';
+
+import PATH from './../../../routes/path';
+
 
 const Sales = ({ 
     openSales, 
@@ -101,11 +106,14 @@ const Sales = ({
                     {/* Customers */}
                     {
                         canManageCustomers && (
-                            <ListItem button selected={ salesCustomer } onClick={ selectSalesCustomer }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Customers</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.CUSTOMER } text={
+                                <ListItem button selected={ salesCustomer } onClick={ selectSalesCustomer }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Customers</Typography>
+                                    }/>
+                                </ListItem>
+                            }
+                            />
                         )
                     }
                 </List>

@@ -7,6 +7,7 @@ import chartOfAccountSaga from '../redux/modules/chart-of-account/saga'
 import itemSaga from '../redux/modules/item/saga'
 import categorySaga from '../redux/modules/category/saga'
 import discountSaga from '../redux/modules/discount/saga'
+import customerSaga from '../redux/modules/customer/saga'
 import taxSaga from '../redux/modules/tax/saga'
 import currencySaga from '../redux/modules/currency/saga'
 import incomeCategorySaga from '../redux/modules/income-category/saga'
@@ -26,6 +27,7 @@ export default function* ()
         journalEntrySaga(),
         itemSaga(),
         discountSaga(),
+        customerSaga(),
         categorySaga(),
         incomeCategorySaga(),
         expenseCategorySaga(),

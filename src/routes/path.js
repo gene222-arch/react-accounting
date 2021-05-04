@@ -33,6 +33,11 @@ const PATH =
     CREATE_ITEM: '/items/items/new',
     UPDATE_ITEM: '/items/items/:id/edit',
 
+    /** Customers */
+    CUSTOMER: '/sales/customers',
+    CREATE_CUSTOMER: '/sales/customers/new',
+    UPDATE_CUSTOMER: '/sales/customers/:id/edit',
+    
     /** Category */
     CATEGORY: '/items/categories',
     CREATE_CATEGORY: '/items/categories/new',
@@ -51,6 +56,7 @@ const PATH =
     
     /** Categories */
     CATEGORIES: '/settings/categories',
+
     /** Currencies */
     CURRENCY: '/settings/currencies',
     CREATE_CURRENCY: '/settings/currencies/new',
@@ -70,7 +76,7 @@ const PATH =
     CREATE_EXPENSE_CATEGORY: '/settings/expense-categories/new',
     UPDATE_EXPENSE_CATEGORY: '/settings/expense-categories/:id/edit',
 
-    /** Income Category */
+    /** Vendors */
     VENDOR: '/purchases/vendors',
     CREATE_VENDOR: '/purchases/vendors/new',
     UPDATE_VENDOR: '/purchases/vendors/:id/edit',
