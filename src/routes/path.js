@@ -13,6 +13,11 @@ const PATH =
     PAYROLL_DASHBOARD: '/payroll',
     DOUBLE_ENTRY_DASHBOARD: '/double-entry',
 
+    /** Accounts */
+    ACCOUNT: '/banking/accounts',
+    CREATE_ACCOUNT: '/banking/accounts/new',
+    UPDATE_ACCOUNT: '/banking/accounts/:id/edit',
+
     /** Chart of account types */
     CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types',
     CREATE_CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types/new',
@@ -32,11 +37,6 @@ const PATH =
     ITEM: '/items/items',
     CREATE_ITEM: '/items/items/new',
     UPDATE_ITEM: '/items/items/:id/edit',
-
-    /** Customers */
-    CUSTOMER: '/sales/customers',
-    CREATE_CUSTOMER: '/sales/customers/new',
-    UPDATE_CUSTOMER: '/sales/customers/:id/edit',
     
     /** Category */
     CATEGORY: '/items/categories',
@@ -48,8 +48,25 @@ const PATH =
     CREATE_DISCOUNT: '/items/discounts/new',
     UPDATE_DISCOUNT: '/items/discounts/:id/edit',
 
-    /** Settings */
+    /** Vendors */
+    VENDOR: '/purchases/vendors',
+    CREATE_VENDOR: '/purchases/vendors/new',
+    UPDATE_VENDOR: '/purchases/vendors/:id/edit',
+
+    /** Customers */
+    CUSTOMER: '/sales/customers',
+    CREATE_CUSTOMER: '/sales/customers/new',
+    UPDATE_CUSTOMER: '/sales/customers/:id/edit',
+
+    /** Invoices */
+    INVOICE: '/sales/invoices',
+    VIEW_INVOICE: '/sales/invoices/:id',
+    CREATE_INVOICE: '/sales/invoices/new',
+    UPDATE_INVOICE: '/sales/invoices/:id/edit',
+
     SETTINGS: '/settings',
+
+    /** Taxes */
     TAX: '/settings/taxes',
     CREATE_TAX: '/settings/taxes/new',
     UPDATE_TAX: '/settings/taxes/:id/edit',
@@ -76,10 +93,10 @@ const PATH =
     CREATE_EXPENSE_CATEGORY: '/settings/expense-categories/new',
     UPDATE_EXPENSE_CATEGORY: '/settings/expense-categories/:id/edit',
 
-    /** Vendors */
-    VENDOR: '/purchases/vendors',
-    CREATE_VENDOR: '/purchases/vendors/new',
-    UPDATE_VENDOR: '/purchases/vendors/:id/edit',
+    /** Payment methods */
+    PAYMENT_METHOD: '/settings/payment-methods',
+    CREATE_PAYMENT_METHOD: '/settings/payment-methods/new',
+    UPDATE_PAYMENT_METHOD: '/settings/payment-methods/:id/edit'
 };
 
 

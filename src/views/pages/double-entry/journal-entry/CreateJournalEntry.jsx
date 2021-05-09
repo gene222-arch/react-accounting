@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, connect } from 'react-redux';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { format } from 'date-fns'
-import MaterialTable from '../../../../components/MaterialTable'
 
 /** Actions */
 import * as CHART_OF_ACCOUNT from '../../../../redux/modules/chart-of-account/actions'
@@ -24,6 +23,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 /** Components */
 import AlertPopUp from './../../../../components/AlertPopUp';
 import SaveCancelButtons from './../../../../components/SaveCancelButtons';
+import MaterialTable from '../../../../components/MaterialTable'
 
 import PATH from './../../../../routes/path';
 

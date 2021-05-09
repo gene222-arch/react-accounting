@@ -9,6 +9,10 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
+/** Components */
+import StyledNavLink from './../../../components/styled-components/StyledNavLink';
+
+import PATH from './../../../routes/path';
 
 const Banking = ({ 
     openBanking, 
@@ -54,11 +58,14 @@ const Banking = ({
                     {/* Accounts */}
                     {
                         canManageAccounts && (
-                            <ListItem button selected={ bankingAccount } onClick={ selectBankingAccount }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Accounts</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.ACCOUNT } text={
+                                <ListItem button selected={ bankingAccount } onClick={ selectBankingAccount }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Accounts</Typography>
+                                    }/>
+                                </ListItem>
+                            }
+                            />
                         )
                     }
 

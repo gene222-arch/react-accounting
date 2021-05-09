@@ -1,18 +1,11 @@
 import axiosInstance from '../../utils/axiosInstance'
 
-export const fetchAllAsync = async ({ is_for_sale = false, hasStocks = false }) => 
+export const fetchAllAsync = async ({ enabled = false }) => 
 {
-    let queryParams = '';
-
-    queryParams = !is_for_sale ? '' : `?isForSale=${is_for_sale}`
-    queryParams = !hasStocks ? '' : `?hasStocks=${hasStocks}`;
-
-    if (is_for_sale && hasStocks) {
-        queryParams = `?hasStocks=${hasStocks}&is_for_sale=${is_for_sale}`;
-    }
+    const queryParams = !enabled ? '' : `?enabled=${enabled}`;
 
     return await axiosInstance()
-        .get(`/items/items${queryParams}`)
+        .get(`/banking/accounts${queryParams}`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -20,7 +13,7 @@ export const fetchAllAsync = async ({ is_for_sale = false, hasStocks = false }) 
 export const findAsync = async ({ id }) => 
 {
     return await axiosInstance()
-        .get(`/items/items/${id}`)
+        .get(`/banking/accounts/${id}`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -28,7 +21,7 @@ export const findAsync = async ({ id }) =>
 export const createAsync = async (payload) => 
 {
     return await axiosInstance()
-        .post('/items/items', payload)
+        .post('/banking/accounts', payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -36,7 +29,7 @@ export const createAsync = async (payload) =>
 export const updateAsync = async (payload) => 
 {
     return await axiosInstance()
-        .put(`/items/items/${payload.id}`, payload)
+        .put(`/banking/accounts/${payload.id}`, payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -44,7 +37,7 @@ export const updateAsync = async (payload) =>
 export const destroyAsync = async (payload) => 
 {
     return await axiosInstance()
-        .delete('/items/items', {
+        .delete('/banking/accounts', {
             data: payload
         })
         .then(response => response.data)

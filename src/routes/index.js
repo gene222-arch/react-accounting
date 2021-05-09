@@ -34,6 +34,10 @@ const UpdateDiscount = lazy(() => import('../views/pages/items/discount/UpdateDi
 const Customer = lazy(() => import('../views/pages/sales/customer/Customer'))
 const CreateCustomer = lazy(() => import('../views/pages/sales/customer/CreateCustomer'))
 const UpdateCustomer = lazy(() => import('../views/pages/sales/customer/UpdateCustomer'))
+const Invoice = lazy(() => import('../views/pages/sales/invoice/Invoice'))
+const ViewInvoice = lazy(() => import('../views/pages/sales/invoice/view-invoice/ViewInvoice'))
+const CreateInvoice = lazy(() => import('../views/pages/sales/invoice/create-invoice/CreateInvoice'))
+const UpdateInvoice = lazy(() => import('../views/pages/sales/invoice/update-invoice/UpdateInvoice'))
 const Settings = lazy(() => import('../views/pages/settings/Settings'))
 const Categories = lazy(() => import('../views/pages/settings/Categories'))
 const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
@@ -53,6 +57,14 @@ const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateC
 const Vendor = lazy(() => import('../views/pages/purchases/vendor/Vendor'))
 const CreateVendor = lazy(() => import('../views/pages/purchases/vendor/CreateVendor'))
 const UpdateVendor = lazy(() => import('../views/pages/purchases/vendor/UpdateVendor'))
+const Account = lazy(() => import('../views/pages/banking/account/Account'))
+const CreateAccount = lazy(() => import('../views/pages/banking/account/CreateAccount'))
+const UpdateAccount = lazy(() => import('../views/pages/banking/account/UpdateAccount'))
+const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
+const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
+const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
+
+
 
 export const AUTH_ROUTES = [
     {
@@ -336,6 +348,42 @@ export const PRIVATE_ROUTES = [
         restricted: true
     },
     {
+        path: PATH.INVOICE,
+        key: 'Invoice',
+        icon: '',
+        exact: true,
+        component: Invoice,
+        access: 'Manage Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_INVOICE,
+        key: 'ViewInvoice',
+        icon: '',
+        exact: true,
+        component: ViewInvoice,
+        access: 'Manage Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_INVOICE,
+        key: 'CreateInvoice',
+        icon: '',
+        exact: true,
+        component: CreateInvoice,
+        access: 'Manage Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_INVOICE,
+        key: 'UpdateInvoice',
+        icon: '',
+        exact: true,
+        component: UpdateInvoice,
+        access: 'Manage Invoices',
+        restricted: true
+    },
+    {
         path: PATH.SETTINGS,
         key: 'Settings',
         icon: '',
@@ -504,6 +552,60 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateVendor,
         access: 'Manage Vendors',
+        restricted: true
+    },
+    {
+        path: PATH.ACCOUNT,
+        key: 'Account',
+        icon: '',
+        exact: true,
+        component: Account,
+        access: 'Manage Banking Accounts',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_ACCOUNT,
+        key: 'CreateAccount',
+        icon: '',
+        exact: true,
+        component: CreateAccount,
+        access: 'Manage Banking Accounts',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_ACCOUNT,
+        key: 'UpdateAccount',
+        icon: '',
+        exact: true,
+        component: UpdateAccount,
+        access: 'Manage Banking Accounts',
+        restricted: true
+    },
+    {
+        path: PATH.PAYMENT_METHOD,
+        key: 'PaymentMethod',
+        icon: '',
+        exact: true,
+        component: PaymentMethod,
+        access: 'Manage Payment Methods',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_PAYMENT_METHOD,
+        key: 'CreatePaymentMethod',
+        icon: '',
+        exact: true,
+        component: CreatePaymentMethod,
+        access: 'Manage Payment Methods',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_PAYMENT_METHOD,
+        key: 'UpdatePaymentMethod',
+        icon: '',
+        exact: true,
+        component: UpdatePaymentMethod,
+        access: 'Manage Payment Methods',
         restricted: true
     },
 ];

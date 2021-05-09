@@ -14,6 +14,7 @@ import { Card, CardContent } from '@material-ui/core'
 import BusinessIcon from '@material-ui/icons/Business';
 import CategoryIcon from '@material-ui/icons/Category';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import PaymentIcon from '@material-ui/icons/Payment';
 import TollIcon from '@material-ui/icons/Toll';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
@@ -71,6 +72,14 @@ const Settings = ({ auth }) =>
                                     primaryText='Taxes'
                                     secondaryText='Fixed, normal, inclusive, and compound tax rates'
                                     path=''
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4} md={4} lg={4}>
+                                <SettingItem
+                                    icon={ PaymentIcon }
+                                    primaryText='Payment Methods'
+                                    secondaryText='Create unlimited payment methods for admin usage'
+                                    path={ PATH.PAYMENT_METHOD }
                                 />
                             </Grid>
                          </Grid>

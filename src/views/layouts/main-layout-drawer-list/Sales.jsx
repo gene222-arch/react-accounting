@@ -84,11 +84,14 @@ const Sales = ({
                     {/* Invoices */}
                     {
                         canManageInvoices && (
-                            <ListItem button selected={ salesInvoice } onClick={ selectSalesInvoice }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Invoices</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.INVOICE } text={ 
+                                <ListItem button selected={ salesInvoice } onClick={ selectSalesInvoice }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Invoices</Typography>
+                                    }/>
+                                </ListItem>
+                            }
+                            />
                         )
                     }
 
