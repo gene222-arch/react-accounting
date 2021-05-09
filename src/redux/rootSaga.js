@@ -10,6 +10,7 @@ import categorySaga from '../redux/modules/category/saga'
 import discountSaga from '../redux/modules/discount/saga'
 import customerSaga from '../redux/modules/customer/saga'
 import invoiceSaga from '../redux/modules/invoice/saga'
+import revenueSaga from '../redux/modules/revenue/saga'
 import taxSaga from '../redux/modules/tax/saga'
 import currencySaga from '../redux/modules/currency/saga'
 import incomeCategorySaga from '../redux/modules/income-category/saga'
@@ -33,6 +34,7 @@ export default function* ()
         discountSaga(),
         customerSaga(),
         invoiceSaga(),
+        revenueSaga(),
         categorySaga(),
         incomeCategorySaga(),
         expenseCategorySaga(),

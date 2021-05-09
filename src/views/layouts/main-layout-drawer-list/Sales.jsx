@@ -98,11 +98,14 @@ const Sales = ({
                     {/* Revenues */}
                     {
                         canManageRevenues && (
-                            <ListItem button selected={ salesRevenue } onClick={ selectSalesRevenue }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Revenues</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.REVENUE } text={
+                                <ListItem button selected={ salesRevenue } onClick={ selectSalesRevenue }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Revenues</Typography>
+                                    }/>
+                                </ListItem>
+                            }
+                            />
                         )
                     }
                     

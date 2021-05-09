@@ -64,6 +64,11 @@ const PATH =
     CREATE_INVOICE: '/sales/invoices/new',
     UPDATE_INVOICE: '/sales/invoices/:id/edit',
 
+    /** Revenues */
+    REVENUE: '/sales/revenues',
+    CREATE_REVENUE: '/sales/revenues/new',
+    UPDATE_REVENUE: '/sales/revenues/:id/edit',
+
     SETTINGS: '/settings',
 
     /** Taxes */

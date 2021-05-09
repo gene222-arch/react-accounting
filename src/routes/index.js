@@ -38,6 +38,9 @@ const Invoice = lazy(() => import('../views/pages/sales/invoice/Invoice'))
 const ViewInvoice = lazy(() => import('../views/pages/sales/invoice/view-invoice/ViewInvoice'))
 const CreateInvoice = lazy(() => import('../views/pages/sales/invoice/create-invoice/CreateInvoice'))
 const UpdateInvoice = lazy(() => import('../views/pages/sales/invoice/update-invoice/UpdateInvoice'))
+const Revenue = lazy(() => import('../views/pages/sales/revenue/Revenue'))
+const CreateRevenue = lazy(() => import('../views/pages/sales/revenue/CreateRevenue'))
+const UpdateRevenue = lazy(() => import('../views/pages/sales/revenue/UpdateRevenue'))
 const Settings = lazy(() => import('../views/pages/settings/Settings'))
 const Categories = lazy(() => import('../views/pages/settings/Categories'))
 const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
@@ -381,6 +384,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateInvoice,
         access: 'Manage Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.REVENUE,
+        key: 'Revenue',
+        icon: '',
+        exact: true,
+        component: Revenue,
+        access: 'Manage Revenues',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_REVENUE,
+        key: 'CreateRevenue',
+        icon: '',
+        exact: true,
+        component: CreateRevenue,
+        access: 'Manage Revenues',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_REVENUE,
+        key: 'UpdateRevenue',
+        icon: '',
+        exact: true,
+        component: UpdateRevenue,
+        access: 'Manage Revenues',
         restricted: true
     },
     {
