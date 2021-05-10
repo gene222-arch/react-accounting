@@ -1,139 +1,124 @@
 import ACTION_TYPES from './action.types';
 
 const {
-    GET_ITEMS_START,
-    GET_ITEMS_SUCCESS,
-    GET_ITEMS_FAILED,
+    GET_WAREHOUSES_START,
+    GET_WAREHOUSES_SUCCESS,
+    GET_WAREHOUSES_FAILED,
 
-    CREATE_ITEM_START,
-    CREATE_ITEM_SUCCESS,
-    CREATE_ITEM_FAILED,
+    CREATE_WAREHOUSE_START,
+    CREATE_WAREHOUSE_SUCCESS,
+    CREATE_WAREHOUSE_FAILED,
 
-    UPDATE_ITEM_START,
-    UPDATE_ITEM_SUCCESS,
-    UPDATE_ITEM_FAILED,
+    UPDATE_WAREHOUSE_START,
+    UPDATE_WAREHOUSE_SUCCESS,
+    UPDATE_WAREHOUSE_FAILED,
 
-    DESTROY_ITEMS_START,
-    DESTROY_ITEMS_SUCCESS,
-    DESTROY_ITEMS_FAILED
+    DESTROY_WAREHOUSES_START,
+    DESTROY_WAREHOUSES_SUCCESS,
+    DESTROY_WAREHOUSES_FAILED
 } = ACTION_TYPES;
 
-
-const ITEM_DEFAULT_PROPS = {
+const WAREHOUSE_DEFAULT_PROPS = {
     id: 0,
-    item: {
-        category_id: 0,
-        sku: '',
-        barcode: '',
-        name: '',
-        description: '',
-        price: 0,
-        cost: 0,
-        sold_by: 'each',
-        is_for_sale: false,
-        image: '',
-    },
-    stock: {
-        vendor_id: 0,
-        in_stock: 0,
-        minimum_stock: 1,
-    },
-    track_stock: false
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    default_warehouse: false,
+    enabled: false
 };
 
-const ERROR_DEFAULT = { 
-    category_id: '',
-    sku: '',
-    barcode: '',
+const ERROR_DEFAULT= {
     name: '',
-    price: '',
-    cost: '',
-    sold_by: '',
-    image: '',
-    vendor_id: '',
+    email: '',
+    phone: '',
+    address: '',
+    default_warehouse: false,
+    enabled: false
 };
 
 const initialState = {
-    item: ITEM_DEFAULT_PROPS,
-    items: [],
     isLoading: false,
+    warehouse: WAREHOUSE_DEFAULT_PROPS,
+    warehouses: [],
     error: ERROR_DEFAULT
-}
+};
 
 export default (state = initialState, { type, payload }) => 
 {
     const {
-        items
+        warehouses
     } = state;
 
     switch (type) 
     {
-        case GET_ITEMS_START:
-        case CREATE_ITEM_START:
-        case UPDATE_ITEM_START:
-        case DESTROY_ITEMS_START:
+        case GET_WAREHOUSES_START:
+        case CREATE_WAREHOUSE_START:
+        case UPDATE_WAREHOUSE_START:
+        case DESTROY_WAREHOUSES_START:
             return { 
                 ...state, 
                 isLoading: true 
             };
 
-        case GET_ITEMS_SUCCESS: 
+        case GET_WAREHOUSES_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                items: payload.items,
+                warehouses: payload.warehouses,
                 error: ERROR_DEFAULT
             };
 
-        case GET_ITEMS_FAILED: 
+        case GET_WAREHOUSES_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case CREATE_ITEM_SUCCESS: 
+        case CREATE_WAREHOUSE_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CREATE_ITEM_FAILED: 
+        case CREATE_WAREHOUSE_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
 
-        case UPDATE_ITEM_SUCCESS: 
+        case UPDATE_WAREHOUSE_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case UPDATE_ITEM_FAILED: 
+        case UPDATE_WAREHOUSE_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };            
 
-        case DESTROY_ITEMS_SUCCESS: 
+        case DESTROY_WAREHOUSES_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                items: items.filter(item => !payload.ids.includes(item.id)),
+                warehouses: warehouses.filter(warehouse => !payload.ids.includes(warehouse.id)) || [],
                 error: ERROR_DEFAULT
             };
 
-        case DESTROY_ITEMS_FAILED: 
+        case DESTROY_WAREHOUSES_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
-            };             
+            };      
+                   
         default:
             return state;
     }

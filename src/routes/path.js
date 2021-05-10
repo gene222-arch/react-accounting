@@ -101,7 +101,13 @@ const PATH =
     /** Payment methods */
     PAYMENT_METHOD: '/settings/payment-methods',
     CREATE_PAYMENT_METHOD: '/settings/payment-methods/new',
-    UPDATE_PAYMENT_METHOD: '/settings/payment-methods/:id/edit'
+    UPDATE_PAYMENT_METHOD: '/settings/payment-methods/:id/edit',
+
+    /** Warehouses */
+    WAREHOUSE: '/inventory-management/warehouses',
+    VIEW_WAREHOUSE: '/inventory-management/warehouses/:id',
+    CREATE_WAREHOUSE: '/inventory-management/warehouses/new',
+    UPDATE_WAREHOUSE: '/inventory-management/warehouses/:id/edit'
 };
 
 

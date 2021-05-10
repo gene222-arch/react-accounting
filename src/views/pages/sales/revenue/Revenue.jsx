@@ -49,7 +49,7 @@ const Revenue = ({ alert, revenue }) =>
         { 
             title: 'Date', 
             field: 'date', 
-            render: ({ id, date }) => <StyledNavLink to={ PATH.UPDATE_REVENUE.replace(':id', id)} text={ date } />
+            render: ({ id, date }) => <StyledNavLink to={ PATH.UPDATE_REVENUE.replace(':id', id) } text={ date } />
         },
         { 
             title: 'Amount', 

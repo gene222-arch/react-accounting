@@ -9,6 +9,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import StyledNavLink from './../../../components/styled-components/StyledNavLink';
+import PATH from './../../../routes/path';
 
 
 const Inventory = ({ 
@@ -60,11 +61,14 @@ const Inventory = ({
                     {/* Warehouses */}
                     {
                         canManageWarehouses && (
-                            <ListItem button selected={ inventoryWarehouse } onClick={ selectInventoryWarehouse }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Warehouses</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.WAREHOUSE } text={ 
+                                <ListItem button selected={ inventoryWarehouse } onClick={ selectInventoryWarehouse }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Warehouses</Typography>
+                                    }/>
+                                </ListItem> 
+                            }
+                            />
                         )
                     }
                 </List>

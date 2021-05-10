@@ -1,4 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+/** Actions */
+import * as VENDOR from './../../../../redux/modules/vendor/actions';
+
+/** Selectors */
+import { selectVendor } from './../../../../redux/modules/vendor/selector';
 
 /** Material UI Components */
 import { Card, CardContent } from '@material-ui/core';
@@ -11,29 +19,39 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
-const TrackStock = ({ stock, handleChangeStock, error, vendors }) => 
+const TrackStock = ({ vendorProp, stockState, handleChangeStock, error }) => 
 {
-    const { vendor, in_stock, minimum_stock } = stock;
+    const dispatch = useDispatch();
 
+    const onLoadFetchVendors = () => dispatch(VENDOR.getVendors());
+
+    useEffect(() => {
+        onLoadFetchVendors();
+    }, []);
+    
     return (
         <>
             <Card>
                 <CardContent>
                     <Grid container spacing={1}>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <FormControl error={ Boolean(error.category) } fullWidth>
+                            <FormControl error={ Boolean(error.vendor_id) } fullWidth>
                                 <InputLabel>Vendor</InputLabel>
                                 <Select
-                                    value={ error.vendor }
+                                    value={ stockState?.vendor_id }
                                     onChange={ handleChangeStock }
                                     inputProps={{
-                                        name: 'vendor'
+                                        name: 'vendor_id'
                                     }}
                                     fullWidth
                                 >
-                                    
+                                    {
+                                        vendorProp.vendors.map(({ id, name }) => (
+                                            <MenuItem key={ id } value={ id }>{ name }</MenuItem>
+                                        ))
+                                    }
                                 </Select>
-                                <FormHelperText>{ error.vendor || '' }</FormHelperText>
+                                <FormHelperText>{ error.vendor_id || '' }</FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -41,7 +59,7 @@ const TrackStock = ({ stock, handleChangeStock, error, vendors }) =>
                                 fullWidth
                                 name='in_stock'
                                 label='In stock'
-                                value={ in_stock }
+                                value={ stockState?.in_stock }
                                 onChange={ handleChangeStock }
                             />
                         </Grid>
@@ -50,7 +68,7 @@ const TrackStock = ({ stock, handleChangeStock, error, vendors }) =>
                                 fullWidth
                                 name='minimum_stock'
                                 label='Minimum Stock'
-                                value={ minimum_stock }
+                                value={ stockState?.minimum_stock }
                                 onChange={ handleChangeStock }
                             />
                         </Grid>
@@ -61,4 +79,8 @@ const TrackStock = ({ stock, handleChangeStock, error, vendors }) =>
     )
 }
 
-export default TrackStock
+const mapStateToProps = createStructuredSelector({
+    vendorProp: selectVendor
+});
+
+export default connect(mapStateToProps, null)(TrackStock)

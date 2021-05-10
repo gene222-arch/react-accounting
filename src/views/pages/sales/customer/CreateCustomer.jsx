@@ -33,7 +33,7 @@ import AlertPopUp from '../../../../components/AlertPopUp';
 
 import PATH from '../../../../routes/path';
 
-const CreateVendor = ({ alert, currencyProp, customerProp }) => 
+const CreateCustomer = ({ alert, currencyProp, customerProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -213,4 +213,4 @@ const mapStateToProps = createStructuredSelector({
     customerProp: selectCustomer
 });
 
-export default connect(mapStateToProps, null)(CreateVendor)
+export default connect(mapStateToProps, null)(CreateCustomer)

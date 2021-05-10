@@ -66,7 +66,10 @@ const UpdateAccount = lazy(() => import('../views/pages/banking/account/UpdateAc
 const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
 const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
 const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
-
+const Warehouse = lazy(() => import('../views/pages/inventory/warehouse/Warehouse'))
+const ViewWarehouse = lazy(() => import('../views/pages/inventory/warehouse/ViewWarehouse'))
+const CreateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/CreateWarehouse'))
+const UpdateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/UpdateWarehouse'))
 
 
 export const AUTH_ROUTES = [
@@ -636,6 +639,42 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdatePaymentMethod,
         access: 'Manage Payment Methods',
+        restricted: true
+    },
+    {
+        path: PATH.WAREHOUSE,
+        key: 'Warehouse',
+        icon: '',
+        exact: true,
+        component: Warehouse,
+        access: 'Manage Warehouses',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_WAREHOUSE,
+        key: 'ViewWarehouse',
+        icon: '',
+        exact: true,
+        component: ViewWarehouse,
+        access: 'Manage Warehouses',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_WAREHOUSE,
+        key: 'CreateWarehouse',
+        icon: '',
+        exact: true,
+        component: CreateWarehouse,
+        access: 'Manage Warehouses',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_WAREHOUSE,
+        key: 'UpdateWarehouse',
+        icon: '',
+        exact: true,
+        component: UpdateWarehouse,
+        access: 'Manage Warehouses',
         restricted: true
     },
 ];

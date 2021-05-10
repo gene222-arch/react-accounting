@@ -80,7 +80,18 @@ function* createItemSaga (payload)
         }
 
     } catch ({ message }) {
-        yield put(createItemFailed({ errorMessages: message }));
+
+        yield put(createItemFailed({ errorMessages: {
+            name: message['item.name'],
+            category_id: message['item.category_id'],
+            barcode: message['item.barcode'],
+            sku: message['item.sku'],
+            price: message['item.price'],
+            cost: message['item.cost'],
+            image: message['item.image'],
+            sold_by: message['item.sold_by'],
+            vendor_id: message['stock.vendor_id']
+        } }));
 
         yield put(ALERT.showAlert({
             status: 'error',
