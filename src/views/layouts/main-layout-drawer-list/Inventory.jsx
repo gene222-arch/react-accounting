@@ -50,11 +50,13 @@ const Inventory = ({
                     {/* Stock adjustments */}
                     {
                         canManageStockAdjustments && (
-                            <ListItem button selected={ inventoryStockAdjustment } onClick={ selectInventoryStockAdjustment }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Stock adjustments</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.STOCK_ADJUSTMENT } text={ 
+                                <ListItem button selected={ inventoryStockAdjustment } onClick={ selectInventoryStockAdjustment }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Stock adjustments</Typography>
+                                    }/>
+                                </ListItem>
+                            }/>
                         )
                     }
                     

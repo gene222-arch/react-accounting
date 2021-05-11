@@ -66,6 +66,9 @@ const UpdateAccount = lazy(() => import('../views/pages/banking/account/UpdateAc
 const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
 const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
 const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
+const StockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/StockAdjustment'))
+const ViewStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/ViewStockAdjustment'))
+const CreateStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/CreateStockAdjustment'))
 const Warehouse = lazy(() => import('../views/pages/inventory/warehouse/Warehouse'))
 const ViewWarehouse = lazy(() => import('../views/pages/inventory/warehouse/ViewWarehouse'))
 const CreateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/CreateWarehouse'))
@@ -677,4 +680,31 @@ export const PRIVATE_ROUTES = [
         access: 'Manage Warehouses',
         restricted: true
     },
+    {
+        path: PATH.STOCK_ADJUSTMENT,
+        key: 'StockAdjustment',
+        icon: '',
+        exact: true,
+        component: StockAdjustment,
+        access: 'Manage Stock Adjustments',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_STOCK_ADJUSTMENT,
+        key: 'CreateStockAdjustment',
+        icon: '',
+        exact: true,
+        component: CreateStockAdjustment,
+        access: 'Manage Stock Adjustments',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_STOCK_ADJUSTMENT,
+        key: 'ViewStockAdjustment',
+        icon: '',
+        exact: true,
+        component: ViewStockAdjustment,
+        access: 'Manage Stock Adjustments',
+        restricted: true
+    }
 ];

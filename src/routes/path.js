@@ -104,6 +104,11 @@ const PATH =
     UPDATE_PAYMENT_METHOD: '/settings/payment-methods/:id/edit',
 
     /** Warehouses */
+    STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments',
+    VIEW_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/:id',
+    CREATE_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/new',
+
+    /** Warehouses */
     WAREHOUSE: '/inventory-management/warehouses',
     VIEW_WAREHOUSE: '/inventory-management/warehouses/:id',
     CREATE_WAREHOUSE: '/inventory-management/warehouses/new',
