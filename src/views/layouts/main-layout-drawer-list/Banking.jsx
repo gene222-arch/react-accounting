@@ -72,11 +72,13 @@ const Banking = ({
                     {/* Transfers */}
                     {
                         canManageTransfers && (
-                            <ListItem button selected={ bankingTransfer } onClick={ selectBankingTransfer }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Transfers</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.BANK_ACCOUNT_TRANSFER } text={
+                                <ListItem button selected={ bankingTransfer } onClick={ selectBankingTransfer }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Transfers</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
                     

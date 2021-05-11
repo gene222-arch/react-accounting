@@ -63,6 +63,9 @@ const UpdateVendor = lazy(() => import('../views/pages/purchases/vendor/UpdateVe
 const Account = lazy(() => import('../views/pages/banking/account/Account'))
 const CreateAccount = lazy(() => import('../views/pages/banking/account/CreateAccount'))
 const UpdateAccount = lazy(() => import('../views/pages/banking/account/UpdateAccount'))
+const BankAccountTransfer = lazy(() => import('../views/pages/banking/bank-account-transfer/BankAccountTransfer'))
+const CreateBankAccountTransfer = lazy(() => import('../views/pages/banking/bank-account-transfer/CreateBankAccountTransfer'))
+const UpdateBankAccountTransfer = lazy(() => import('../views/pages/banking/bank-account-transfer/UpdateBankAccountTransfer'))
 const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
 const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
 const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
@@ -615,6 +618,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateAccount,
         access: 'Manage Banking Accounts',
+        restricted: true
+    },
+    {
+        path: PATH.BANK_ACCOUNT_TRANSFER,
+        key: 'BankAccountTransfer',
+        icon: '',
+        exact: true,
+        component: BankAccountTransfer,
+        access: 'Manage Bank Account Transfers',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_BANK_ACCOUNT_TRANSFER,
+        key: 'CreateBankAccountTransfer',
+        icon: '',
+        exact: true,
+        component: CreateBankAccountTransfer,
+        access: 'Manage Bank Account Transfers',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_BANK_ACCOUNT_TRANSFER,
+        key: 'UpdateBankAccountTransfer',
+        icon: '',
+        exact: true,
+        component: UpdateBankAccountTransfer,
+        access: 'Manage Bank Account Transfers',
         restricted: true
     },
     {

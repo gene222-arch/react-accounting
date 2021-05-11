@@ -6,6 +6,7 @@ import { connectRouter } from 'connected-react-router'
 import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
 import accountReducer from './modules/account/reducer'
+import bankAccountTransferReducer from './modules/bank-account-transfer/reducer'
 import chartOfAccountTypeReducer from './modules/chart-of-account-type/reducer'
 import chartOfAccountReducer from './modules/chart-of-account/reducer'
 import journalEntryReducer from './modules/journal-entry/reducer'
@@ -35,6 +36,7 @@ const rootReducer = (history) => combineReducers({
     /** reducers */
     auth: authReducer,
     account: accountReducer,
+    bankAccountTransfer: bankAccountTransferReducer,
     chartOfAccountType: chartOfAccountTypeReducer,
     chartOfAccount: chartOfAccountReducer,
     journalEntry: journalEntryReducer,

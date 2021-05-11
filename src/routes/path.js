@@ -13,11 +13,6 @@ const PATH =
     PAYROLL_DASHBOARD: '/payroll',
     DOUBLE_ENTRY_DASHBOARD: '/double-entry',
 
-    /** Accounts */
-    ACCOUNT: '/banking/accounts',
-    CREATE_ACCOUNT: '/banking/accounts/new',
-    UPDATE_ACCOUNT: '/banking/accounts/:id/edit',
-
     /** Chart of account types */
     CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types',
     CREATE_CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types/new',
@@ -52,6 +47,16 @@ const PATH =
     VENDOR: '/purchases/vendors',
     CREATE_VENDOR: '/purchases/vendors/new',
     UPDATE_VENDOR: '/purchases/vendors/:id/edit',
+
+    /** Accounts */
+    ACCOUNT: '/banking/accounts',
+    CREATE_ACCOUNT: '/banking/accounts/new',
+    UPDATE_ACCOUNT: '/banking/accounts/:id/edit',
+
+    /** Transfers */
+    BANK_ACCOUNT_TRANSFER: '/banking/transfers',
+    CREATE_BANK_ACCOUNT_TRANSFER: '/banking/transfers/new',
+    UPDATE_BANK_ACCOUNT_TRANSFER: '/banking/transfers/:id/edit',
 
     /** Customers */
     CUSTOMER: '/sales/customers',
