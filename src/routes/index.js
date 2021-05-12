@@ -66,6 +66,10 @@ const UpdateAccount = lazy(() => import('../views/pages/banking/account/UpdateAc
 const BankAccountTransfer = lazy(() => import('../views/pages/banking/bank-account-transfer/BankAccountTransfer'))
 const CreateBankAccountTransfer = lazy(() => import('../views/pages/banking/bank-account-transfer/CreateBankAccountTransfer'))
 const UpdateBankAccountTransfer = lazy(() => import('../views/pages/banking/bank-account-transfer/UpdateBankAccountTransfer'))
+const BankAccountReconciliation = lazy(() => import('../views/pages/banking/bank-account-reconciliation/BankAccountReconciliation'))
+const CreateBankAccountReconciliation = lazy(() => import('../views/pages/banking/bank-account-reconciliation/CreateBankAccountReconciliation'))
+const UpdateBankAccountReconciliation = lazy(() => import('../views/pages/banking/bank-account-reconciliation/UpdateBankAccountReconciliation'))
+const Transaction = lazy(() => import('../views/pages/banking/transaction/Transaction'))
 const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
 const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
 const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
@@ -645,6 +649,42 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateBankAccountTransfer,
         access: 'Manage Bank Account Transfers',
+        restricted: true
+    },
+    {
+        path: PATH.BANK_ACCOUNT_RECONCILIATION,
+        key: 'BankAccountReconciliation',
+        icon: '',
+        exact: true,
+        component: BankAccountReconciliation,
+        access: 'Manage Bank Account Reconciliations',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_BANK_ACCOUNT_RECONCILIATION,
+        key: 'CreateBankAccountReconciliation',
+        icon: '',
+        exact: true,
+        component: CreateBankAccountReconciliation,
+        access: 'Manage Bank Account Reconciliations',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_BANK_ACCOUNT_RECONCILIATION,
+        key: 'UpdateBankAccountReconciliation',
+        icon: '',
+        exact: true,
+        component: UpdateBankAccountReconciliation,
+        access: 'Manage Bank Account Reconciliations',
+        restricted: true
+    },
+    {
+        path: PATH.TRANSACTION,
+        key: 'Transaction',
+        icon: '',
+        exact: true,
+        component: Transaction,
+        access: 'View Transactions',
         restricted: true
     },
     {

@@ -1,29 +1,18 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 
-const InvoiceStatus = ({ status = 'Draft', text = null }) => 
+const ReconciliationStatus = ({ status = 'Unreconciled', text = null }) => 
 {
     let backgroundColor = '#FFF';
 
     switch (status) {
-        case 'Cancelled':
-            backgroundColor = '#2c2c2c';
+        case 'Unreconciled':
+            backgroundColor = '#f44336';
             break;
 
-        case 'Draft': 
-            backgroundColor = '#90caf9';
-            break;
-
-        case 'Partially Paid':
-            backgroundColor = '#2196f3';
-            break;
-
-        case 'Paid':
+        case 'Reconciled':
             backgroundColor = '#4caf50'
             break;
-
-        case 'Over due': 
-            backgroundColor = '#B33A3A'
     }
 
     return <Button 
@@ -40,4 +29,4 @@ const InvoiceStatus = ({ status = 'Draft', text = null }) =>
     </Button>
 }
 
-export default InvoiceStatus
+export default ReconciliationStatus

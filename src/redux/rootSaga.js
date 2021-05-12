@@ -4,6 +4,7 @@ import { all } from 'redux-saga/effects'
 import authSaga from './modules/auth/saga'
 import accountSaga from './modules/account/saga'
 import bankAccountTransferSaga from './modules/bank-account-transfer/saga'
+import bankAccountReconciliationSaga from './modules/bank-account-reconciliation/saga'
 import chartOfAccountTypeSaga from './modules/chart-of-account-type/saga'
 import chartOfAccountSaga from './modules/chart-of-account/saga'
 import itemSaga from './modules/item/saga'
@@ -29,6 +30,7 @@ export default function* ()
         authSaga(),
         accountSaga(),
         bankAccountTransferSaga(),
+        bankAccountReconciliationSaga(),
         chartOfAccountTypeSaga(),
         chartOfAccountSaga(),
         currencySaga(),

@@ -31,7 +31,7 @@ const Banking = ({
 
     const canManageAccounts = permissions.includes('Manage Accounts');
     const canManageTransfers = permissions.includes('Manage Bank Account Transfers');
-    const canViewTransactions = permissions.includes('View Bank Account Transactions');
+    const canViewTransactions = permissions.includes('View Transactions');
     const canManageReconciliations = permissions.includes('Manage Bank Account Reconciliations');
 
     if (!(canManageAccounts || canManageTransfers || canManageReconciliations || canViewTransactions)) {
@@ -85,22 +85,26 @@ const Banking = ({
                     {/* Transactions */}
                     {
                         canViewTransactions && (
-                            <ListItem button selected={ bankingTransaction } onClick={ selectBankingTransaction }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Transactions</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.TRANSACTION } text={
+                                <ListItem button selected={ bankingTransaction } onClick={ selectBankingTransaction }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Transactions</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
 
                     {/* Reconciliations */}
                     {
                         canManageReconciliations && (
-                            <ListItem button selected={ bankingReconciliation } onClick={ selectBankingReconciliation }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Reconciliations</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.BANK_ACCOUNT_RECONCILIATION } text={
+                                <ListItem button selected={ bankingReconciliation } onClick={ selectBankingReconciliation }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Reconciliations</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
                 </List>

@@ -58,6 +58,14 @@ const PATH =
     CREATE_BANK_ACCOUNT_TRANSFER: '/banking/transfers/new',
     UPDATE_BANK_ACCOUNT_TRANSFER: '/banking/transfers/:id/edit',
 
+    /** Reconciliations */
+    BANK_ACCOUNT_RECONCILIATION: '/banking/reconciliation',
+    CREATE_BANK_ACCOUNT_RECONCILIATION: '/banking/reconciliation/new',
+    UPDATE_BANK_ACCOUNT_RECONCILIATION: '/banking/reconciliation/:id/edit',
+
+    /** Transactions */
+    TRANSACTION: '/banking/transactions',
+
     /** Customers */
     CUSTOMER: '/sales/customers',
     CREATE_CUSTOMER: '/sales/customers/new',
