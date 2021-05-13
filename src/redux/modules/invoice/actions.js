@@ -13,13 +13,13 @@ const {
     MAIL_CUSTOMER_SUCCESS,
     MAIL_CUSTOMER_FAILED,
 
-    MARK_AS_PAID_START,
-    MARK_AS_PAID_SUCCESS,
-    MARK_AS_PAID_FAILED,
+    MARK_INVOICE_AS_PAID_START,
+    MARK_INVOICE_AS_PAID_SUCCESS,
+    MARK_INVOICE_AS_PAID_FAILED,
 
-    PAYMENT_START,
-    PAYMENT_SUCCESS,
-    PAYMENT_FAILED,
+    INVOICE_PAYMENT_START,
+    INVOICE_PAYMENT_SUCCESS,
+    INVOICE_PAYMENT_FAILED,
 
     UPDATE_INVOICE_START,
     UPDATE_INVOICE_SUCCESS,
@@ -79,30 +79,30 @@ export const mailCustomerFailed = (payload) => ({
 });
 
 export const markAsPaid = (payload) => ({
-    type: MARK_AS_PAID_START,
+    type: MARK_INVOICE_AS_PAID_START,
     payload
 });
 
 export const markAsPaidSuccess = () => ({
-    type: MARK_AS_PAID_SUCCESS
+    type: MARK_INVOICE_AS_PAID_SUCCESS
 });
 
 export const markAsPaidFailed = (payload) => ({
-    type: MARK_AS_PAID_FAILED,
+    type: MARK_INVOICE_AS_PAID_FAILED,
     payload
 });
 
 export const payment = (payload) => ({
-    type: PAYMENT_START,
+    type: INVOICE_PAYMENT_START,
     payload
 });
 
 export const paymentSuccess = () => ({
-    type: PAYMENT_SUCCESS
+    type: INVOICE_PAYMENT_SUCCESS
 });
 
 export const paymentFailed = (payload) => ({
-    type: PAYMENT_FAILED,
+    type: INVOICE_PAYMENT_FAILED,
     payload
 });
 

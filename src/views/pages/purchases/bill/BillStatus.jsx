@@ -23,7 +23,9 @@ const InvoiceStatus = ({ status = 'Draft', text = null }) =>
             break;
 
         case 'Sent':
-            backgroundColor = '#4caf50'
+        case 'Received':
+            backgroundColor = '#f44336'
+            break;
 
         case 'Over due': 
             backgroundColor = '#B33A3A'

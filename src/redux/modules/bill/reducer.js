@@ -2,54 +2,58 @@ import ACTION_TYPES from './action.types';
 import * as DATE from '../../../utils/date'
 
 const {
-    GET_INVOICES_START,
-    GET_INVOICES_SUCCESS,
-    GET_INVOICES_FAILED,
+    GET_BILLS_START,
+    GET_BILLS_SUCCESS,
+    GET_BILLS_FAILED,
 
-    CREATE_INVOICE_START,
-    CREATE_INVOICE_SUCCESS,
-    CREATE_INVOICE_FAILED,
+    CREATE_BILL_START,
+    CREATE_BILL_SUCCESS,
+    CREATE_BILL_FAILED,
 
-    MAIL_CUSTOMER_START,
-    MAIL_CUSTOMER_SUCCESS,
-    MAIL_CUSTOMER_FAILED,
+    MAIL_VENDOR_START,
+    MAIL_VENDOR_SUCCESS,
+    MAIL_VENDOR_FAILED,
 
-    MARK_INVOICE_AS_PAID_START,
-    MARK_INVOICE_AS_PAID_SUCCESS,
-    MARK_INVOICE_AS_PAID_FAILED,
+    MARK_BILL_AS_PAID_START,
+    MARK_BILL_AS_PAID_SUCCESS,
+    MARK_BILL_AS_PAID_FAILED,
 
-    INVOICE_PAYMENT_START,
-    INVOICE_PAYMENT_SUCCESS,
-    INVOICE_PAYMENT_FAILED,
+    MARK_BILL_AS_RECEIVED_START,
+    MARK_BILL_AS_RECEIVED_SUCCESS,
+    MARK_BILL_AS_RECEIVED_FAILED,
 
-    UPDATE_INVOICE_START,
-    UPDATE_INVOICE_SUCCESS,
-    UPDATE_INVOICE_FAILED,
+   BILL_PAYMENT_START,
+   BILL_PAYMENT_SUCCESS,
+   BILL_PAYMENT_FAILED,
 
-    CANCEL_INVOICE_START,
-    CANCEL_INVOICE_SUCCESS,
-    CANCEL_INVOICE_FAILED,
+    UPDATE_BILL_START,
+    UPDATE_BILL_SUCCESS,
+    UPDATE_BILL_FAILED,
 
-    DESTROY_INVOICES_START,
-    DESTROY_INVOICES_SUCCESS,
-    DESTROY_INVOICES_FAILED
+    CANCEL_BILL_START,
+    CANCEL_BILL_SUCCESS,
+    CANCEL_BILL_FAILED,
+
+    DESTROY_BILLS_START,
+    DESTROY_BILLS_SUCCESS,
+    DESTROY_BILLS_FAILED
 } = ACTION_TYPES;
 
-const INVOICE_DEFAULT_PROPS = {
+const BILL_DEFAULT_PROPS = {
     id: 0,
-    customer_id: 0,
+    vendor_id: 0,
     currency_id: 0,
-    income_category_id: 1,
-    invoice_number: 'INV-00000',
+    expense_category_id: 1,
+    bill_number: 'BILL-00000',
     order_no: 1,
     date: DATE.today(),
     due_date: DATE.today(),
     recurring: 'No',
 };
 
-const PAYMENT_DETAIL_DEFAULT_PROPS = {
-    tax_id: 0,
-    customer_id: 0,
+const BILL_DETAIL_DEFAULT_PROPS = {
+    discount_id: 0,
+    bill_id: 0,
     total_discounts: 0,
     total_taxes: 0,
     sub_total: 0,
@@ -60,10 +64,10 @@ const PAYMENT_DETAIL_DEFAULT_PROPS = {
 const ERROR_DEFAULT= {
     discount_id: '',
     tax_id: '',
-    customer_id: '',
+    vendor_id: '',
     currency_id: '',
-    income_category_id: '',
-    invoice_number: '',
+    expense_category_id: '',
+    bill_number: '',
     order_no: '',
     date: '',
     due_date: '',
@@ -72,141 +76,156 @@ const ERROR_DEFAULT= {
 
 const initialState = {
     isLoading: false,
-    invoice: INVOICE_DEFAULT_PROPS,
-    paymentDetail: PAYMENT_DETAIL_DEFAULT_PROPS,
-    invoices: [],
+    bill: BILL_DEFAULT_PROPS,
+    paymentDetail:BILL_DETAIL_DEFAULT_PROPS,
+    bills: [],
     error: ERROR_DEFAULT
 };
 
 export default (state = initialState, { type, payload }) => 
 {
     const {
-        invoices
+        bills
     } = state;
 
     switch (type) 
     {
-        case GET_INVOICES_START:
-        case CREATE_INVOICE_START:
-        case MAIL_CUSTOMER_START:
-        case MARK_INVOICE_AS_PAID_START:
-        case INVOICE_PAYMENT_START:
-        case UPDATE_INVOICE_START:
-        case CANCEL_INVOICE_START:
-        case DESTROY_INVOICES_START:
+        case GET_BILLS_START:
+        case CREATE_BILL_START:
+        case MAIL_VENDOR_START:
+        case MARK_BILL_AS_PAID_START:
+        case MARK_BILL_AS_RECEIVED_START:
+        case BILL_PAYMENT_START:
+        case UPDATE_BILL_START:
+        case CANCEL_BILL_START:
+        case DESTROY_BILLS_START:
             return { 
                 ...state, 
                 isLoading: true 
             };
 
-        case GET_INVOICES_SUCCESS: 
+        case GET_BILLS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                invoices: payload.invoices,
+                bills: payload.bills,
                 error: ERROR_DEFAULT
             };
 
-        case GET_INVOICES_FAILED: 
+        case GET_BILLS_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case CREATE_INVOICE_SUCCESS: 
+        case CREATE_BILL_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CREATE_INVOICE_FAILED: 
+        case CREATE_BILL_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case MAIL_CUSTOMER_SUCCESS: 
+        case MAIL_VENDOR_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case MAIL_CUSTOMER_FAILED: 
+        case MAIL_VENDOR_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };  
 
-        case MARK_INVOICE_AS_PAID_SUCCESS: 
+        case MARK_BILL_AS_PAID_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case MARK_INVOICE_AS_PAID_FAILED: 
+        case MARK_BILL_AS_PAID_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };  
           
-        case INVOICE_PAYMENT_SUCCESS: 
+        case MARK_BILL_AS_RECEIVED_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case INVOICE_PAYMENT_FAILED: 
+        case MARK_BILL_AS_RECEIVED_FAILED: 
+            return {
+                ...state,
+                isLoading: false,
+                error: payload.errorMessages
+            };   
+            
+        case BILL_PAYMENT_SUCCESS: 
+            return {
+                ...state,
+                isLoading: false,
+                error: ERROR_DEFAULT
+            };
+
+        case BILL_PAYMENT_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };  
 
-        case UPDATE_INVOICE_SUCCESS: 
+        case UPDATE_BILL_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case UPDATE_INVOICE_FAILED: 
+        case UPDATE_BILL_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };            
 
-        case CANCEL_INVOICE_SUCCESS: 
+        case CANCEL_BILL_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CANCEL_INVOICE_FAILED: 
+        case CANCEL_BILL_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };  
 
-        case DESTROY_INVOICES_SUCCESS: 
+        case DESTROY_BILLS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                invoices: invoices.filter(invoice => !payload.ids.includes(invoice.id)) || [],
+                bills: bills.filter(bill => !payload.ids.includes(bill.id)) || [],
                 error: ERROR_DEFAULT
             };
 
-        case DESTROY_INVOICES_FAILED: 
+        case DESTROY_BILLS_FAILED: 
             return {
                 ...state,
                 isLoading: false,

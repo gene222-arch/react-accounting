@@ -25,8 +25,24 @@ const findPathByModel = (model_id = 0, model_type = '') =>
 {
     let path = '';
 
-    if (model_type.includes('App\\Models\\Invoice')) {
+    if (model_type.includes('Invoice')) {
         path = PATH.VIEW_INVOICE;
+    }
+
+    if (model_type.includes('Revenue')) {
+        path = PATH.UPDATE_REVENUE;
+    }
+
+    if (model_type.includes('Bill')) {
+        
+    }
+
+    if (model_type.includes('Payment')) {
+        
+    }
+
+    if (model_type.includes('Payroll')) {
+        
     }
 
     return path.replace(':id', model_id);

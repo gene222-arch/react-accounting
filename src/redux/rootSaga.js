@@ -20,6 +20,7 @@ import expenseCategorySaga from './modules/expense-category/saga'
 import paymentMethodSaga from './modules/payment-method/saga'
 import companySaga from './modules/company/saga'
 import vendorSaga from './modules/vendor/saga'
+import billSaga from './modules/bill/saga'
 import stockAdjustmentSaga from './modules/stock-adjustment/saga'
 import warehouseSaga from './modules/warehouse/saga'
 import journalEntrySaga from './modules/journal-entry/saga'
@@ -48,7 +49,8 @@ export default function* ()
         taxSaga(),
         stockAdjustmentSaga(),
         warehouseSaga(),
-        vendorSaga()
+        vendorSaga(),
+        billSaga()
     ]);
 }
 

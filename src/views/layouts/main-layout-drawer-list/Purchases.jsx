@@ -69,11 +69,13 @@ const Purchases = ({
                     {/* Bills */}
                     {
                         canManageBills && (
-                            <ListItem button selected={ purchasesBill } onClick={ selectPurchasesBill }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Bills</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.BILL } text={
+                                <ListItem button selected={ purchasesBill } onClick={ selectPurchasesBill }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Bills</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
 

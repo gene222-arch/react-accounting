@@ -57,6 +57,10 @@ const CreateIncomeCategory = lazy(() => import('../views/pages/settings/income-c
 const UpdateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/UpdateIncomeCategory'))
 const CreateCompany = lazy(() => import('../views/pages/settings/company/CreateCompany'))
 const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateCompany'))
+const Bill = lazy(() => import('../views/pages/purchases/bill/Bill'))
+const ViewBill = lazy(() => import('../views/pages/purchases/bill/view-bill/ViewBill'))
+const CreateBill = lazy(() => import('../views/pages/purchases/bill/create-bill/CreateBill'))
+const UpdateBill = lazy(() => import('../views/pages/purchases/bill/update-bill/UpdateBill'))
 const Vendor = lazy(() => import('../views/pages/purchases/vendor/Vendor'))
 const CreateVendor = lazy(() => import('../views/pages/purchases/vendor/CreateVendor'))
 const UpdateVendor = lazy(() => import('../views/pages/purchases/vendor/UpdateVendor'))
@@ -568,6 +572,42 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateCompany,
         access: 'Manage Companies',
+        restricted: true
+    },
+    {
+        path: PATH.BILL,
+        key: 'Bill',
+        icon: '',
+        exact: true,
+        component: Bill,
+        access: 'Manage Bills',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_BILL,
+        key: 'CreateBill',
+        icon: '',
+        exact: true,
+        component: CreateBill,
+        access: 'Manage Bills',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_BILL,
+        key: 'ViewBill',
+        icon: '',
+        exact: true,
+        component: ViewBill,
+        access: 'Manage Bills',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_BILL,
+        key: 'UpdateBill',
+        icon: '',
+        exact: true,
+        component: UpdateBill,
+        access: 'Manage Bills',
         restricted: true
     },
     {

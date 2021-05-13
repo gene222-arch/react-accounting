@@ -48,6 +48,13 @@ const PATH =
     CREATE_VENDOR: '/purchases/vendors/new',
     UPDATE_VENDOR: '/purchases/vendors/:id/edit',
 
+    /** Bills */
+    BILL: '/purchases/bills',
+    CREATE_BILL: '/purchases/bills/new',
+    VIEW_BILL: '/purchases/bills/:id',
+    UPDATE_BILL: '/purchases/bills/:id/edit',
+    
+
     /** Accounts */
     ACCOUNT: '/banking/accounts',
     CREATE_ACCOUNT: '/banking/accounts/new',

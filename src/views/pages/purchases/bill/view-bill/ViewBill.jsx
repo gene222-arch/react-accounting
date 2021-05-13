@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { findAsync } from '../../../../../services/sales/invoice';
+import { findAsync } from '../../../../../services/purchases/bill';
 
 /** Actions */
 import * as ALERT from '../../../../../redux/modules/alert/actions'
 
 /** Selectors */
-import { selectInvoice } from './../../../../../redux/modules/invoice/selector';
+import { selectBill } from '../../../../../redux/modules/bill/selector';
 import { selectAlert } from '../../../../../redux/modules/alert/selector';
-import { selectAuth } from './../../../../../redux/modules/auth/selector';
+import { selectAuth } from '../../../../../redux/modules/auth/selector';
 
 /** Material UI Components */
 import Grid from '@material-ui/core/Grid'
@@ -22,45 +22,66 @@ import Actions from './Actions';
 import HistoriesAndTransactions from './HistoriesAndTransactions';
 import AlertPopUp from '../../../../../components/AlertPopUp';
 import Items from './Items';
+import NotFound from './../../../errors/NotFound';
 
 
 
-const ViewInvoice = ({ authProp, alert, invoiceProp, match }) => 
+const ViewBill = ({ authProp, alert, billProp, match }) => 
 {
     const dispatch = useDispatch();
     const { id } = match.params;
+    const { bill, paymentDetail: paymentDetailState, isLoading } = billProp;
 
-    const { invoice, paymentDetail: paymentDetailState, isLoading } = invoiceProp;
-
-    const [ invoiceDetails, setInvoiceDetails ] = useState(invoice);
+    const [ billIsFound, setBillIsFound ] = useState(false);
+    const [ billDetails, setBillDetails ] = useState(bill);
     const [ items, setItems ] = useState([]);
     const [ histories, setHistories ] = useState([]);
     const [ paymentDetail, setPaymentDetail ] = useState(paymentDetailState);
     const [ transactions, setTransactions ] = useState([]);
 
+    const handleBillIsFound = () => setBillIsFound(true);
+    const handleBillIsNotFound = () => setBillIsFound(false);
 
-    const onLoadFetchInvoiceById = async () => {
-        const { data, message, status } = await findAsync({ id });
+    const onLoadFetchBillById = async () => 
+    {
+        try {
+            const { data, message, status } = await findAsync({ id });
 
-        if (status !== 'success') {
+            if (status !== 'success') {
+    
+            }
+    
+            if (status === 'success') 
+            {
+                handleBillIsFound();
 
-        }
+                const { items: itemList, payment_detail, histories, transactions, ...details } = data;
+    
+                setBillDetails(details);
+                setItems(itemList.map(({ details }) => details));
+                setHistories(histories);
+                setTransactions(transactions);
+                setPaymentDetail(payment_detail);
+            }
 
-        if (status === 'success') 
-        {
-            const { items: itemList, payment_detail, histories, transactions, ...details } = data;
+        } catch ({ message }) {
 
-            setInvoiceDetails(details);
-            setItems(itemList.map(({ pivot }) => pivot));
-            setHistories(histories);
-            setTransactions(transactions);
-            setPaymentDetail(payment_detail);
+            handleBillIsNotFound();
+
+            dispatch(ALERT.showAlert({
+                status: 'error',
+                message
+            }))
         }
     }
 
     useEffect(() => {
-        onLoadFetchInvoiceById();
+        onLoadFetchBillById();
     }, [isLoading]);
+
+    if (!isLoading && !billIsFound) {
+        return <NotFound />
+    }
 
     return (
         <>
@@ -72,13 +93,13 @@ const ViewInvoice = ({ authProp, alert, invoiceProp, match }) =>
             />
             <Grid container spacing={1}>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Header invoiceDetails={ invoiceDetails } paymentDetail={ paymentDetail }/>
+                    <Header billDetails={ billDetails } paymentDetail={ paymentDetail }/>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <Card>
                         <CardContent>
                             <Actions 
-                                invoiceDetails={ invoiceDetails } 
+                                billDetails={ billDetails } 
                                 isLoading={ isLoading }
                                 paymentDetail={ paymentDetail }
                             />
@@ -88,7 +109,7 @@ const ViewInvoice = ({ authProp, alert, invoiceProp, match }) =>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <Items 
                         auth={ authProp }
-                        invoiceDetails={ invoiceDetails } 
+                        billDetails={ billDetails } 
                         items={ items }
                         paymentDetail={ paymentDetail }
                     />
@@ -104,7 +125,7 @@ const ViewInvoice = ({ authProp, alert, invoiceProp, match }) =>
 const mapStateToProps = createStructuredSelector({
     authProp: selectAuth,
     alert: selectAlert,
-    invoiceProp: selectInvoice
+    billProp: selectBill
 });
 
-export default connect(mapStateToProps, null)(ViewInvoice);
+export default connect(mapStateToProps, null)(ViewBill);

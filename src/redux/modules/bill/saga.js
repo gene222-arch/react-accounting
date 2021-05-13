@@ -10,30 +10,33 @@ import {
     createAsync, 
     mailAsync,
     markAsPaidAsync,
+    markAsReceivedAsync,
     paymentAsync,
     updateAsync, 
     cancelAsync,
     destroyAsync 
-} from '../../../services/sales/invoice';
+} from '../../../services/purchases/bill';
 
 /** Actions */
 import { 
-    getInvoicesSuccess, 
-    getInvoicesFailed, 
-    createInvoiceSuccess, 
-    createInvoiceFailed, 
-    mailCustomerSuccess,
-    mailCustomerFailed,
+    getBillsSuccess, 
+    getBillsFailed, 
+    createBillSuccess, 
+    createBillFailed, 
+    mailVendorSuccess,
+    mailVendorFailed,
     markAsPaidSuccess,
     markAsPaidFailed,
+    markAsReceivedSuccess,
+    markAsReceivedFailed,
     paymentSuccess,
     paymentFailed,
-    updateInvoiceSuccess, 
-    updateInvoiceFailed,
-    cancelInvoiceSuccess,
-    cancelInvoiceFailed,
-    destroyInvoicesSuccess, 
-    destroyInvoicesFailed, 
+    updateBillSuccess, 
+    updateBillFailed,
+    cancelBillSuccess,
+    cancelBillFailed,
+    destroyBillsSuccess, 
+    destroyBillsFailed, 
 } from './actions';
 import * as ALERT from './../alert/actions';
 
@@ -43,21 +46,22 @@ import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_UPDATE } from './../../../con
 import PATH from './../../../routes/path';
 
 const {
-    GET_INVOICES_START,
-    CREATE_INVOICE_START,
-    MAIL_CUSTOMER_START,
-    MARK_INVOICE_AS_PAID_START,
-    INVOICE_PAYMENT_START,
-    UPDATE_INVOICE_START,
-    CANCEL_INVOICE_START,
-    DESTROY_INVOICES_START
+    GET_BILLS_START,
+    CREATE_BILL_START,
+    MAIL_VENDOR_START,
+    MARK_BILL_AS_PAID_START,
+    MARK_BILL_AS_RECEIVED_START,
+    BILL_PAYMENT_START,
+    UPDATE_BILL_START,
+    CANCEL_BILL_START,
+    DESTROY_BILLS_START
 } = ACTION_TYPES;
 
 /**
  * Sagas
  */
 
-function* fetchInvoicesSaga (payload)
+function* fetchBillsSaga (payload)
 {
     try {
         const { status, message, data } = yield call(fetchAllAsync, payload);
@@ -67,22 +71,22 @@ function* fetchInvoicesSaga (payload)
 
         if (status === 'success') {
 
-            const invoices = data.map(invoice => ({
-                ...invoice,
-                amount_due: invoice.payment_detail.amount_due,
-                customer: invoice.customer.name
+            const bills = data.map(bill => ({
+                ...bill,
+                amount_due: bill.payment_detail.amount_due,
+                vendor: bill.vendor.name
             }));
 
-            yield put(getInvoicesSuccess({ invoices }));
+            yield put(getBillsSuccess({ bills }));
         }
 
     } catch ({ message }) {
-        yield put(getInvoicesFailed({ errorMessages: message }));
+        yield put(getBillsFailed({ errorMessages: message }));
     }
 }
 
 
-function* createInvoiceSaga (payload)
+function* createBillSaga (payload)
 {
     try {
         const { status, message, data } = yield call(createAsync, payload);
@@ -92,18 +96,18 @@ function* createInvoiceSaga (payload)
         }
 
         if (status === 'success') {
-            yield put(createInvoiceSuccess(payload));
+            yield put(createBillSuccess(payload));
 
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
 
-            yield put(push(PATH.INVOICE));
+            yield put(push(PATH.BILL));
         }
 
     } catch ({ message }) {
-        yield put(createInvoiceFailed({ errorMessages: message }));
+        yield put(createBillFailed({ errorMessages: message }));
 
         yield put(ALERT.showAlert({
             status: 'error',
@@ -112,7 +116,7 @@ function* createInvoiceSaga (payload)
     }
 }
 
-function* mailCustomerSaga (payload)
+function* mailVendorSaga (payload)
 {
     try {
         const { data, message, status } = yield call(mailAsync, payload);
@@ -122,7 +126,7 @@ function* mailCustomerSaga (payload)
         }
 
         if (status === 'success') {
-            yield put(mailCustomerSuccess());
+            yield put(mailVendorSuccess());
 
             yield put(ALERT.showAlert({
                 status,
@@ -131,7 +135,7 @@ function* mailCustomerSaga (payload)
         }
 
     } catch ({ message }) {
-        yield put(mailCustomerFailed({
+        yield put(mailVendorFailed({
             status: 'error',
             errorMessages: message
         }));
@@ -164,6 +168,32 @@ function* markAsPaidSaga (payload)
     }
 }
 
+function* markAsReceivedSaga (payload)
+{
+    try {
+        const { data, message, status } = yield call(markAsReceivedAsync, payload);
+
+        if (status !== 'success') {
+
+        }
+
+        if (status === 'success') {
+            yield put(markAsReceivedSuccess());
+
+            yield put(ALERT.showAlert({
+                status,
+                message
+            }));
+        }
+
+    } catch ({ message }) {
+        yield put(markAsReceivedFailed({
+            status: 'error',
+            errorMessages: message
+        }));
+    }
+}
+
 function* paymentSaga (payload)
 {
     try {
@@ -190,7 +220,7 @@ function* paymentSaga (payload)
     }
 }
 
-function* updateInvoiceSaga (payload)
+function* updateBillSaga (payload)
 {
     try {
         const { status, message, data } = yield call(updateAsync, payload);
@@ -199,18 +229,18 @@ function* updateInvoiceSaga (payload)
         }
         
         if (status === 'success') {
-            yield put(updateInvoiceSuccess(payload));
+            yield put(updateBillSuccess(payload));
             
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
 
-            yield put(push(PATH.INVOICE));
+            yield put(push(PATH.BILL));
         }
 
     } catch ({ message }) {
-        yield put(updateInvoiceFailed({ errorMessages: message }));
+        yield put(updateBillFailed({ errorMessages: message }));
 
         yield put(ALERT.showAlert({
             status: 'error',
@@ -219,12 +249,12 @@ function* updateInvoiceSaga (payload)
     }
 }
 
-function* cancelInvoiceSaga (payload)
+function* cancelBillSaga (payload)
 {
     try {
         const { message, status } = yield call(cancelAsync, payload);
 
-        yield put(cancelInvoiceSuccess());
+        yield put(cancelBillSuccess());
 
         yield put(ALERT.showAlert({
             status,
@@ -232,19 +262,19 @@ function* cancelInvoiceSaga (payload)
         }));
 
     } catch ({ message }) {
-        yield put(cancelInvoiceFailed({ 
+        yield put(cancelBillFailed({ 
             status: 'error',
             errorMessages: message 
         }));
     }
 }
 
-function* destroyInvoicesSaga (payload)
+function* destroyBillsSaga (payload)
 {
     try {
         const { message, status } = yield call(destroyAsync, payload);
 
-        yield put(destroyInvoicesSuccess(payload));
+        yield put(destroyBillsSuccess(payload));
 
         yield put(ALERT.showAlert({
             status,
@@ -252,7 +282,7 @@ function* destroyInvoicesSaga (payload)
         }));
 
     } catch ({ message }) {
-        yield put(destroyInvoicesFailed({ 
+        yield put(destroyBillsFailed({ 
             status: 'error',
             errorMessages: message 
         }));
@@ -263,33 +293,33 @@ function* destroyInvoicesSaga (payload)
  * Watchers or Observers
  */
 
-function* fetchInvoicesWatcher ()
+function* fetchBillsWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(GET_INVOICES_START);
+        const { payload } = yield take(GET_BILLS_START);
 
-        yield call(fetchInvoicesSaga, payload);
+        yield call(fetchBillsSaga, payload);
     }
 }
 
-function* createInvoiceWatcher ()
+function* createBillWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(CREATE_INVOICE_START);
+        const { payload } = yield take(CREATE_BILL_START);
 
-        yield call(createInvoiceSaga, payload);
+        yield call(createBillSaga, payload);
     }
 }
 
-function* mailCustomerWatcher ()
+function* mailVendorWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(MAIL_CUSTOMER_START);
+        const { payload } = yield take(MAIL_VENDOR_START);
 
-        yield call(mailCustomerSaga, payload);
+        yield call(mailVendorSaga, payload);
     }
 }
 
@@ -297,9 +327,19 @@ function* markAsPaidWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(MARK_INVOICE_AS_PAID_START);
+        const { payload } = yield take(MARK_BILL_AS_PAID_START);
 
         yield call(markAsPaidSaga, payload);
+    }
+}
+
+function* markAsReceivedWatcher ()
+{
+    while (true) 
+    {
+        const { payload } = yield take(MARK_BILL_AS_RECEIVED_START);
+
+        yield call(markAsReceivedSaga, payload);
     }
 }
 
@@ -307,39 +347,39 @@ function* paymentWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(INVOICE_PAYMENT_START);
+        const { payload } = yield take(BILL_PAYMENT_START);
 
         yield call(paymentSaga, payload);
     }
 }
 
-function* updateInvoiceWatcher ()
+function* updateBillWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(UPDATE_INVOICE_START);
+        const { payload } = yield take(UPDATE_BILL_START);
 
-        yield call(updateInvoiceSaga, payload);
+        yield call(updateBillSaga, payload);
     }
 }
 
-function* cancelInvoiceWatcher ()
+function* cancelBillWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(CANCEL_INVOICE_START);
+        const { payload } = yield take(CANCEL_BILL_START);
 
-        yield call(cancelInvoiceSaga, payload);
+        yield call(cancelBillSaga, payload);
     }
 }
 
-function* destroyInvoicesWatcher ()
+function* destroyBillsWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(DESTROY_INVOICES_START);
+        const { payload } = yield take(DESTROY_BILLS_START);
 
-        yield call(destroyInvoicesSaga, payload);
+        yield call(destroyBillsSaga, payload);
     }
 }
 
@@ -349,13 +389,14 @@ function* destroyInvoicesWatcher ()
  export default function* ()
  {
     yield all([
-        fetchInvoicesWatcher(),
-        createInvoiceWatcher(),
-        mailCustomerWatcher(),
+        fetchBillsWatcher(),
+        createBillWatcher(),
+        mailVendorWatcher(),
         markAsPaidWatcher(),
+        markAsReceivedWatcher(),
         paymentWatcher(),
-        updateInvoiceWatcher(),
-        cancelInvoiceWatcher(),
-        destroyInvoicesWatcher()
+        updateBillWatcher(),
+        cancelBillWatcher(),
+        destroyBillsWatcher()
     ]);
  }

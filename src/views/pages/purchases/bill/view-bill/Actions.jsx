@@ -3,10 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
 /** Actions */
-import * as INVOICE from './../../../../../redux/modules/invoice/actions';
-
-/** Selectors */
-import { selectInvoice } from './../../../../../redux/modules/invoice/selector';
+import * as BILL from '../../../../../redux/modules/bill/actions';
 
 /** Material UI Components */
 import Grid from '@material-ui/core/Grid'
@@ -18,29 +15,34 @@ import EditIcon from '@material-ui/icons/Edit';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AddPayment from './AddPayment';
-import PATH from './../../../../../routes/path';
+import PATH from '../../../../../routes/path';
 
 
 
-const Actions = ({ invoiceDetails, isLoading, paymentDetail }) => 
+
+const Actions = ({ billDetails, isLoading, paymentDetail }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const sendMail = () => dispatch(INVOICE.mailCustomer({ 
-        invoice_id: invoiceDetails.id, 
-        customer_id: invoiceDetails.customer_id 
+    const sendMail = () => dispatch(BILL.mailVendor({ 
+        bill_id: billDetails.id, 
+        vendor_id: billDetails.vendor_id
     }));
 
-    const markAsPaid = () => dispatch(INVOICE.markAsPaid({
-        invoice_id: invoiceDetails.id, 
-        customer_id: invoiceDetails.customer_id,
+    const markAsPaid = () => dispatch(BILL.markAsPaid({
+        bill_id: billDetails.id, 
+        vendor_id: billDetails.vendor_id,
+        currency_id: billDetails.currency_id,
+        expense_category_id: billDetails.expense_category_id,
         account_id: 1,
         payment_method_id: 1,
         amount: paymentDetail.amount_due
     }));
 
-    return invoiceDetails.status !== 'Paid' && (
+    const markAsReceived = () => dispatch(BILL.markAsReceived({ bill_id: billDetails.id }));
+
+    return billDetails.status !== 'Paid' && (
         <>
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -51,17 +53,17 @@ const Actions = ({ invoiceDetails, isLoading, paymentDetail }) =>
                         <Grid item xs={6} sm={6} md={6} lg={6}>
                             <div>
                                 <Typography variant="h6" color="initial">
-                                    Edit Invoice
+                                    Edit Bill
                                 </Typography>
                                 <Typography variant="caption" color="initial">
-                                    Status: { invoiceDetails?.created_at }
+                                    { `Status ${ billDetails?.created_at }` }
                                 </Typography>
                             </div>
                             <Button 
                                 variant="contained" 
                                 color="primary" 
                                 size='small'
-                                onClick={ () =>  history.push(PATH.UPDATE_INVOICE.replace(':id', invoiceDetails.id)) }
+                                onClick={ () =>  history.push(PATH.UPDATE_BILL.replace(':id', billDetails.id)) }
                             >
                                 Edit
                             </Button>
@@ -76,21 +78,36 @@ const Actions = ({ invoiceDetails, isLoading, paymentDetail }) =>
                         <Grid item xs={6} sm={6} md={6} lg={6}>
                             <div>
                                 <Typography variant='h6' color='initial'>
-                                    Send Invoice
+                                    Send Bill
                                 </Typography>
                                 <Typography variant='caption' color='initial'>
-                                    Status: { isLoading }
+                                    { `Status: ${ isLoading }` }
                                 </Typography>
                             </div>
-                            <Button 
-                                variant='contained' 
-                                color='secondary' 
-                                size='small'
-                                onClick={ sendMail }
-                                disabled={ invoiceDetails.isLoading }
-                            >
-                                Send mail
-                            </Button>
+                            <Grid container spacing={1}>
+                                <Grid item>
+                                    <Button 
+                                        variant='contained' 
+                                        color='secondary' 
+                                        size='small'
+                                        onClick={ markAsReceived }
+                                        disabled={ billDetails.isLoading }
+                                    >
+                                        Mark as received
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button 
+                                        variant='contained' 
+                                        color='primary' 
+                                        size='small'
+                                        onClick={ sendMail }
+                                        disabled={ billDetails.isLoading }
+                                    >
+                                        Send mail
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -107,9 +124,9 @@ const Actions = ({ invoiceDetails, isLoading, paymentDetail }) =>
                                     </Typography>
                                     <Typography variant="caption" color="initial">
                                         Status: { 
-                                            invoiceDetails.status !== 'Partially Paid' || invoiceDetails.status !== 'Paid' 
+                                            billDetails.status !== 'Partially Paid' || billDetails.status !== 'Paid' 
                                                 ? 'Awaiting for payment' 
-                                                : invoiceDetails.status 
+                                                : billDetails.status 
                                             }
                                     </Typography>
                                 </Grid>
@@ -126,10 +143,7 @@ const Actions = ({ invoiceDetails, isLoading, paymentDetail }) =>
                                             </Button>
                                         </Grid>
                                         <Grid item>
-                                            <AddPayment 
-                                                invoiceAction={ INVOICE } 
-                                                id={ invoiceDetails.id }
-                                            />
+                                            <AddPayment id={ billDetails.id } />
                                         </Grid>
                                     </Grid>
                                 </Grid>

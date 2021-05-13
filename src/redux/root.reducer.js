@@ -24,6 +24,7 @@ import incomeCategoryReducer from './modules/income-category/reducer'
 import expenseCategoryReducer from './modules/expense-category/reducer'
 import paymentMethodReducer from './modules/payment-method/reducer'
 import vendorReducer from './modules/vendor/reducer'
+import billReducer from './modules/bill/reducer'
 import stockAdjustmentReducer from './modules/stock-adjustment/reducer'
 import warehouseReducer from './modules/warehouse/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
@@ -55,6 +56,7 @@ const rootReducer = (history) => combineReducers({
     expenseCategory: expenseCategoryReducer,
     paymentMethod: paymentMethodReducer,
     vendor: vendorReducer,
+    bill: billReducer,
     stockAdjustment: stockAdjustmentReducer,
     warehouse: warehouseReducer,
     mainLayout: mainLayoutReducer
