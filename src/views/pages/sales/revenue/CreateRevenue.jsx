@@ -78,7 +78,13 @@ const CreateRevenue = ({
 
     const onSubmitCreateRevenue = (e) => {
         e.preventDefault();
-        dispatch(REVENUE.createRevenue(revenueState));
+
+        const { currency_id } = accountProp.accounts.find(({ id }) => revenueState.account_id === id);
+
+        dispatch(REVENUE.createRevenue({
+            ...revenueState,
+            currency_id
+        }));
     }
 
     useEffect(() => {

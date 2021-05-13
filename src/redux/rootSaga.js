@@ -21,6 +21,7 @@ import paymentMethodSaga from './modules/payment-method/saga'
 import companySaga from './modules/company/saga'
 import vendorSaga from './modules/vendor/saga'
 import billSaga from './modules/bill/saga'
+import paymentSaga from './modules/payment/saga'
 import stockAdjustmentSaga from './modules/stock-adjustment/saga'
 import warehouseSaga from './modules/warehouse/saga'
 import journalEntrySaga from './modules/journal-entry/saga'
@@ -50,7 +51,8 @@ export default function* ()
         stockAdjustmentSaga(),
         warehouseSaga(),
         vendorSaga(),
-        billSaga()
+        billSaga(),
+        paymentSaga()
     ]);
 }
 

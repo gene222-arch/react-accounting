@@ -5,18 +5,18 @@ import { push } from 'connected-react-router';
 import ACTION_TYPES from './action.types';
 
 /** Api calls */
-import { fetchAllAsync, createAsync, updateAsync, destroyAsync } from '../../../services/sales/revenue';
+import { fetchAllAsync, createAsync, updateAsync, destroyAsync } from '../../../services/purchases/payment';
 
 /** Actions */
 import { 
-    getRevenuesSuccess, 
-    getRevenuesFailed, 
-    destroyRevenuesSuccess, 
-    destroyRevenuesFailed, 
-    createRevenueSuccess, 
-    createRevenueFailed, 
-    updateRevenueSuccess, 
-    updateRevenueFailed 
+    getPaymentsSuccess, 
+    getPaymentsFailed, 
+    destroyPaymentsSuccess, 
+    destroyPaymentsFailed, 
+    createPaymentSuccess, 
+    createPaymentFailed, 
+    updatePaymentSuccess, 
+    updatePaymentFailed 
 } from './actions';
 import * as ALERT from './../alert/actions';
 
@@ -26,17 +26,17 @@ import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_UPDATE } from './../../../con
 import PATH from './../../../routes/path';
 
 const {
-    GET_REVENUES_START,
-    CREATE_REVENUE_START,
-    UPDATE_REVENUE_START,
-    DESTROY_REVENUES_START
+    GET_PAYMENTS_START,
+    CREATE_PAYMENT_START,
+    UPDATE_PAYMENT_START,
+    DESTROY_PAYMENTS_START
 } = ACTION_TYPES;
 
 /**
  * Sagas
  */
 
-function* fetchRevenuesSaga ()
+function* fetchPaymentsSaga ()
 {
     try {
         const { status, message, data } = yield call(fetchAllAsync);
@@ -45,23 +45,24 @@ function* fetchRevenuesSaga ()
         }
 
         if (status === 'success') {
-            const revenues = data.map(({ customer, income_category, account, ...revenues }) => ({
-                ...revenues,
-                customer: customer.name,
-                category: income_category.name,
+
+            const payments = data.map(({ vendor, expense_category, account, ...payments }) => ({
+                ...payments,
+                vendor: vendor.name,
+                category: expense_category.name,
                 account: account.name
             }));
 
-            yield put(getRevenuesSuccess({ revenues }));
+            yield put(getPaymentsSuccess({ payments }));
         }
 
     } catch ({ message }) {
-        yield put(getRevenuesFailed({ errorMessages: message }));
+        yield put(getPaymentsFailed({ errorMessages: message }));
     }
 }
 
 
-function* createRevenueSaga (payload)
+function* createPaymentSaga (payload)
 {
     try {
         const { status, message, data } = yield call(createAsync, payload);
@@ -71,18 +72,18 @@ function* createRevenueSaga (payload)
         }
 
         if (status === 'success') {
-            yield put(createRevenueSuccess(payload));
+            yield put(createPaymentSuccess(payload));
 
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
 
-            yield put(push(PATH.REVENUE));
+            yield put(push(PATH.PAYMENT));
         }
 
     } catch ({ message }) {
-        yield put(createRevenueFailed({ errorMessages: message }));
+        yield put(createPaymentFailed({ errorMessages: message }));
 
         yield put(ALERT.showAlert({
             status: 'error',
@@ -91,7 +92,7 @@ function* createRevenueSaga (payload)
     }
 }
 
-function* updateRevenueSaga (payload)
+function* updatePaymentSaga (payload)
 {
     try {
         const { status, message, data } = yield call(updateAsync, payload);
@@ -100,18 +101,18 @@ function* updateRevenueSaga (payload)
         }
         
         if (status === 'success') {
-            yield put(updateRevenueSuccess(payload));
+            yield put(updatePaymentSuccess(payload));
             
             yield put(ALERT.showAlert({
                 status,
                 message
             }));
 
-            yield put(push(PATH.REVENUE));
+            yield put(push(PATH.PAYMENT));
         }
 
     } catch ({ message }) {
-        yield put(updateRevenueFailed({ errorMessages: message }));
+        yield put(updatePaymentFailed({ errorMessages: message }));
 
         yield put(ALERT.showAlert({
             status: 'error',
@@ -120,12 +121,12 @@ function* updateRevenueSaga (payload)
     }
 }
 
-function* destroyRevenuesSaga (payload)
+function* destroyPaymentsSaga (payload)
 {
     try {
         const { message, status } = yield call(destroyAsync, payload);
 
-        yield put(destroyRevenuesSuccess(payload));
+        yield put(destroyPaymentsSuccess(payload));
 
         yield put(ALERT.showAlert({
             status,
@@ -133,7 +134,7 @@ function* destroyRevenuesSaga (payload)
         }));
 
     } catch ({ message }) {
-        yield put(destroyRevenuesFailed({ errorMessages: message }));
+        yield put(destroyPaymentsFailed({ errorMessages: message }));
     }
 }
 
@@ -141,43 +142,43 @@ function* destroyRevenuesSaga (payload)
  * Watchers or Observers
  */
 
-function* fetchRevenuesWatcher ()
+function* fetchPaymentsWatcher ()
 {
     while (true) 
     {
-        yield take(GET_REVENUES_START);
+        yield take(GET_PAYMENTS_START);
 
-        yield call(fetchRevenuesSaga);
+        yield call(fetchPaymentsSaga);
     }
 }
 
-function* createRevenueWatcher ()
+function* createPaymentWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(CREATE_REVENUE_START);
+        const { payload } = yield take(CREATE_PAYMENT_START);
 
-        yield call(createRevenueSaga, payload);
+        yield call(createPaymentSaga, payload);
     }
 }
 
-function* updateRevenueWatcher ()
+function* updatePaymentWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(UPDATE_REVENUE_START);
+        const { payload } = yield take(UPDATE_PAYMENT_START);
 
-        yield call(updateRevenueSaga, payload);
+        yield call(updatePaymentSaga, payload);
     }
 }
 
-function* destroyRevenuesWatcher ()
+function* destroyPaymentsWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(DESTROY_REVENUES_START);
+        const { payload } = yield take(DESTROY_PAYMENTS_START);
 
-        yield call(destroyRevenuesSaga, payload);
+        yield call(destroyPaymentsSaga, payload);
     }
 }
 
@@ -187,9 +188,9 @@ function* destroyRevenuesWatcher ()
  export default function* ()
  {
     yield all([
-        fetchRevenuesWatcher(),
-        createRevenueWatcher(),
-        updateRevenueWatcher(),
-        destroyRevenuesWatcher()
+        fetchPaymentsWatcher(),
+        createPaymentWatcher(),
+        updatePaymentWatcher(),
+        destroyPaymentsWatcher()
     ]);
  }

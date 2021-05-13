@@ -82,11 +82,13 @@ const Purchases = ({
                     {/* Payments */}
                     {
                         canManagePayments && (
-                            <ListItem button selected={ purchasesPayment } onClick={ selectPurchasesPayment }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Payments</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.PAYMENT } text={
+                                <ListItem button selected={ purchasesPayment } onClick={ selectPurchasesPayment }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Payments</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
                     {/* Vendors */}

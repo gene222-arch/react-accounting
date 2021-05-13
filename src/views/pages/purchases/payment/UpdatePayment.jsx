@@ -5,29 +5,28 @@ import { createStructuredSelector } from 'reselect';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 /** Selectors */
-import { selectRevenue } from '../../../../redux/modules/revenue/selector';
+import { selectPayment } from '../../../../redux/modules/payment/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
-import { selectAccount } from './../../../../redux/modules/account/selector';
-import { selectCustomer } from './../../../../redux/modules/customer/selector';
-import { selectIncomeCategory } from './../../../../redux/modules/income-category/selector';
-import { selectPaymentMethod } from './../../../../redux/modules/payment-method/selector';
+import { selectAccount } from '../../../../redux/modules/account/selector';
+import { selectVendor } from '../../../../redux/modules/vendor/selector';
+import { selectExpenseCategory } from '../../../../redux/modules/expense-category/selector';
+import { selectPaymentMethod } from '../../../../redux/modules/payment-method/selector';
 
 /** API */
-import { findAsync } from '../../../../services/sales/revenue';
+import { findAsync } from '../../../../services/purchases/payment';
 
 /** Actions */
-import * as REVENUE from '../../../../redux/modules/revenue/actions';
-import * as ACCOUNT from './../../../../redux/modules/account/actions';
-import * as CUSTOMER from './../../../../redux/modules/customer/actions';
-import * as INCOME_CATEGORY from './../../../../redux/modules/income-category/actions';
-import * as PAYMENT_METHOD from './../../../../redux/modules/payment-method/actions';
+import * as PAYMENT from '../../../../redux/modules/payment/actions';
+import * as ACCOUNT from '../../../../redux/modules/account/actions';
+import * as VENDOR from '../../../../redux/modules/vendor/actions';
+import * as EXPENSE_CATEGORY from '../../../../redux/modules/expense-category/actions';
+import * as PAYMENT_METHOD from '../../../../redux/modules/payment-method/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Components */
 import InputLabel from '@material-ui/core/InputLabel';
-import { FormControlLabel, FormControl, FormHelperText } from '@material-ui/core'
+import { FormControl, FormHelperText } from '@material-ui/core'
 import { Card, CardContent, CardActions } from '@material-ui/core'
-import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid'
@@ -52,36 +51,36 @@ const RECURRING_LIST = [
     'Yearly'
 ];
 
-const UpdateRevenue = ({ 
+const CreatePayment = ({ 
     alert, 
     accountProp,
-    customerProp,
-    incomeCategoryProp,
+    vendorProp,
+    expenseCategoryProp,
     paymentMethodProp,
-    revenueProp,
+    paymentProp,
     match }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
     const { id } = match.params;
 
-    const { isLoading, revenue, error } = revenueProp;
+    const { isLoading, payment, error } = paymentProp;
 
-    const [ revenueState, setRevenueState ] = useState(revenue);
+    const [ paymentState, setPaymentState ] = useState(payment);
 
-    const handleChange = (e) => setRevenueState({ ...revenueState, [e.target.name]: e.target.value });
+    const handleChange = (e) => setPaymentState({ ...paymentState, [e.target.name]: e.target.value });
 
-    const handleChangeDate = (date) => setRevenueState({ ...revenueState, date });
+    const handleChangeDate = (date) => setPaymentState({ ...paymentState, date });
 
     const onLoadFetchAccounts = () => dispatch(ACCOUNT.getAccounts());
 
-    const onLoadFetchCustomers = () => dispatch(CUSTOMER.getCustomers());
+    const onLoadFetchVendors = () => dispatch(VENDOR.getVendors());
 
-    const onLoadFetchIncomeCategories = () => dispatch(INCOME_CATEGORY.getIncomeCategories());
+    const onLoadFetchExpenseCategories = () => dispatch(EXPENSE_CATEGORY.getExpenseCategories());
 
     const onLoadFetchPaymentMethods = () => dispatch(PAYMENT_METHOD.getPaymentMethods());
 
-    const onLoadFetchRevenue = async () => 
+    const onLoadFetchPayment = async () => 
     {
         try {
             const { data, message, status } = await findAsync({ id });
@@ -91,7 +90,8 @@ const UpdateRevenue = ({
             }
     
             if (status === 'success') {
-                setRevenueState(data);
+                setPaymentState(data);
+                console.log(data)
             }
         } catch ({ message }) {
             dispatch(ALERT.showAlert({
@@ -101,16 +101,16 @@ const UpdateRevenue = ({
         }
     } 
 
-    const onSubmitCreateRevenue = (e) => {
+    const onSubmitUpdatePayment = (e) => {
         e.preventDefault();
-        dispatch(REVENUE.updateRevenue(revenueState));
+        dispatch(PAYMENT.updatePayment(paymentState));
     }
 
     useEffect(() => {
-        onLoadFetchRevenue();
+        onLoadFetchPayment();
         onLoadFetchAccounts();
-        onLoadFetchCustomers();
-        onLoadFetchIncomeCategories();
+        onLoadFetchVendors();
+        onLoadFetchExpenseCategories();
         onLoadFetchPaymentMethods();
     }, []);
 
@@ -122,7 +122,7 @@ const UpdateRevenue = ({
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <form onSubmit={ onSubmitCreateRevenue }>
+            <form onSubmit={ onSubmitUpdatePayment }>
                 <Card>
                     <CardContent>
                         <Grid container spacing={1} alignItems='center'>
@@ -133,7 +133,7 @@ const UpdateRevenue = ({
                                     variant='inline'
                                     format='yyyy-MM-dd'
                                     margin='normal'
-                                    value={ revenueState.date }
+                                    value={ paymentState.date }
                                     onChange={ handleChangeDate }
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
@@ -147,7 +147,7 @@ const UpdateRevenue = ({
                                     name='amount'
                                     error={ Boolean(error.amount) }
                                     helperText={ error.amount }
-                                    value={ revenueState.amount }
+                                    value={ paymentState.amount }
                                     onChange={ handleChange }
                                 />
                             </Grid>
@@ -155,7 +155,7 @@ const UpdateRevenue = ({
                                 <FormControl error={ Boolean(error.account_id) } fullWidth>
                                     <InputLabel>Account</InputLabel>
                                     <Select
-                                        value={ revenueState.account_id }
+                                        value={ paymentState.account_id }
                                         onChange={ handleChange }
                                         inputProps={{
                                             name: 'account_id'
@@ -170,25 +170,25 @@ const UpdateRevenue = ({
                                 </FormControl> 
                             </Grid>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <FormControl error={ Boolean(error.customer_id) } fullWidth>
-                                    <InputLabel>Customer</InputLabel>
+                                <FormControl error={ Boolean(error.vendor_id) } fullWidth>
+                                    <InputLabel>Vendor</InputLabel>
                                     <Select
-                                        value={ revenueState.customer_id }
+                                        value={ paymentState.vendor_id }
                                         onChange={ handleChange }
                                         inputProps={{
-                                            name: 'customer_id'
+                                            name: 'vendor_id'
                                         }}
                                         fullWidth
                                     >
                                         {
-                                            customerProp.customers.map(({ id, name }) => (
+                                            vendorProp.vendors.map(({ id, name }) => (
                                                 <MenuItem key={ id } value={ id }>
                                                     { name }
                                                 </MenuItem>
                                             ))
                                         }
                                     </Select>
-                                    <FormHelperText>{ error.customer_id || '' }</FormHelperText>
+                                    <FormHelperText>{ error.vendor_id || '' }</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -197,38 +197,40 @@ const UpdateRevenue = ({
                                     helperText={ error.description }
                                     name="description"
                                     label="Enter Description"
-                                    value={ revenueState.description || '' }
+                                    value={ paymentState.description || '' }
                                     onChange={ handleChange }
                                     multiline
+                                    rows={ 3 }
+                                    fullWidth
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <FormControl error={ Boolean(error.income_category_id) } fullWidth>
+                                <FormControl error={ Boolean(error.expense_category_id) } fullWidth>
                                     <InputLabel>Category</InputLabel>
                                     <Select
-                                        value={ revenueState.income_category_id }
+                                        value={ paymentState.expense_category_id }
                                         onChange={ handleChange }
                                         inputProps={{
-                                            name: 'income_category_id'
+                                            name: 'expense_category_id'
                                         }}
                                         fullWidth
                                     >
                                         {
-                                            incomeCategoryProp.incomeCategories.map(({ id, name }) => (
+                                            expenseCategoryProp.expenseCategories.map(({ id, name }) => (
                                                 <MenuItem key={ id } value={ id }>
                                                     { name }
                                                 </MenuItem>
                                             ))
                                         }
                                     </Select>
-                                    <FormHelperText>{ error.income_category_id || '' }</FormHelperText>
+                                    <FormHelperText>{ error.expense_category_id || '' }</FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <FormControl error={ Boolean(error.recurring) } fullWidth>
                                     <InputLabel>Recurring</InputLabel>
                                     <Select
-                                        value={ revenueState.recurring }
+                                        value={ paymentState.recurring }
                                         onChange={ handleChange }
                                         inputProps={{
                                             name: 'recurring'
@@ -250,7 +252,7 @@ const UpdateRevenue = ({
                                 <FormControl error={ Boolean(error.payment_method_id) } fullWidth>
                                     <InputLabel>Payment method</InputLabel>
                                     <Select
-                                        value={ revenueState.payment_method_id }
+                                        value={ paymentState.payment_method_id }
                                         onChange={ handleChange }
                                         inputProps={{
                                             name: 'payment_method_id'
@@ -276,7 +278,7 @@ const UpdateRevenue = ({
                                     error={ Boolean(error.reference) }
                                     helperText={ error.reference }
                                     label='Enter Reference'
-                                    value={ revenueState.reference || '' }
+                                    value={ paymentState.reference || '' }
                                     onChange={ handleChange }
                                 />
                             </Grid>
@@ -286,8 +288,8 @@ const UpdateRevenue = ({
                     <CardActions>
                         <SaveCancelButtons 
                             isLoading={ isLoading }
-                            cancelBtnCallback={ () => history.push(PATH.REVENUE) }
-                            saveBtnCallback={ onSubmitCreateRevenue }
+                            cancelBtnCallback={ () => history.push(PATH.PAYMENT) }
+                            saveBtnCallback={ onSubmitUpdatePayment }
                         />
                     </CardActions>
                 </Card>
@@ -300,10 +302,10 @@ const UpdateRevenue = ({
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
     accountProp: selectAccount,
-    customerProp: selectCustomer,
-    incomeCategoryProp: selectIncomeCategory,
+    vendorProp: selectVendor,
+    expenseCategoryProp: selectExpenseCategory,
     paymentMethodProp: selectPaymentMethod,
-    revenueProp: selectRevenue
+    paymentProp: selectPayment
 });
 
-export default connect(mapStateToProps, null)(UpdateRevenue)
+export default connect(mapStateToProps, null)(CreatePayment)

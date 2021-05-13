@@ -53,7 +53,11 @@ const PATH =
     CREATE_BILL: '/purchases/bills/new',
     VIEW_BILL: '/purchases/bills/:id',
     UPDATE_BILL: '/purchases/bills/:id/edit',
-    
+
+    /** Payments */
+    PAYMENT: '/purchases/payments',
+    CREATE_PAYMENT: '/purchases/payments/new',
+    UPDATE_PAYMENT: '/purchases/payments/:id/edit',
 
     /** Accounts */
     ACCOUNT: '/banking/accounts',

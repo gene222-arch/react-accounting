@@ -2,29 +2,29 @@ import ACTION_TYPES from './action.types';
 import * as DATE from '../../../utils/date'
 
 const {
-    GET_REVENUES_START,
-    GET_REVENUES_SUCCESS,
-    GET_REVENUES_FAILED,
+    GET_PAYMENTS_START,
+    GET_PAYMENTS_SUCCESS,
+    GET_PAYMENTS_FAILED,
 
-    CREATE_REVENUE_START,
-    CREATE_REVENUE_SUCCESS,
-    CREATE_REVENUE_FAILED,
+    CREATE_PAYMENT_START,
+    CREATE_PAYMENT_SUCCESS,
+    CREATE_PAYMENT_FAILED,
 
-    UPDATE_REVENUE_START,
-    UPDATE_REVENUE_SUCCESS,
-    UPDATE_REVENUE_FAILED,
+    UPDATE_PAYMENT_START,
+    UPDATE_PAYMENT_SUCCESS,
+    UPDATE_PAYMENT_FAILED,
 
-    DESTROY_REVENUES_START,
-    DESTROY_REVENUES_SUCCESS,
-    DESTROY_REVENUES_FAILED
+    DESTROY_PAYMENTS_START,
+    DESTROY_PAYMENTS_SUCCESS,
+    DESTROY_PAYMENTS_FAILED
 } = ACTION_TYPES;
 
-const REVENUE_DEFAULT_PROPS = {
+const PAYMENT_DEFAULT_PROPS = {
     id: 0,
     number: '',
     account_id: 0,
-    customer_id: 0,
-    income_revenue_id: 0,
+    vendor_id: 0,
+    expense_category_id: 0,
     payment_method_id: 0,
     currency_id: 0,
     date: DATE.today(),
@@ -38,8 +38,8 @@ const REVENUE_DEFAULT_PROPS = {
 const ERROR_DEFAULT= {
     number: '',
     account_id: '',
-    customer_id: '',
-    income_revenue_id: '',
+    vendor_id: '',
+    expense_category_id: '',
     payment_method_id: '',
     currency_id: '',
     date: '',
@@ -52,80 +52,80 @@ const ERROR_DEFAULT= {
 
 const initialState = {
     isLoading: false,
-    revenue: REVENUE_DEFAULT_PROPS,
-    revenues: [],
+    payment: PAYMENT_DEFAULT_PROPS,
+    payments: [],
     error: ERROR_DEFAULT
 };
 
 export default (state = initialState, { type, payload }) => 
 {
     const {
-        revenues
+        payments
     } = state;
 
     switch (type) 
     {
-        case GET_REVENUES_START:
-        case CREATE_REVENUE_START:
-        case UPDATE_REVENUE_START:
-        case DESTROY_REVENUES_START:
+        case GET_PAYMENTS_START:
+        case CREATE_PAYMENT_START:
+        case UPDATE_PAYMENT_START:
+        case DESTROY_PAYMENTS_START:
             return { 
                 ...state, 
                 isLoading: true 
             };
 
-        case GET_REVENUES_SUCCESS: 
+        case GET_PAYMENTS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                revenues: payload.revenues,
+                payments: payload.payments,
                 error: ERROR_DEFAULT
             };
 
-        case GET_REVENUES_FAILED: 
+        case GET_PAYMENTS_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case CREATE_REVENUE_SUCCESS: 
+        case CREATE_PAYMENT_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CREATE_REVENUE_FAILED: 
+        case CREATE_PAYMENT_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
 
-        case UPDATE_REVENUE_SUCCESS: 
+        case UPDATE_PAYMENT_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case UPDATE_REVENUE_FAILED: 
+        case UPDATE_PAYMENT_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };            
 
-        case DESTROY_REVENUES_SUCCESS: 
+        case DESTROY_PAYMENTS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                revenues: revenues.filter(({ id }) => !payload.ids.includes(id)) || [],
+                payments: payments.filter(({ id }) => !payload.ids.includes(id)) || [],
                 error: ERROR_DEFAULT
             };
 
-        case DESTROY_REVENUES_FAILED: 
+        case DESTROY_PAYMENTS_FAILED: 
             return {
                 ...state,
                 isLoading: false,

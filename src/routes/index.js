@@ -61,6 +61,9 @@ const Bill = lazy(() => import('../views/pages/purchases/bill/Bill'))
 const ViewBill = lazy(() => import('../views/pages/purchases/bill/view-bill/ViewBill'))
 const CreateBill = lazy(() => import('../views/pages/purchases/bill/create-bill/CreateBill'))
 const UpdateBill = lazy(() => import('../views/pages/purchases/bill/update-bill/UpdateBill'))
+const Payment = lazy(() => import('../views/pages/purchases/payment/Payment'))
+const CreatePayment = lazy(() => import('../views/pages/purchases/payment/CreatePayment'))
+const UpdatePayment = lazy(() => import('../views/pages/purchases/payment/UpdatePayment'))
 const Vendor = lazy(() => import('../views/pages/purchases/vendor/Vendor'))
 const CreateVendor = lazy(() => import('../views/pages/purchases/vendor/CreateVendor'))
 const UpdateVendor = lazy(() => import('../views/pages/purchases/vendor/UpdateVendor'))
@@ -608,6 +611,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateBill,
         access: 'Manage Bills',
+        restricted: true
+    },
+    {
+        path: PATH.PAYMENT,
+        key: 'Payment',
+        icon: '',
+        exact: true,
+        component: Payment,
+        access: 'Manage Payments',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_PAYMENT,
+        key: 'CreatePayment',
+        icon: '',
+        exact: true,
+        component: CreatePayment,
+        access: 'Manage Payments',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_PAYMENT,
+        key: 'UpdatePayment',
+        icon: '',
+        exact: true,
+        component: UpdatePayment,
+        access: 'Manage Payments',
         restricted: true
     },
     {
