@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects'
 
 /** Module sagas */
 import authSaga from './modules/auth/saga'
+import accessRightSaga from './modules/access-right/saga'
 import accountSaga from './modules/account/saga'
 import bankAccountTransferSaga from './modules/bank-account-transfer/saga'
 import bankAccountReconciliationSaga from './modules/bank-account-reconciliation/saga'
@@ -25,11 +26,14 @@ import paymentSaga from './modules/payment/saga'
 import stockAdjustmentSaga from './modules/stock-adjustment/saga'
 import warehouseSaga from './modules/warehouse/saga'
 import journalEntrySaga from './modules/journal-entry/saga'
+import payCalendarSaga from './modules/pay-calendar/saga'
+import employeeSaga from './modules/employee/saga'
 
 export default function* () 
 {
     yield all([
         authSaga(),
+        accessRightSaga(),
         accountSaga(),
         bankAccountTransferSaga(),
         bankAccountReconciliationSaga(),
@@ -52,7 +56,9 @@ export default function* ()
         warehouseSaga(),
         vendorSaga(),
         billSaga(),
-        paymentSaga()
+        paymentSaga(),
+        payCalendarSaga(),
+        employeeSaga()
     ]);
 }
 

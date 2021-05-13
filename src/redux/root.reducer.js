@@ -5,6 +5,7 @@ import { connectRouter } from 'connected-react-router'
 /** Module Reducers */
 import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
+import accessRightReducer from './modules/access-right/reducer'
 import accountReducer from './modules/account/reducer'
 import bankAccountTransferReducer from './modules/bank-account-transfer/reducer'
 import bankAccountReconciliationReducer from './modules/bank-account-reconciliation/reducer'
@@ -29,6 +30,8 @@ import paymentReducer from './modules/payment/reducer'
 import stockAdjustmentReducer from './modules/stock-adjustment/reducer'
 import warehouseReducer from './modules/warehouse/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
+import payCalendarReducer from './modules/pay-calendar/reducer'
+import employeeReducer from './modules/employee/reducer'
 
 
 const rootReducer = (history) => combineReducers({
@@ -38,6 +41,7 @@ const rootReducer = (history) => combineReducers({
 
     /** reducers */
     auth: authReducer,
+    accessRight: accessRightReducer,
     account: accountReducer,
     bankAccountTransfer: bankAccountTransferReducer,
     bankAccountReconciliation: bankAccountReconciliationReducer,
@@ -61,7 +65,9 @@ const rootReducer = (history) => combineReducers({
     payment: paymentReducer,
     stockAdjustment: stockAdjustmentReducer,
     warehouse: warehouseReducer,
-    mainLayout: mainLayoutReducer
+    mainLayout: mainLayoutReducer,
+    payCalendar: payCalendarReducer,
+    employee: employeeReducer
 });
 
 export default rootReducer;

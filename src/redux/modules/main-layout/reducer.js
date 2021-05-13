@@ -46,6 +46,7 @@ const {
     SELECT_PAYROLL_PAY_CALENDAR,
     SELECT_PAYROLL_RUN_PAYROLL,
 
+    EMPLOYEES,
     REPORTS,
     SETTINGS
 } = ACTION_TYPES;
@@ -96,6 +97,7 @@ const DEFAULT_STATE = {
     payrollPayCalendar: false,
     payrollRunPayroll: false,
 
+    employees: false,
     reports: false,
     settings: false,
 };
@@ -152,6 +154,7 @@ const initialState = {
     payrollPayCalendar: false,
     payrollRunPayroll: false,
 
+    employees: false,
     reports: false,
     settings: false,
 
@@ -201,6 +204,7 @@ export default (state = initialState, { type }) =>
         payroll,
         payrollPayCalendar,
         payrollRunPayroll,
+        employees,
         reports,
         settings
     } = state;
@@ -557,7 +561,15 @@ export default (state = initialState, { type }) =>
                 currentSelectedDropdown: 'payroll',
                 currentSelectedDropdownItem: 'payrollRunPayroll'
             };   
-                      
+                  
+        case EMPLOYEES:
+            return {
+                ...DEFAULT_STATE,
+                employees: !employees,
+                currentSelectedItem: 'Employees',
+                currentSelectedDropdownItem: 'employees'
+            };  
+
         case REPORTS:
             return {
                 ...DEFAULT_STATE,

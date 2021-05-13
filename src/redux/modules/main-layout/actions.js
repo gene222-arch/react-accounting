@@ -46,6 +46,8 @@ const {
     SELECT_PAYROLL_PAY_CALENDAR,
     SELECT_PAYROLL_RUN_PAYROLL,
 
+    EMPLOYEES,
+
     REPORTS,
     SETTINGS
 } = ACTION_TYPES;
@@ -222,6 +224,13 @@ export const selectPayrollPayCalendar = () => ({
 
 export const selectPayrollRunPayroll = () => ({
     type: SELECT_PAYROLL_RUN_PAYROLL
+});
+
+/**
+ * Employees
+ */
+export const selectEmployees = () => ({
+    type: EMPLOYEES
 });
 
 /**

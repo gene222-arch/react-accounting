@@ -127,7 +127,7 @@ const PATH =
     CREATE_PAYMENT_METHOD: '/settings/payment-methods/new',
     UPDATE_PAYMENT_METHOD: '/settings/payment-methods/:id/edit',
 
-    /** Warehouses */
+    /** Stock adjustments */
     STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments',
     VIEW_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/:id',
     CREATE_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/new',
@@ -136,7 +136,16 @@ const PATH =
     WAREHOUSE: '/inventory-management/warehouses',
     VIEW_WAREHOUSE: '/inventory-management/warehouses/:id',
     CREATE_WAREHOUSE: '/inventory-management/warehouses/new',
-    UPDATE_WAREHOUSE: '/inventory-management/warehouses/:id/edit'
+    UPDATE_WAREHOUSE: '/inventory-management/warehouses/:id/edit',
+
+    /** Warehouses */
+    PAY_CALENDAR: '/human-resources/payrolls/pay-calendars',
+    CREATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/new',
+    UPDATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/:id/edit',
+
+    EMPLOYEE: '/human-resources/employees',
+    CREATE_EMPLOYEE: '/human-resources/employees/new',
+    UPDATE_EMPLOYEE: '/human-resources/employees/:id/edit',
 };
 
 

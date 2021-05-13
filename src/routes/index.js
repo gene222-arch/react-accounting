@@ -87,7 +87,9 @@ const Warehouse = lazy(() => import('../views/pages/inventory/warehouse/Warehous
 const ViewWarehouse = lazy(() => import('../views/pages/inventory/warehouse/ViewWarehouse'))
 const CreateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/CreateWarehouse'))
 const UpdateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/UpdateWarehouse'))
-
+const Employee = lazy(() => import('../views/pages/employee/Employee'))
+const CreateEmployee = lazy(() => import('../views/pages/employee/CreateEmployee'))
+const UpdateEmployee = lazy(() => import('../views/pages/employee/UpdateEmployee'))
 
 export const AUTH_ROUTES = [
     {
@@ -846,5 +848,32 @@ export const PRIVATE_ROUTES = [
         component: ViewStockAdjustment,
         access: 'Manage Stock Adjustments',
         restricted: true
-    }
+    },
+    {
+        path: PATH.EMPLOYEE,
+        key: 'Employee',
+        icon: '',
+        exact: true,
+        component: Employee,
+        access: 'Manage Employees',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_EMPLOYEE,
+        key: 'CreateEmployee',
+        icon: '',
+        exact: true,
+        component: CreateEmployee,
+        access: 'Manage Employees',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_EMPLOYEE,
+        key: 'UpdateEmployee',
+        icon: '',
+        exact: true,
+        component: UpdateEmployee,
+        access: 'Manage Employees',
+        restricted: true
+    },
 ];

@@ -22,6 +22,7 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
+import EmployeeIcon from '@material-ui/icons/People';
 
 /** Actions */
 import * as AUTH from '../../redux/modules/auth/actions'
@@ -125,6 +126,8 @@ const MainLayout = ({ auth, children, mainLayout }) =>
     const selectReports = () => dispatch(MAIN_LAYOUT.selectReports());
 
     const selectSettings = () => dispatch(MAIN_LAYOUT.selectSettings());
+
+    const selectEmployees = () => dispatch(MAIN_LAYOUT.selectEmployees());
 
     const handleClickLogout = () => dispatch(AUTH.logoutStart());
 
@@ -311,6 +314,16 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                             </ListItem>
                         )
                     }
+
+                    {/* Employees */}
+                    <StyledNavLink to={ PATH.EMPLOYEE } text={ 
+                        <ListItem button selected={ mainLayout.employees } onClick={ selectEmployees }>
+                            <ListItemIcon>
+                                <EmployeeIcon fontSize='small' />
+                            </ListItemIcon>
+                            <ListItemText primary={'Employees'} />
+                        </ListItem>
+                    } />
 
                     {/* Settings */}
                     <StyledNavLink to={ PATH.SETTINGS } text={ 

@@ -1,126 +1,143 @@
 import ACTION_TYPES from './action.types';
+import * as DATE from '../../../utils/date'
 
 const {
-    GET_CUSTOMERS_START,
-    GET_CUSTOMERS_SUCCESS,
-    GET_CUSTOMERS_FAILED,
+    GET_EMPLOYEES_START,
+    GET_EMPLOYEES_SUCCESS,
+    GET_EMPLOYEES_FAILED,
 
-    CREATE_CUSTOMER_START,
-    CREATE_CUSTOMER_SUCCESS,
-    CREATE_CUSTOMER_FAILED,
+    CREATE_EMPLOYEE_START,
+    CREATE_EMPLOYEE_SUCCESS,
+    CREATE_EMPLOYEE_FAILED,
 
-    UPDATE_CUSTOMER_START,
-    UPDATE_CUSTOMER_SUCCESS,
-    UPDATE_CUSTOMER_FAILED,
+    UPDATE_EMPLOYEE_START,
+    UPDATE_EMPLOYEE_SUCCESS,
+    UPDATE_EMPLOYEE_FAILED,
 
-    DESTROY_CUSTOMERS_START,
-    DESTROY_CUSTOMERS_SUCCESS,
-    DESTROY_CUSTOMERS_FAILED
+    DESTROY_EMPLOYEES_START,
+    DESTROY_EMPLOYEES_SUCCESS,
+    DESTROY_EMPLOYEES_FAILED
 } = ACTION_TYPES;
 
-const CUSTOMER_DEFAULT_PROPS = {
+const EMPLOYEE_DEFAULT_PROPS = {
     id: 0,
-    currency_id: 0,
-    name: '',
+    role_id: '',
+    first_name: '',
+    last_name: '',
+    birth_date: DATE.today(),
+    gender: '',
     email: '',
-    tax_number: '',
     phone: '',
-    website: '',
     address: '',
-    reference: '',
     image: null,
-    enabled: false
+    enabled: false,
 };
+
+const SALARY_DEFAULT_PROPS = {
+    currency_id: '',
+    amount: 0,
+    tax_number: '',
+    bank_account_number: '',
+    hired_at: DATE.today()
+}
 
 const ERROR_DEFAULT= {
     currency_id: '',
-    name: '',
+    first_name: '',
+    last_name: '',
+    birth_date: '',
+    gender: '',
     email: '',
-    tax_number: '',
     phone: '',
-    website: '',
     address: '',
-    reference: '',
     image: '',
-    enabled: ''
+    enabled: '',
+    currency_id: '',
+    amount: '',
+    tax_number: '',
+    bank_account_number: '',
+    hired_at: '',
+    role_id: '',
+    create_user: ''
 };
 
 const initialState = {
     isLoading: false,
-    customer: CUSTOMER_DEFAULT_PROPS,
-    customers: [],
+    employee: EMPLOYEE_DEFAULT_PROPS,
+    salary: SALARY_DEFAULT_PROPS,
+    employees: [],
     error: ERROR_DEFAULT
 };
 
 export default (state = initialState, { type, payload }) => 
 {
     const {
-        customers
+        employees
     } = state;
 
     switch (type) 
     {
-        case GET_CUSTOMERS_START:
-        case CREATE_CUSTOMER_START:
-        case UPDATE_CUSTOMER_START:
-        case DESTROY_CUSTOMERS_START:
+        case GET_EMPLOYEES_START:
+        case CREATE_EMPLOYEE_START:
+        case UPDATE_EMPLOYEE_START:
+        case DESTROY_EMPLOYEES_START:
             return { 
                 ...state, 
                 isLoading: true 
             };
 
-        case GET_CUSTOMERS_SUCCESS: 
+        case GET_EMPLOYEES_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                customers: payload.customers,
+                employees: payload.employees,
                 error: ERROR_DEFAULT
             };
 
-        case GET_CUSTOMERS_FAILED: 
+        case GET_EMPLOYEES_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case CREATE_CUSTOMER_SUCCESS: 
+        case CREATE_EMPLOYEE_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CREATE_CUSTOMER_FAILED: 
+        case CREATE_EMPLOYEE_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
 
-        case UPDATE_CUSTOMER_SUCCESS: 
+        case UPDATE_EMPLOYEE_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case UPDATE_CUSTOMER_FAILED: 
+        case UPDATE_EMPLOYEE_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };            
 
-        case DESTROY_CUSTOMERS_SUCCESS: 
+        case DESTROY_EMPLOYEES_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                customers: customers.filter(customer => !payload.ids.includes(customer.id)) || [],
+                employees: employees.filter(({ id }) => !payload.ids.includes(id)) || [],
                 error: ERROR_DEFAULT
             };
 
-        case DESTROY_CUSTOMERS_FAILED: 
+        case DESTROY_EMPLOYEES_FAILED: 
             return {
                 ...state,
                 isLoading: false,

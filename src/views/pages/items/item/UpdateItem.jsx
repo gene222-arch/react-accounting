@@ -229,7 +229,7 @@ const UpdateItem = ({ alert, categoryProp, itemProp, match }) =>
                                     <FormControlLabel
                                         control={
                                             <Switch
-                                                checked={ itemState.is_for_sale }
+                                                checked={ Boolean(itemState.is_for_sale) }
                                                 onChange={ handleChangeItem }
                                                 name="is_for_sale"
                                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
@@ -242,7 +242,7 @@ const UpdateItem = ({ alert, categoryProp, itemProp, match }) =>
                                     <FormControlLabel
                                         control={
                                             <Switch
-                                                checked={ trackStock }
+                                                checked={ Boolean(trackStock) }
                                                 onChange={ handleClickTrackStock }
                                                 name="track_stock"
                                                 inputProps={{ 'aria-label': 'secondary checkbox' }}

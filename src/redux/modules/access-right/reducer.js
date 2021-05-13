@@ -1,132 +1,115 @@
 import ACTION_TYPES from './action.types';
 
 const {
-    GET_CUSTOMERS_START,
-    GET_CUSTOMERS_SUCCESS,
-    GET_CUSTOMERS_FAILED,
+    GET_ACCESS_RIGHTS_START,
+    GET_ACCESS_RIGHTS_SUCCESS,
+    GET_ACCESS_RIGHTS_FAILED,
 
-    CREATE_CUSTOMER_START,
-    CREATE_CUSTOMER_SUCCESS,
-    CREATE_CUSTOMER_FAILED,
+    CREATE_ACCESS_RIGHT_START,
+    CREATE_ACCESS_RIGHT_SUCCESS,
+    CREATE_ACCESS_RIGHT_FAILED,
 
-    UPDATE_CUSTOMER_START,
-    UPDATE_CUSTOMER_SUCCESS,
-    UPDATE_CUSTOMER_FAILED,
+    UPDATE_ACCESS_RIGHT_START,
+    UPDATE_ACCESS_RIGHT_SUCCESS,
+    UPDATE_ACCESS_RIGHT_FAILED,
 
-    DESTROY_CUSTOMERS_START,
-    DESTROY_CUSTOMERS_SUCCESS,
-    DESTROY_CUSTOMERS_FAILED
+    DESTROY_ACCESS_RIGHTS_START,
+    DESTROY_ACCESS_RIGHTS_SUCCESS,
+    DESTROY_ACCESS_RIGHTS_FAILED
 } = ACTION_TYPES;
 
-const CUSTOMER_DEFAULT_PROPS = {
+const ACCESS_RIGHT_DEFAULT_PROPS = {
     id: 0,
-    currency_id: 0,
-    name: '',
-    email: '',
-    tax_number: '',
-    phone: '',
-    website: '',
-    address: '',
-    reference: '',
-    image: null,
+    role: '',
     enabled: false
 };
 
 const ERROR_DEFAULT= {
-    currency_id: '',
-    name: '',
-    email: '',
-    tax_number: '',
-    phone: '',
-    website: '',
-    address: '',
-    reference: '',
-    image: '',
+    role: '',
     enabled: ''
 };
 
 const initialState = {
     isLoading: false,
-    customer: CUSTOMER_DEFAULT_PROPS,
-    customers: [],
+    accessRight: ACCESS_RIGHT_DEFAULT_PROPS,
+    accessRights: [],
     error: ERROR_DEFAULT
 };
 
 export default (state = initialState, { type, payload }) => 
 {
     const {
-        customers
+        accessRights
     } = state;
 
     switch (type) 
     {
-        case GET_CUSTOMERS_START:
-        case CREATE_CUSTOMER_START:
-        case UPDATE_CUSTOMER_START:
-        case DESTROY_CUSTOMERS_START:
+        case GET_ACCESS_RIGHTS_START:
+        case CREATE_ACCESS_RIGHT_START:
+        case UPDATE_ACCESS_RIGHT_START:
+        case DESTROY_ACCESS_RIGHTS_START:
             return { 
                 ...state, 
                 isLoading: true 
             };
 
-        case GET_CUSTOMERS_SUCCESS: 
+        case GET_ACCESS_RIGHTS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                customers: payload.customers,
+                accessRights: payload.accessRights,
                 error: ERROR_DEFAULT
             };
 
-        case GET_CUSTOMERS_FAILED: 
+        case GET_ACCESS_RIGHTS_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case CREATE_CUSTOMER_SUCCESS: 
+        case CREATE_ACCESS_RIGHT_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CREATE_CUSTOMER_FAILED: 
+        case CREATE_ACCESS_RIGHT_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
 
-        case UPDATE_CUSTOMER_SUCCESS: 
+        case UPDATE_ACCESS_RIGHT_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case UPDATE_CUSTOMER_FAILED: 
+        case UPDATE_ACCESS_RIGHT_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };            
 
-        case DESTROY_CUSTOMERS_SUCCESS: 
+        case DESTROY_ACCESS_RIGHTS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                customers: customers.filter(customer => !payload.ids.includes(customer.id)) || [],
+                accessRights: accessRights.filter(({ id }) => !payload.ids.includes(id)) || [],
                 error: ERROR_DEFAULT
             };
 
-        case DESTROY_CUSTOMERS_FAILED: 
+        case DESTROY_ACCESS_RIGHTS_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
-            };      
-                   
+            };             
         default:
             return state;
     }

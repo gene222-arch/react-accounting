@@ -1,132 +1,116 @@
 import ACTION_TYPES from './action.types';
 
 const {
-    GET_CUSTOMERS_START,
-    GET_CUSTOMERS_SUCCESS,
-    GET_CUSTOMERS_FAILED,
+    GET_PAY_CALENDARS_START,
+    GET_PAY_CALENDARS_SUCCESS,
+    GET_PAY_CALENDARS_FAILED,
 
-    CREATE_CUSTOMER_START,
-    CREATE_CUSTOMER_SUCCESS,
-    CREATE_CUSTOMER_FAILED,
+    CREATE_PAY_CALENDAR_START,
+    CREATE_PAY_CALENDAR_SUCCESS,
+    CREATE_PAY_CALENDAR_FAILED,
 
-    UPDATE_CUSTOMER_START,
-    UPDATE_CUSTOMER_SUCCESS,
-    UPDATE_CUSTOMER_FAILED,
+    UPDATE_PAY_CALENDAR_START,
+    UPDATE_PAY_CALENDAR_SUCCESS,
+    UPDATE_PAY_CALENDAR_FAILED,
 
-    DESTROY_CUSTOMERS_START,
-    DESTROY_CUSTOMERS_SUCCESS,
-    DESTROY_CUSTOMERS_FAILED
+    DESTROY_PAY_CALENDARS_START,
+    DESTROY_PAY_CALENDARS_SUCCESS,
+    DESTROY_PAY_CALENDARS_FAILED
 } = ACTION_TYPES;
 
-const CUSTOMER_DEFAULT_PROPS = {
+
+const PAY_CALENDAR_DEFAULT_PROPS = {
     id: 0,
-    currency_id: 0,
     name: '',
-    email: '',
-    tax_number: '',
-    phone: '',
-    website: '',
-    address: '',
-    reference: '',
-    image: null,
-    enabled: false
+    type: ''
 };
 
-const ERROR_DEFAULT= {
-    currency_id: '',
+const ERROR_DEFAULT = { 
     name: '',
-    email: '',
-    tax_number: '',
-    phone: '',
-    website: '',
-    address: '',
-    reference: '',
-    image: '',
-    enabled: ''
+    type: ''
 };
 
 const initialState = {
+    payCalendar: PAY_CALENDAR_DEFAULT_PROPS,
+    payCalendars: [],
     isLoading: false,
-    customer: CUSTOMER_DEFAULT_PROPS,
-    customers: [],
     error: ERROR_DEFAULT
-};
+}
 
 export default (state = initialState, { type, payload }) => 
 {
     const {
-        customers
+        payCalendars
     } = state;
 
     switch (type) 
     {
-        case GET_CUSTOMERS_START:
-        case CREATE_CUSTOMER_START:
-        case UPDATE_CUSTOMER_START:
-        case DESTROY_CUSTOMERS_START:
+        case GET_PAY_CALENDARS_START:
+        case CREATE_PAY_CALENDAR_START:
+        case UPDATE_PAY_CALENDAR_START:
+        case DESTROY_PAY_CALENDARS_START:
             return { 
                 ...state, 
                 isLoading: true 
             };
 
-        case GET_CUSTOMERS_SUCCESS: 
+        case GET_PAY_CALENDARS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                customers: payload.customers,
+                payCalendars: payload.payCalendars,
                 error: ERROR_DEFAULT
             };
 
-        case GET_CUSTOMERS_FAILED: 
+        case GET_PAY_CALENDARS_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case CREATE_CUSTOMER_SUCCESS: 
+        case CREATE_PAY_CALENDAR_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CREATE_CUSTOMER_FAILED: 
+        case CREATE_PAY_CALENDAR_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
 
-        case UPDATE_CUSTOMER_SUCCESS: 
+        case UPDATE_PAY_CALENDAR_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case UPDATE_CUSTOMER_FAILED: 
+        case UPDATE_PAY_CALENDAR_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };            
 
-        case DESTROY_CUSTOMERS_SUCCESS: 
+        case DESTROY_PAY_CALENDARS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                customers: customers.filter(customer => !payload.ids.includes(customer.id)) || [],
+                payCalendars: payCalendars.filter(({ id }) => !payload.ids.includes(id)),
                 error: ERROR_DEFAULT
             };
 
-        case DESTROY_CUSTOMERS_FAILED: 
+        case DESTROY_PAY_CALENDARS_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
-            };      
-                   
+            };             
         default:
             return state;
     }

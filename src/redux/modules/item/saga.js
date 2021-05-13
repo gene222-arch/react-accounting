@@ -91,7 +91,7 @@ function* createItemSaga (payload)
             image: message['item.image'],
             sold_by: message['item.sold_by'],
             vendor_id: message['stock.vendor_id']
-        } }));
+        }}));
 
         yield put(ALERT.showAlert({
             status: 'error',
@@ -120,7 +120,17 @@ function* updateItemSaga (payload)
         }
 
     } catch ({ message }) {
-        yield put(updateItemFailed({ errorMessages: message }));
+        yield put(updateItemFailed({ errorMessages: {
+            name: message['item.name'],
+            category_id: message['item.category_id'],
+            barcode: message['item.barcode'],
+            sku: message['item.sku'],
+            price: message['item.price'],
+            cost: message['item.cost'],
+            image: message['item.image'],
+            sold_by: message['item.sold_by'],
+            vendor_id: message['stock.vendor_id']
+        }}));
 
         yield put(ALERT.showAlert({
             status: 'error',
