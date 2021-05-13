@@ -90,6 +90,9 @@ const UpdateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/Up
 const Employee = lazy(() => import('../views/pages/employee/Employee'))
 const CreateEmployee = lazy(() => import('../views/pages/employee/CreateEmployee'))
 const UpdateEmployee = lazy(() => import('../views/pages/employee/UpdateEmployee'))
+const PayCalendar = lazy(() => import('../views/pages/payroll/pay-calendar/PayCalendar'))
+const CreatePayCalendar = lazy(() => import('../views/pages/payroll/pay-calendar/CreatePayCalendar'))
+const UpdatePayCalendar = lazy(() => import('../views/pages/payroll/pay-calendar/UpdatePayCalendar'))
 
 export const AUTH_ROUTES = [
     {
@@ -874,6 +877,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateEmployee,
         access: 'Manage Employees',
+        restricted: true
+    },
+    {
+        path: PATH.PAY_CALENDAR,
+        key: 'PayCalendar',
+        icon: '',
+        exact: true,
+        component: PayCalendar,
+        access: 'Manage Pay Calendars',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_PAY_CALENDAR,
+        key: 'CreatePayCalendar',
+        icon: '',
+        exact: true,
+        component: CreatePayCalendar,
+        access: 'Manage Pay Calendars',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_PAY_CALENDAR,
+        key: 'UpdatePayCalendar',
+        icon: '',
+        exact: true,
+        component: UpdatePayCalendar,
+        access: 'Manage Pay Calendars',
         restricted: true
     },
 ];

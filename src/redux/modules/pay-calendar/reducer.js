@@ -22,7 +22,8 @@ const {
 const PAY_CALENDAR_DEFAULT_PROPS = {
     id: 0,
     name: '',
-    type: ''
+    type: '',
+    employee_ids: []
 };
 
 const ERROR_DEFAULT = { 

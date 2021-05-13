@@ -9,6 +9,11 @@ import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
+/** Components */
+
+import PATH from './../../../routes/path';
+import StyledNavLink from './../../../components/styled-components/StyledNavLink';
+
 
 const Payroll = ({ 
     openPayroll, 
@@ -48,11 +53,13 @@ const Payroll = ({
                     {/* Pay Calendar */}
                     {
                         canManagePayCalendars && (
-                            <ListItem button selected={ payrollPayCalendar } onClick={ selectPayrollPayCalendar }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Pay Calendar</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.PAY_CALENDAR } text={
+                                <ListItem button selected={ payrollPayCalendar } onClick={ selectPayrollPayCalendar }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Pay Calendar</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
 

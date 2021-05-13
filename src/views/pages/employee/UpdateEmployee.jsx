@@ -89,6 +89,7 @@ const CreateEmployee = ({ alert, accessRightProp, employeeProp, match }) =>
     const onSubmitCreateEmployee = (e) => {
         e.preventDefault();
         dispatch(EMPLOYEE.updateEmployee({
+            id,
             employee: employeeState,
             salary: salaryState,
             create_user: createUser
