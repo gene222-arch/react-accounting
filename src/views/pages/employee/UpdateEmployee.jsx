@@ -272,7 +272,7 @@ const CreateEmployee = ({ alert, accessRightProp, employeeProp, match }) =>
                             <CardActions>
                                 <SaveCancelButtons 
                                     isLoading={ isLoading }
-                                    cancelBtnCallback={ () => history.push(PATH.EMPLOYEE) }
+                                    cancelBtnCallback={ () => history.push(PATH.VIEW_EMPLOYEE.replace(':id', id)) }
                                     saveBtnCallback={ onSubmitCreateEmployee }
                                 />
                             </CardActions>

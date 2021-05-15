@@ -49,7 +49,7 @@ const Employee = ({ alert, employee }) =>
         { 
             title: 'Name', 
             field: 'name', 
-            render: ({ id, name }) => <StyledNavLink to={ PATH.UPDATE_EMPLOYEE.replace(':id', id)} text={ name } />
+            render: ({ id, name }) => <StyledNavLink to={ PATH.VIEW_EMPLOYEE.replace(':id', id)} text={ name } />
         },
         { 
             title: 'Email', 

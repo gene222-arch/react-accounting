@@ -94,6 +94,7 @@ const ViewWarehouse = lazy(() => import('../views/pages/inventory/warehouse/View
 const CreateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/CreateWarehouse'))
 const UpdateWarehouse = lazy(() => import('../views/pages/inventory/warehouse/UpdateWarehouse'))
 const Employee = lazy(() => import('../views/pages/employee/Employee'))
+const ViewEmployee = lazy(() => import('../views/pages/employee/view-employee/ViewEmployee'))
 const CreateEmployee = lazy(() => import('../views/pages/employee/CreateEmployee'))
 const UpdateEmployee = lazy(() => import('../views/pages/employee/UpdateEmployee'))
 const PayCalendar = lazy(() => import('../views/pages/payroll/pay-calendar/PayCalendar'))
@@ -927,6 +928,15 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: CreateEmployee,
+        access: 'Manage Employees',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_EMPLOYEE,
+        key: 'ViewEmployee',
+        icon: '',
+        exact: true,
+        component: ViewEmployee,
         access: 'Manage Employees',
         restricted: true
     },

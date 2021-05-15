@@ -156,6 +156,7 @@ const PATH =
     /** Employees */
     EMPLOYEE: '/human-resources/employees',
     CREATE_EMPLOYEE: '/human-resources/employees/new',
+    VIEW_EMPLOYEE: '/human-resources/employees/:id',
     UPDATE_EMPLOYEE: '/human-resources/employees/:id/edit',
 };
 
