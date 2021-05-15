@@ -38,7 +38,7 @@ const Settings = ({ auth }) =>
                                     icon={ AccountCircleIcon }
                                     primaryText='Account'
                                     secondaryText='Change account information like name, email, etc...'
-                                    path=''
+                                    path={ PATH.ACCOUNT }
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4} md={4} lg={4}>
@@ -62,16 +62,23 @@ const Settings = ({ auth }) =>
                                     icon={ MonetizationOnIcon }
                                     primaryText='Currencies'
                                     secondaryText='Create and manage currencies and set their rates'
-                                    path=''
+                                    path={ PATH.CURRENCY }
                                 />
                             </Grid>
-
+                            <Grid item xs={12} sm={4} md={4} lg={4}>
+                                <SettingItem
+                                    icon={ MonetizationOnIcon }
+                                    primaryText='Contribution'
+                                    secondaryText='Create and manage contributions and set their rates'
+                                    path={ PATH.CONTRIBUTION }
+                                />
+                            </Grid>
                             <Grid item xs={12} sm={4} md={4} lg={4}>
                                 <SettingItem
                                     icon={ TollIcon }
                                     primaryText='Taxes'
                                     secondaryText='Fixed, normal, inclusive, and compound tax rates'
-                                    path=''
+                                    path={ PATH.TAX }
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4} md={4} lg={4}>

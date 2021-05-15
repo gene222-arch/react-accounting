@@ -23,6 +23,7 @@ import currencyReducer from './modules/currency/reducer'
 import companyReducer from './modules/company/reducer'
 import incomeCategoryReducer from './modules/income-category/reducer'
 import expenseCategoryReducer from './modules/expense-category/reducer'
+import contributionReducer from './modules/contribution/reducer'
 import paymentMethodReducer from './modules/payment-method/reducer'
 import vendorReducer from './modules/vendor/reducer'
 import billReducer from './modules/bill/reducer'
@@ -31,6 +32,7 @@ import stockAdjustmentReducer from './modules/stock-adjustment/reducer'
 import warehouseReducer from './modules/warehouse/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 import payCalendarReducer from './modules/pay-calendar/reducer'
+import payrollReducer from './modules/payroll/reducer'
 import employeeReducer from './modules/employee/reducer'
 
 
@@ -54,12 +56,16 @@ const rootReducer = (history) => combineReducers({
     customer: customerReducer,
     invoice: invoiceReducer,
     revenue: revenueReducer,
+
+    /** Settings */
     tax: taxReducer,
     currency: currencyReducer,
     company: companyReducer,
     incomeCategory: incomeCategoryReducer,
     expenseCategory: expenseCategoryReducer,
     paymentMethod: paymentMethodReducer,
+    contribution: contributionReducer,
+
     vendor: vendorReducer,
     bill: billReducer,
     payment: paymentReducer,
@@ -67,6 +73,7 @@ const rootReducer = (history) => combineReducers({
     warehouse: warehouseReducer,
     mainLayout: mainLayoutReducer,
     payCalendar: payCalendarReducer,
+    payroll: payrollReducer,
     employee: employeeReducer
 });
 

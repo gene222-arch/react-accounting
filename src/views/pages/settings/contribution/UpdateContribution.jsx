@@ -4,23 +4,21 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Selectors */
-import { selectCurrency } from '../../../../redux/modules/currency/selector';
+import { selectContribution } from '../../../../redux/modules/contribution/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 
 /** API */
-import { findAsync } from '../../../../services/settings/currency';
+import { findAsync } from '../../../../services/settings/contribution';
 
 /** Actions */
-import * as CURRENCY from '../../../../redux/modules/currency/actions';
+import * as CONTRIBUTION from '../../../../redux/modules/contribution/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Components */
 import InputLabel from '@material-ui/core/InputLabel';
-import { FormControlLabel, FormControl, FormHelperText } from '@material-ui/core'
+import { FormControlLabel } from '@material-ui/core'
 import { Card, CardContent, CardActions } from '@material-ui/core'
 import Switch from '@material-ui/core/Switch';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Divider from '@material-ui/core/Divider'
@@ -34,18 +32,25 @@ import AlertPopUp from '../../../../components/AlertPopUp';
 
 import PATH from '../../../../routes/path';
 
-const UpdateTax = ({ alert, currencyProp, match }) => 
+const UpdateContribution = ({ alert, contributionProp, match }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
+    const { id } = match.params;
 
-    const id = match.params.id;
+    const { isLoading, contribution, error } = contributionProp;
 
-    const { isLoading, currency, error } = currencyProp;
+    const [ contributionState, setContributionState ] = useState(contribution);
 
-    const [ currencyState, setCurrencyState ] = useState(currency);
+    const handleChange = (e) => {
+        const { name, value, checked } = e.target;
 
-    const onLoadFetchCurrencyById = async () => 
+        name === 'enabled'
+            ? setContributionState({ ...contributionState, enabled: checked })
+            : setContributionState({ ...contributionState, [name]: value });
+    }
+
+    const onLoadFetchContributionById = async () => 
     {
         try {
             const { data, status, message } = await findAsync({ id });
@@ -55,7 +60,7 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
             }
     
             if (status === 'success') {
-                setCurrencyState(data);
+                setContributionState(data);
             }
 
         } catch ({ message }) {
@@ -66,18 +71,10 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
         }
     }
 
-    const handleChange = (e) => {
-        const { name, value, checked } = e.target;
-
-        name === 'enabled'
-            ? setCurrencyState({ ...currencyState, enabled: checked })
-            : setCurrencyState({ ...currencyState, [name]: value });
-    }
-
-    const onSubmitUpdateCurrency = (e) => dispatch(CURRENCY.updateCurrency(currencyState));
+    const onSubmitUpdateContribution = () => dispatch(CONTRIBUTION.updateContribution(contributionState));
 
     useEffect(() => {
-        onLoadFetchCurrencyById();
+        onLoadFetchContributionById();
     }, []);
 
     return !isLoading && (
@@ -88,7 +85,7 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <form onSubmit={ onSubmitUpdateCurrency }>
+            <form onSubmit={ onSubmitUpdateContribution }>
                 <Card>
                     <CardContent>
                         <Grid container spacing={1} alignItems='center'>
@@ -100,7 +97,7 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
                                     error={ Boolean(error.name) }
                                     helperText={ error.name }
                                     label='Enter Name'
-                                    value={ currencyState.name }
+                                    value={ contributionState.name }
                                     onChange={ handleChange }
                                 />
                             </Grid>
@@ -112,19 +109,7 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
                                     error={ Boolean(error.rate) }
                                     helperText={ error.rate }
                                     label='Enter Rate'
-                                    value={ currencyState.rate }
-                                    onChange={ handleChange }
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <InputLabel>Code</InputLabel>
-                                <TextField
-                                    fullWidth
-                                    name='code'
-                                    error={ Boolean(error.code) }
-                                    helperText={ error.code }
-                                    label='Enter Code'
-                                    value={ currencyState.code }
+                                    value={ contributionState.rate }
                                     onChange={ handleChange }
                                 />
                             </Grid>
@@ -132,7 +117,7 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
                                 <FormControlLabel
                                     control={
                                         <Switch 
-                                            checked={ Boolean(currencyState.enabled) } 
+                                            checked={ Boolean(contributionState.enabled) } 
                                             onChange={ handleChange } 
                                             name="enabled" 
                                         />}
@@ -145,8 +130,8 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
                     <CardActions>
                         <SaveCancelButtons 
                             isLoading={ isLoading }
-                            cancelBtnCallback={ () => history.push(PATH.CURRENCY) }
-                            saveBtnCallback={ onSubmitUpdateCurrency }
+                            cancelBtnCallback={ () => history.push(PATH.CONTRIBUTION) }
+                            saveBtnCallback={ onSubmitUpdateContribution }
                         />
                     </CardActions>
                 </Card>
@@ -157,7 +142,7 @@ const UpdateTax = ({ alert, currencyProp, match }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    currencyProp: selectCurrency
+    contributionProp: selectContribution
 });
 
-export default connect(mapStateToProps, null)(UpdateTax)
+export default connect(mapStateToProps, null)(UpdateContribution)

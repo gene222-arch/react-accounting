@@ -18,6 +18,7 @@ import taxSaga from './modules/tax/saga'
 import currencySaga from './modules/currency/saga'
 import incomeCategorySaga from './modules/income-category/saga'
 import expenseCategorySaga from './modules/expense-category/saga'
+import contributionSaga from './modules/contribution/saga'
 import paymentMethodSaga from './modules/payment-method/saga'
 import companySaga from './modules/company/saga'
 import vendorSaga from './modules/vendor/saga'
@@ -27,6 +28,7 @@ import stockAdjustmentSaga from './modules/stock-adjustment/saga'
 import warehouseSaga from './modules/warehouse/saga'
 import journalEntrySaga from './modules/journal-entry/saga'
 import payCalendarSaga from './modules/pay-calendar/saga'
+import payrollSaga from './modules/payroll/saga'
 import employeeSaga from './modules/employee/saga'
 
 export default function* () 
@@ -52,12 +54,14 @@ export default function* ()
         expenseCategorySaga(),
         paymentMethodSaga(),
         taxSaga(),
+        contributionSaga(),
         stockAdjustmentSaga(),
         warehouseSaga(),
         vendorSaga(),
         billSaga(),
         paymentSaga(),
         payCalendarSaga(),
+        payrollSaga(),
         employeeSaga()
     ]);
 }

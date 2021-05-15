@@ -127,6 +127,11 @@ const PATH =
     CREATE_PAYMENT_METHOD: '/settings/payment-methods/new',
     UPDATE_PAYMENT_METHOD: '/settings/payment-methods/:id/edit',
 
+    /** Contribution */
+    CONTRIBUTION: '/settings/contributions',
+    CREATE_CONTRIBUTION: '/settings/contributions/new',
+    UPDATE_CONTRIBUTION: '/settings/contributions/:id/edit',
+
     /** Stock adjustments */
     STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments',
     VIEW_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/:id',
@@ -143,6 +148,7 @@ const PATH =
     CREATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/new',
     UPDATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/:id/edit',
 
+    /** Employees */
     EMPLOYEE: '/human-resources/employees',
     CREATE_EMPLOYEE: '/human-resources/employees/new',
     UPDATE_EMPLOYEE: '/human-resources/employees/:id/edit',

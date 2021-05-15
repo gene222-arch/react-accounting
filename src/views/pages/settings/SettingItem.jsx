@@ -13,10 +13,10 @@ const SettingItem = ({ icon: Icon, primaryText, secondaryText = '', path }) => {
     return (
         <>
             <Grid container spacing={1} alignItems='center'>
-                <Grid item xs={2} sm={2} md={2} lg={2}>
+                <Grid item xs={3} sm={2} md={2} lg={2}>
                     <Icon fontSize='large' button/>
                 </Grid>
-                <Grid item xs={10} sm={10} md={10} lg={10}>
+                <Grid item xs={9} sm={10} md={10} lg={10}>
                     <StyledNavLink to={ path } text={
                         <ListItemText 
                             primary={

@@ -80,6 +80,9 @@ const Transaction = lazy(() => import('../views/pages/banking/transaction/Transa
 const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
 const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
 const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
+const Contribution = lazy(() => import('../views/pages/settings/contribution/Contribution'))
+const CreateContribution = lazy(() => import('../views/pages/settings/contribution/CreateContribution'))
+const UpdateContribution = lazy(() => import('../views/pages/settings/contribution/UpdateContribution'))
 const StockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/StockAdjustment'))
 const ViewStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/ViewStockAdjustment'))
 const CreateStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/CreateStockAdjustment'))
@@ -787,6 +790,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdatePaymentMethod,
         access: 'Manage Payment Methods',
+        restricted: true
+    },
+    {
+        path: PATH.CONTRIBUTION,
+        key: 'Contribution',
+        icon: '',
+        exact: true,
+        component: Contribution,
+        access: 'Manage Contributions',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_CONTRIBUTION,
+        key: 'CreateContribution',
+        icon: '',
+        exact: true,
+        component: CreateContribution,
+        access: 'Manage Contributions',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_CONTRIBUTION,
+        key: 'UpdateContribution',
+        icon: '',
+        exact: true,
+        component: UpdateContribution,
+        access: 'Manage Contributions',
         restricted: true
     },
     {
