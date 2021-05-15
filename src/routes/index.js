@@ -83,6 +83,9 @@ const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-m
 const Contribution = lazy(() => import('../views/pages/settings/contribution/Contribution'))
 const CreateContribution = lazy(() => import('../views/pages/settings/contribution/CreateContribution'))
 const UpdateContribution = lazy(() => import('../views/pages/settings/contribution/UpdateContribution'))
+const SalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/SalaryBenefit'))
+const CreateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/CreateSalaryBenefit'))
+const UpdateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/UpdateSalaryBenefit'))
 const StockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/StockAdjustment'))
 const ViewStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/ViewStockAdjustment'))
 const CreateStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/CreateStockAdjustment'))
@@ -817,6 +820,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateContribution,
         access: 'Manage Contributions',
+        restricted: true
+    },
+    {
+        path: PATH.SALARY_BENEFIT,
+        key: 'SalaryBenefit',
+        icon: '',
+        exact: true,
+        component: SalaryBenefit,
+        access: 'Manage Salary Benefits',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_SALARY_BENEFIT,
+        key: 'CreateSalaryBenefit',
+        icon: '',
+        exact: true,
+        component: CreateSalaryBenefit,
+        access: 'Manage Salary Benefits',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_SALARY_BENEFIT,
+        key: 'UpdateSalaryBenefit',
+        icon: '',
+        exact: true,
+        component: UpdateSalaryBenefit,
+        access: 'Manage Salary Benefits',
         restricted: true
     },
     {

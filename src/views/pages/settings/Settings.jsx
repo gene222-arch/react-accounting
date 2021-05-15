@@ -59,6 +59,14 @@ const Settings = ({ auth }) =>
                             </Grid>
                             <Grid item xs={12} sm={4} md={4} lg={4}>
                                 <SettingItem
+                                    icon={ CategoryIcon }
+                                    primaryText='Salary Benefits'
+                                    secondaryText='Create and manage salary beneits and set their amount'
+                                    path={ PATH.SALARY_BENEFIT }
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4} md={4} lg={4}>
+                                <SettingItem
                                     icon={ MonetizationOnIcon }
                                     primaryText='Currencies'
                                     secondaryText='Create and manage currencies and set their rates'

@@ -19,6 +19,7 @@ import currencySaga from './modules/currency/saga'
 import incomeCategorySaga from './modules/income-category/saga'
 import expenseCategorySaga from './modules/expense-category/saga'
 import contributionSaga from './modules/contribution/saga'
+import salaryBenefitSaga from './modules/salary-benefit/saga'
 import paymentMethodSaga from './modules/payment-method/saga'
 import companySaga from './modules/company/saga'
 import vendorSaga from './modules/vendor/saga'
@@ -55,6 +56,7 @@ export default function* ()
         paymentMethodSaga(),
         taxSaga(),
         contributionSaga(),
+        salaryBenefitSaga(),
         stockAdjustmentSaga(),
         warehouseSaga(),
         vendorSaga(),

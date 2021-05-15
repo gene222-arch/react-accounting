@@ -132,6 +132,11 @@ const PATH =
     CREATE_CONTRIBUTION: '/settings/contributions/new',
     UPDATE_CONTRIBUTION: '/settings/contributions/:id/edit',
 
+    /** Salary Benefits */
+    SALARY_BENEFIT: '/settings/salary-benefits',
+    CREATE_SALARY_BENEFIT: '/settings/salary-benefits/new',
+    UPDATE_SALARY_BENEFIT: '/settings/salary-benefits/:id/edit',
+
     /** Stock adjustments */
     STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments',
     VIEW_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/:id',
