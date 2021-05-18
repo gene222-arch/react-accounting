@@ -2,31 +2,31 @@ import ACTION_TYPES from './action.types';
 import * as DATE from '../../../utils/date'
 
 const {
-    GET_PAYROLLS_START,
-    GET_PAYROLLS_SUCCESS,
-    GET_PAYROLLS_FAILED,
+    GET_RUN_PAYROLLS_START,
+    GET_RUN_PAYROLLS_SUCCESS,
+    GET_RUN_PAYROLLS_FAILED,
 
-    CREATE_PAYROLL_START,
-    CREATE_PAYROLL_SUCCESS,
-    CREATE_PAYROLL_FAILED,
+    CREATE_RUN_PAYROLL_START,
+    CREATE_RUN_PAYROLL_SUCCESS,
+    CREATE_RUN_PAYROLL_FAILED,
     
-    APPROVE_PAYROLL_START,
-    APPROVE_PAYROLL_SUCCESS,
-    APPROVE_PAYROLL_FAILED,
+    APPROVE_RUN_PAYROLL_START,
+    APPROVE_RUN_PAYROLL_SUCCESS,
+    APPROVE_RUN_PAYROLL_FAILED,
 
-    UPDATE_PAYROLL_START,
-    UPDATE_PAYROLL_SUCCESS,
-    UPDATE_PAYROLL_FAILED,
+    UPDATE_RUN_PAYROLL_START,
+    UPDATE_RUN_PAYROLL_SUCCESS,
+    UPDATE_RUN_PAYROLL_FAILED,
 
-    DESTROY_PAYROLLS_START,
-    DESTROY_PAYROLLS_SUCCESS,
-    DESTROY_PAYROLLS_FAILED
+    DESTROY_RUN_PAYROLLS_START,
+    DESTROY_RUN_PAYROLLS_SUCCESS,
+    DESTROY_RUN_PAYROLLS_FAILED
 } = ACTION_TYPES;
 
 
-const PAYROLL_DEFAULT_PROPS = {
+const RUN_PAYROLL_DEFAULT_PROPS = {
     id: 0,
-    name: '',
+    name: 'PR-00001',
     account_id: '',
     expense_category_id: '',
     payment_method_id: '',
@@ -52,8 +52,8 @@ const ERROR_DEFAULT = {
 };
 
 const initialState = {
-    payroll: PAYROLL_DEFAULT_PROPS,
-    payrolls: [],
+    runPayroll: RUN_PAYROLL_DEFAULT_PROPS,
+    runPayrolls: [],
     isLoading: false,
     error: ERROR_DEFAULT
 }
@@ -61,87 +61,99 @@ const initialState = {
 export default (state = initialState, { type, payload }) => 
 {
     const {
-        payrolls
+        runPayrolls
     } = state;
 
     switch (type) 
     {
-        case GET_PAYROLLS_START:
-        case CREATE_PAYROLL_START:
-        case APPROVE_PAYROLL_START:
-        case UPDATE_PAYROLL_START:
-        case DESTROY_PAYROLLS_START:
+        case GET_RUN_PAYROLLS_START:
+        case CREATE_RUN_PAYROLL_START:
+        case APPROVE_RUN_PAYROLL_START:
+        case UPDATE_RUN_PAYROLL_START:
+        case DESTROY_RUN_PAYROLLS_START:
             return { 
                 ...state, 
                 isLoading: true 
             };
 
-        case GET_PAYROLLS_SUCCESS: 
+        case GET_RUN_PAYROLLS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                payrolls: payload.payrolls,
+                runPayrolls: payload.runPayrolls,
                 error: ERROR_DEFAULT
             };
 
-        case GET_PAYROLLS_FAILED: 
+        case GET_RUN_PAYROLLS_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
         
-        case CREATE_PAYROLL_SUCCESS: 
+        case CREATE_RUN_PAYROLL_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case CREATE_PAYROLL_FAILED: 
+        case CREATE_RUN_PAYROLL_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };
 
-        case APPROVE_PAYROLL_SUCCESS: 
+        case APPROVE_RUN_PAYROLL_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
+                runPayrolls: runPayrolls.map(({ id, ...runPayroll }) => {
+                    return id === payload.id
+                        ? {
+                            ...runPayroll,
+                            id,
+                            status: 'Approved'
+                        }
+                        : {
+                            ...runPayroll,
+                            id,
+                        }
+                }),
                 error: ERROR_DEFAULT
             };
 
-        case APPROVE_PAYROLL_FAILED: 
+        case APPROVE_RUN_PAYROLL_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };  
 
-        case UPDATE_PAYROLL_SUCCESS: 
+        case UPDATE_RUN_PAYROLL_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
                 error: ERROR_DEFAULT
             };
 
-        case UPDATE_PAYROLL_FAILED: 
+        case UPDATE_RUN_PAYROLL_FAILED: 
             return {
                 ...state,
                 isLoading: false,
                 error: payload.errorMessages
             };            
 
-        case DESTROY_PAYROLLS_SUCCESS: 
+        case DESTROY_RUN_PAYROLLS_SUCCESS: 
             return {
                 ...state,
                 isLoading: false,
-                payrolls: payrolls.filter(({ id }) => !payload.ids.includes(id)),
+                runPayrolls: runPayrolls.filter(({ id }) => !payload.ids.includes(id)),
                 error: ERROR_DEFAULT
             };
 
-        case DESTROY_PAYROLLS_FAILED: 
+        case DESTROY_RUN_PAYROLLS_FAILED: 
             return {
                 ...state,
                 isLoading: false,

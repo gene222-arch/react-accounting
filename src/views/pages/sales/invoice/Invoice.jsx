@@ -61,19 +61,17 @@ const Invoice = ({ alert, invoice }) =>
         { 
             title: 'Due date', 
             field: 'due_date',
-            render: ({ due_date }) => {
-                console.log(due_date)
-                console.log(DATE.today())
-                return  <Typography 
-                variant="subtitle2" 
-                color={ 
-                    (new Date(DATE.today())).getTime() > (new Date(due_date)).getTime() 
-                        ? 'error' 
-                        : 'initial' }
-            >
-                { due_date }
-            </Typography> 
-            }
+            render: ({ due_date }) => (
+                <Typography 
+                    variant="subtitle2" 
+                    color={ 
+                        (new Date(DATE.today())).getTime() > (new Date(due_date)).getTime() 
+                            ? 'error' 
+                            : 'initial' }
+                >
+                    { due_date }
+                </Typography> 
+            )
 
         },
         { 

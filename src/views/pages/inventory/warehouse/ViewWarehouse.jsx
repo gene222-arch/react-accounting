@@ -79,14 +79,17 @@ const ViewWarehouse = ({ warehouseProp, match }) =>
             const { stocks, ...warehouse } = data;
 
             setWarehouseState(warehouse);
-            setItems(stocks.map(({ item, id, in_stock }) => ({
+
+            const stocks_ = stocks.map(({ item, id, in_stock }) => ({
                 ...item,
                 stock_id: id,
                 item: item.name,
                 quantity: in_stock,
                 category: item.category.name,
                 enabled: item.is_for_sale
-            })));
+            }));
+
+            setItems(stocks_);
         }
     }
 

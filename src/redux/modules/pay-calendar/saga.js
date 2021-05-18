@@ -39,12 +39,18 @@ const {
 function* fetchPayCalendarsSaga (payload)
 {
     try {
-        const { status, message, data: payCalendars } = yield call(fetchAllAsync, payload);
+        const { status, message, data } = yield call(fetchAllAsync, payload);
 
         if (status !== 'success') {
         }
 
         if (status === 'success') {
+
+            const payCalendars = data.map(({ payroll, ...payCalendar }) => ({
+                ...payCalendar,
+                payroll_id: payroll.id
+            }));
+
             yield put(getPayCalendarsSuccess({ payCalendars }));
         }
 

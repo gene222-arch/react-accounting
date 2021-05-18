@@ -3,14 +3,16 @@ import clsx from 'clsx'
 import { useHistory } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import MaterialTable from '../../../../components/MaterialTable'
 
 /** Selectors */
-import { selectPayCalendar } from './../../../../redux/modules/pay-calendar/selector';
+import { selectRunPayroll } from './../../../../redux/modules/run-payroll/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 
+/** API */
+import { approveAsync } from './../../../../services/payroll/run.payroll';
+
 /** Actions */
-import * as PAY_CALENDAR from './../../../../redux/modules/pay-calendar/actions';
+import * as RUN_PAYROLL from './../../../../redux/modules/run-payroll/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
 /** Material UI Components */
@@ -19,19 +21,29 @@ import Switch from '@material-ui/core/Switch';
 /** Material Ui Styles */
 import { makeStyles } from '@material-ui/core';
 
-/** Material UI Icons */
-import DateRangeIcon from '@material-ui/icons/DateRange';
-
 /** Components */
 import AddButton from './../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from './../../../../components/AlertPopUp';
+import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
+import RunPayrollStatus from './RunPayrollStatus';
+import MaterialTable from '../../../../components/MaterialTable'
+
+/** Material UI Icons */
+import ApproveIcon from '@material-ui/icons/ThumbUp';
 
 import PATH from './../../../../routes/path';
-import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
 
 
-const itemUseStyles = makeStyles(theme => ({
+const runPayrollUseStyles = makeStyles(theme => ({
+    iconApproved: {
+        color: theme.palette.info.main
+    },
+    approveIcon: {
+        '&:hover': {
+            color: theme.palette.info.main
+        }
+    }
 }));
 
 
@@ -40,54 +52,65 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const PayCalendar = ({ alert, payCalendar }) => 
+const RunPayroll = ({ alert, runPayrollProp }) => 
 {
     const history = useHistory();
-    const classes = itemUseStyles();
+    const classes = runPayrollUseStyles();
     const dispatch = useDispatch();
     
     const [ ids, setIds ] = useState([]);
     
     const actions = [
-        ({ payroll_id }) => ({
+        ({ pay_calendar_id }) => ({
             icon: () => (
-                <DateRangeIcon 
+                <ApproveIcon 
                     className={ clsx({
-                        [classes.iconApproved]: Boolean(payroll_id),
-                        [classes.approveIcon]: Boolean(payroll_id)
+                        [classes.iconApproved]: Boolean(pay_calendar_id),
+                        [classes.approveIcon]: Boolean(pay_calendar_id)
                     })}
                 />
             ),
-            tooltip: !payroll_id ? 'Run Payroll' : 'Payroll done',
-            onClick: (event, { id }) => history.push(PATH.CREATE_RUN_PAYROLL.replace(':payCalendarId', id)),
-            disabled: Boolean(payroll_id)
+            tooltip: !pay_calendar_id ? 'Approve Payroll' : 'Payroll Approved',
+            onClick: (event, { id }) => dispatch(RUN_PAYROLL.approveRunPayroll({ id })),
+            disabled: Boolean(pay_calendar_id)
         })
     ];
 
     const columns = [
         { field: 'id', hidden: true },
-        { field: 'payroll_id', hidden: true },
+        { field: 'pay_calendar_id', hidden: true },
         { 
             title: 'Name', 
             field: 'name', 
-            render: ({ id, name }) => <StyledNavLink to={ PATH.UPDATE_PAY_CALENDAR.replace(':id', id)} text={ name } />
+            render: ({ id, pay_calendar_id, name }) => (
+                <StyledNavLink 
+                    to={ PATH.UPDATE_RUN_PAYROLL.replace(':id', id).replace(':payCalendarId', pay_calendar_id)} 
+                    text={ name } 
+                />
+            )
         },
-        { title: 'Type',  field: 'type' },
-        { title: 'Pay day mode', field: 'pay_day_mode' },
+        { title: 'From date',  field: 'from_date' },
+        { title: 'To date',  field: 'to_date' },
+        { title: 'Payment date',  field: 'payment_date' },
+        { title: 'Employees',  field: 'employees' },
+        { title: 'Amount', field: 'amount' },
+        {
+            title: 'Status', 
+            field: 'status',
+            render: ({ status }) => <RunPayrollStatus status={ status } />
+        }
     ];
 
     const options = {
-        selection: false,
-        search: false,
         actionsColumnIndex: -1
     };
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(PAY_CALENDAR.getPayCalendars());
+    const onLoadFetchAll = () => dispatch(RUN_PAYROLL.getRunPayrolls());
 
     const handleClickDestroy = () => {
-        dispatch(PAY_CALENDAR.destroyPayCalendars({ ids }));
+        dispatch(RUN_PAYROLL.destroyRunPayrolls({ ids }));
         setIds([]);
     };
 
@@ -106,15 +129,15 @@ const PayCalendar = ({ alert, payCalendar }) =>
             <MaterialTable
                 actions={ actions }
                 columns={ columns }      
-                data={ payCalendar.payCalendars }  
-                isLoading={ payCalendar.isLoading }
-                options={ options }
+                data={ runPayrollProp.runPayrolls }  
+                isLoading={ runPayrollProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
+                options={ options }
                 title={ 
                     <ActionButton 
                         classes={ classes } 
                         ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_PAY_CALENDAR) }
+                        handleClickRedirect = { () => history.push(PATH.PAY_CALENDAR) }
                         handleClickDestroy={ handleClickDestroy }
                     /> }
                 onSelectionChange={rows => onSelectionChange(rows)}
@@ -125,7 +148,7 @@ const PayCalendar = ({ alert, payCalendar }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    payCalendar: selectPayCalendar
+    runPayrollProp: selectRunPayroll
 });
 
-export default connect(mapStateToProps, null)(PayCalendar)
+export default connect(mapStateToProps, null)(RunPayroll)
