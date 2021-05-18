@@ -35,6 +35,7 @@ const Reports = () =>
                     <ReportItem 
                         title='Income vs Expense' 
                         description='Monthly income vs expense by category.'
+                        path={ PATH.REPORT_INCOME_VS_EXPENSE_SUMMARY }
                         amount={ 0 }
                     />
                 </Grid>

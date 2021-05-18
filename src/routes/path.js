@@ -125,6 +125,7 @@ const PATH =
 
     REPORT_EXPENSE_SUMMARY: '/reports/expense-summary',
     REPORT_INCOME_SUMMARY: '/reports/income-summary',
+    REPORT_INCOME_VS_EXPENSE_SUMMARY: '/reports/income-vs-expense-summary',
 
     SETTINGS: '/settings',
 

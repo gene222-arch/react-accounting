@@ -4,7 +4,7 @@ import HighchartsExporting from 'highcharts/modules/exporting'
 import ReactHighcharts from 'highcharts-react-official'
 
 /** API */
-import incomeSummaryAsync from './../../../../services/reports/income.summary';
+import incomeVsExpenseSummaryAsync from './../../../../services/reports/income.vs.expense.summary';
 
 /** Material UI Components */
 import Grid from '@material-ui/core/Grid'
@@ -32,14 +32,13 @@ const MONTH_NAMES = [
 ];
 
 
-const incomeSummaryPerCategoryTable = (object) => 
+const incomeAndExpenseSummaryTable = (incomeAndExpenseCategories, monthlyIncomeVsExpense) => 
 {
     let elem = [];
     let totalElem = <TableRow></TableRow>
-    let total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    for (const key in object) {
-        if (object[key]) {
+    for (const key in incomeAndExpenseCategories) {
+        if (incomeAndExpenseCategories[key]) {
             elem.push(
                 (
                     <TableRow key={ key }>
@@ -47,7 +46,7 @@ const incomeSummaryPerCategoryTable = (object) =>
                             <Typography variant='subtitle2' color='textSecondary'>{ key }</Typography>
                         </TableCell>
                         {
-                            object[key]?.map((data, index) => (
+                            incomeAndExpenseCategories[key]?.map((data, index) => (
                                 <TableCell key={ index }>
                                     <Typography variant='subtitle1' color='textSecondary'>
                                         { NUMERIC_HELPER.thousandsSeparators(parseFloat(data).toFixed(2))}
@@ -61,43 +60,37 @@ const incomeSummaryPerCategoryTable = (object) =>
         }
     }
 
-    for (const key in object) {
-        if (object[key]) {
-            totalElem = (
-                (
-                    <TableRow key={ 'total' }>
-                        <TableCell>
+    totalElem = (
+            <TableRow key={ 'total' }>
+                <TableCell>
+                    <Typography variant='subtitle1' color='textSecondary'>
+                        <strong>Total</strong>
+                    </Typography>
+                </TableCell>
+                {
+                    monthlyIncomeVsExpense?.map((data, index) => (
+                        <TableCell key={ index }>
                             <Typography variant='subtitle1' color='textSecondary'>
-                                <strong>Total</strong>
+                                <strong>
+                                    { NUMERIC_HELPER.thousandsSeparators((parseFloat(data)).toFixed(2)) }
+                                </strong>
                             </Typography>
                         </TableCell>
-                        {
-                            object[key]?.map((data, index) => (
-                                <TableCell key={ index }>
-                                    <Typography variant='subtitle1' color='textSecondary'>
-                                        <strong>
-                                            { NUMERIC_HELPER.thousandsSeparators((total[index] += parseFloat(data))?.toFixed(2)) }
-                                        </strong>
-                                    </Typography>
-                                </TableCell>
-                            ))
-                        }
-                    </TableRow>
-                )
-            )
-        }
-    }
+                    ))
+                }
+            </TableRow>
+    );
 
     elem.push(totalElem);
 
     return elem;
 }
 
-const IncomeSummary = () => 
+const IncomeVsExpenseSummary = () => 
 {
     const [ chartKey, setChartKey ] = useState((new Date()).toISOString());
-    const [ monthlyExpenseSummary, setMonthlyIncomeSummary ] = useState(MONTHLY_EXPENSE_DEFAULT);
-    const [ incomePerCategory, setIncomePerCategory ] = useState({});
+    const [ monthlyIncomeVsExpense, setMonthlyIncomeVsExpense ] = useState(MONTHLY_EXPENSE_DEFAULT);
+    const [ monthlyIncVsExpCategories, setMonthlyIncVsExpCategories ] = useState({});
 
     const options = {
         chart: {
@@ -114,7 +107,7 @@ const IncomeSummary = () =>
             }
         },
         title: {
-            text: 'Income'
+            text: 'Income vs Expense'
         },
         legend: {
             layout: 'vertical',
@@ -143,8 +136,8 @@ const IncomeSummary = () =>
             }
         },
         series: [{
-            name: 'Expense',
-            data: monthlyExpenseSummary,
+            name: 'Income vs Expense',
+            data: monthlyIncomeVsExpense,
             color: '#f44336'
         }]
     };
@@ -152,17 +145,19 @@ const IncomeSummary = () =>
     const onLoadFetchIncomeSummary = async () => 
     {
         try {
-            const { data, message, status } = await incomeSummaryAsync();
+            const { data, message, status } = await incomeVsExpenseSummaryAsync();
+
+            console.log(data)
 
             if (status !== 'success') {
             }
 
             if (status === 'success') 
             {
-                const { incomeSummaryPerCategory, monthlyIncomeSummary: monthlyIncomes } = data;
+                const { incomeAndExpensePerCategory, monthlyIncomeVsExpense: incomeVsExpenses } = data;
                 
-                setMonthlyIncomeSummary(monthlyIncomes.map(income => parseFloat(income)));
-                setIncomePerCategory(incomeSummaryPerCategory);
+                setMonthlyIncomeVsExpense(incomeVsExpenses.map(incomeVsExpense => parseFloat(incomeVsExpense)));
+                setMonthlyIncVsExpCategories(incomeAndExpensePerCategory);
             }
         } catch ({ message }) {
 
@@ -199,7 +194,7 @@ const IncomeSummary = () =>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { incomeSummaryPerCategoryTable(incomePerCategory) }
+                        { incomeAndExpenseSummaryTable(monthlyIncVsExpCategories, monthlyIncomeVsExpense) }
                     </TableBody>
                 </Table>
             </Grid>
@@ -207,4 +202,4 @@ const IncomeSummary = () =>
     )
 }
 
-export default IncomeSummary
+export default IncomeVsExpenseSummary

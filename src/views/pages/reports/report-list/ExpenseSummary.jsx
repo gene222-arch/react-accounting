@@ -32,7 +32,7 @@ const MONTH_NAMES = [
 ];
 
 
-const expenseSummaryPerCategory = (object) => 
+const expenseSummaryPerCategoryTable = (object) => 
 {
     let elem = [];
     let totalElem = <TableRow></TableRow>
@@ -199,7 +199,7 @@ const ExpenseSummary = () =>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { expenseSummaryPerCategory(expensePerCategory) }
+                        { expenseSummaryPerCategoryTable(expensePerCategory) }
                     </TableBody>
                 </Table>
             </Grid>

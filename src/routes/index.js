@@ -106,6 +106,7 @@ const UpdateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-be
 const Reports = lazy(() => import('../views/pages/reports/Reports'))
 const ExpenseSummary = lazy(() => import('../views/pages/reports/report-list/ExpenseSummary'))
 const IncomeSummary = lazy(() => import('../views/pages/reports/report-list/IncomeSummary'))
+const IncomeVsExpenseSummary = lazy(() => import('../views/pages/reports/report-list/IncomeVsExpenseSummary'))
 
 export const AUTH_ROUTES = [
     {
@@ -1034,6 +1035,15 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: IncomeSummary,
         access: 'View Income Summary',
+        restricted: true
+    },
+    {
+        path: PATH.REPORT_INCOME_VS_EXPENSE_SUMMARY,
+        key: 'IncomeVsExpenseSummary',
+        icon: '',
+        exact: true,
+        component: IncomeVsExpenseSummary,
+        access: 'View Income vs Expense Summary',
         restricted: true
     },
 ];
