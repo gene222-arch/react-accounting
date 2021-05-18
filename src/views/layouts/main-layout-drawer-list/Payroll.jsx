@@ -56,7 +56,7 @@ const Payroll = ({
                             <StyledNavLink to={ PATH.PAY_CALENDAR } text={
                                 <ListItem button selected={ payrollPayCalendar } onClick={ selectPayrollPayCalendar }>
                                     <ListItemText primary={
-                                        <Typography variant="subtitle2" color="initial">Pay Calendar</Typography>
+                                        <Typography variant="subtitle2" color="initial">Pay Calendars</Typography>
                                     }/>
                                 </ListItem>
                             } />
@@ -66,11 +66,13 @@ const Payroll = ({
                     {/* Run Payroll */}
                     {
                         canManagePayrolls && (
-                            <ListItem button selected={ payrollRunPayroll } onClick={ selectPayrollRunPayroll }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Run Payroll</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.RUN_PAYROLL } text={
+                                <ListItem button selected={ payrollRunPayroll } onClick={ selectPayrollRunPayroll }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Run Payrolls</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
                 </List>

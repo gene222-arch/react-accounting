@@ -33,7 +33,7 @@ import stockAdjustmentReducer from './modules/stock-adjustment/reducer'
 import warehouseReducer from './modules/warehouse/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 import payCalendarReducer from './modules/pay-calendar/reducer'
-import payrollReducer from './modules/payroll/reducer'
+import runPayrollReducer from './modules/run-payroll/reducer'
 import employeeReducer from './modules/employee/reducer'
 
 
@@ -75,7 +75,7 @@ const rootReducer = (history) => combineReducers({
     warehouse: warehouseReducer,
     mainLayout: mainLayoutReducer,
     payCalendar: payCalendarReducer,
-    payroll: payrollReducer,
+    runPayroll: runPayrollReducer,
     employee: employeeReducer
 });
 

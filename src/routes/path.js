@@ -153,6 +153,11 @@ const PATH =
     CREATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/new',
     UPDATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/:id/edit',
 
+    /** Warehouses */
+    RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/run-payrolls',
+    CREATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/new',
+    UPDATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/:id/edit',
+
     /** Employees */
     EMPLOYEE: '/human-resources/employees',
     CREATE_EMPLOYEE: '/human-resources/employees/new',

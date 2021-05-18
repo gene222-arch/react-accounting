@@ -29,7 +29,7 @@ import stockAdjustmentSaga from './modules/stock-adjustment/saga'
 import warehouseSaga from './modules/warehouse/saga'
 import journalEntrySaga from './modules/journal-entry/saga'
 import payCalendarSaga from './modules/pay-calendar/saga'
-import payrollSaga from './modules/payroll/saga'
+import runPayrollSaga from './modules/run-payroll/saga'
 import employeeSaga from './modules/employee/saga'
 
 export default function* () 
@@ -63,7 +63,7 @@ export default function* ()
         billSaga(),
         paymentSaga(),
         payCalendarSaga(),
-        payrollSaga(),
+        runPayrollSaga(),
         employeeSaga()
     ]);
 }
