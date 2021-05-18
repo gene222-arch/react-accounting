@@ -41,22 +41,6 @@ const UpdateInvoice = lazy(() => import('../views/pages/sales/invoice/update-inv
 const Revenue = lazy(() => import('../views/pages/sales/revenue/Revenue'))
 const CreateRevenue = lazy(() => import('../views/pages/sales/revenue/CreateRevenue'))
 const UpdateRevenue = lazy(() => import('../views/pages/sales/revenue/UpdateRevenue'))
-const Settings = lazy(() => import('../views/pages/settings/Settings'))
-const Categories = lazy(() => import('../views/pages/settings/Categories'))
-const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
-const CreateTax = lazy(() => import('../views/pages/settings/Tax/CreateTax'))
-const UpdateTax = lazy(() => import('../views/pages/settings/Tax/UpdateTax'))
-const Currency = lazy(() => import('../views/pages/settings/currency/Currency'))
-const CreateCurrency = lazy(() => import('../views/pages/settings/currency/CreateCurrency'))
-const UpdateCurrency = lazy(() => import('../views/pages/settings/currency/UpdateCurrency'))
-const ExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/ExpenseCategory'))
-const CreateExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/CreateExpenseCategory'))
-const UpdateExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/UpdateExpenseCategory'))
-const IncomeCategory = lazy(() => import('../views/pages/settings/income-category/IncomeCategory'))
-const CreateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/CreateIncomeCategory'))
-const UpdateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/UpdateIncomeCategory'))
-const CreateCompany = lazy(() => import('../views/pages/settings/company/CreateCompany'))
-const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateCompany'))
 const Bill = lazy(() => import('../views/pages/purchases/bill/Bill'))
 const ViewBill = lazy(() => import('../views/pages/purchases/bill/view-bill/ViewBill'))
 const CreateBill = lazy(() => import('../views/pages/purchases/bill/create-bill/CreateBill'))
@@ -77,15 +61,6 @@ const BankAccountReconciliation = lazy(() => import('../views/pages/banking/bank
 const CreateBankAccountReconciliation = lazy(() => import('../views/pages/banking/bank-account-reconciliation/CreateBankAccountReconciliation'))
 const UpdateBankAccountReconciliation = lazy(() => import('../views/pages/banking/bank-account-reconciliation/UpdateBankAccountReconciliation'))
 const Transaction = lazy(() => import('../views/pages/banking/transaction/Transaction'))
-const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
-const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
-const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
-const Contribution = lazy(() => import('../views/pages/settings/contribution/Contribution'))
-const CreateContribution = lazy(() => import('../views/pages/settings/contribution/CreateContribution'))
-const UpdateContribution = lazy(() => import('../views/pages/settings/contribution/UpdateContribution'))
-const SalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/SalaryBenefit'))
-const CreateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/CreateSalaryBenefit'))
-const UpdateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/UpdateSalaryBenefit'))
 const StockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/StockAdjustment'))
 const ViewStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/ViewStockAdjustment'))
 const CreateStockAdjustment = lazy(() => import('../views/pages/inventory/stock-adjustment/CreateStockAdjustment'))
@@ -103,7 +78,34 @@ const UpdatePayCalendar = lazy(() => import('../views/pages/payroll/pay-calendar
 const RunPayroll = lazy(() => import('../views/pages/payroll/run-payroll/RunPayroll'))
 const CreateRunPayroll = lazy(() => import('../views/pages/payroll/run-payroll/CreateRunPayroll'))
 const UpdateRunPayroll = lazy(() => import('../views/pages/payroll/run-payroll/UpdateRunPayroll'))
-
+const Settings = lazy(() => import('../views/pages/settings/Settings'))
+const Categories = lazy(() => import('../views/pages/settings/Categories'))
+const Tax = lazy(() => import('../views/pages/settings/Tax/Tax'))
+const CreateTax = lazy(() => import('../views/pages/settings/Tax/CreateTax'))
+const UpdateTax = lazy(() => import('../views/pages/settings/Tax/UpdateTax'))
+const Currency = lazy(() => import('../views/pages/settings/currency/Currency'))
+const CreateCurrency = lazy(() => import('../views/pages/settings/currency/CreateCurrency'))
+const UpdateCurrency = lazy(() => import('../views/pages/settings/currency/UpdateCurrency'))
+const ExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/ExpenseCategory'))
+const CreateExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/CreateExpenseCategory'))
+const UpdateExpenseCategory = lazy(() => import('../views/pages/settings/expense-category/UpdateExpenseCategory'))
+const IncomeCategory = lazy(() => import('../views/pages/settings/income-category/IncomeCategory'))
+const CreateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/CreateIncomeCategory'))
+const UpdateIncomeCategory = lazy(() => import('../views/pages/settings/income-category/UpdateIncomeCategory'))
+const CreateCompany = lazy(() => import('../views/pages/settings/company/CreateCompany'))
+const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateCompany'))
+const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
+const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
+const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
+const Contribution = lazy(() => import('../views/pages/settings/contribution/Contribution'))
+const CreateContribution = lazy(() => import('../views/pages/settings/contribution/CreateContribution'))
+const UpdateContribution = lazy(() => import('../views/pages/settings/contribution/UpdateContribution'))
+const SalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/SalaryBenefit'))
+const CreateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/CreateSalaryBenefit'))
+const UpdateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/UpdateSalaryBenefit'))
+const Reports = lazy(() => import('../views/pages/reports/Reports'))
+const ExpenseSummary = lazy(() => import('../views/pages/reports/report-list/ExpenseSummary'))
+const IncomeSummary = lazy(() => import('../views/pages/reports/report-list/IncomeSummary'))
 
 export const AUTH_ROUTES = [
     {
@@ -1005,6 +1007,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateRunPayroll,
         access: 'Manage Payrolls',
+        restricted: true
+    },
+    {
+        path: PATH.REPORTS,
+        key: 'Reports',
+        icon: '',
+        exact: true,
+        component: Reports,
+        access: '',
+        restricted: true
+    },
+    {
+        path: PATH.REPORT_EXPENSE_SUMMARY,
+        key: 'ExpenseSummary',
+        icon: '',
+        exact: true,
+        component: ExpenseSummary,
+        access: 'View Expense Summary',
+        restricted: true
+    },
+    {
+        path: PATH.REPORT_INCOME_SUMMARY,
+        key: 'IncomeSummary',
+        icon: '',
+        exact: true,
+        component: IncomeSummary,
+        access: 'View Income Summary',
         restricted: true
     },
 ];

@@ -18,7 +18,6 @@ import IconButton from '@material-ui/core/IconButton';
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 
 /** Material UI Icons */
-import EqualizerIcon from '@material-ui/icons/Equalizer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
@@ -45,6 +44,7 @@ import Header from './main-layout-header/Header';
 import StyledNavLink from '../../components/styled-components/StyledNavLink'
 
 import PATH from './../../routes/path';
+import Reports from './main-layout-drawer-list/Reports';
 
 
 const MainLayout = ({ auth, children, mainLayout }) => 
@@ -304,16 +304,11 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                     />  
 
                     {/* Reports */}
-                    {
-                        auth.permissions.includes('Can View Reports') && (
-                            <ListItem button selected={ mainLayout.reports } onClick={ selectReports }>
-                                <ListItemIcon>
-                                    <EqualizerIcon fontSize='small' />
-                                </ListItemIcon>
-                                <ListItemText primary={'Reports'} />
-                            </ListItem>
-                        )
-                    }
+                    <Reports 
+                        reports={ mainLayout.reports }
+                        selectReports={ selectReports }
+                        authUserPermissions={ auth.permissions }
+                    />
 
                     {/* Employees */}
                     <StyledNavLink to={ PATH.EMPLOYEE } text={ 

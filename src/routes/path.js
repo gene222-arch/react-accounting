@@ -93,6 +93,39 @@ const PATH =
     CREATE_REVENUE: '/sales/revenues/new',
     UPDATE_REVENUE: '/sales/revenues/:id/edit',
 
+    /** Stock adjustments */
+    STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments',
+    VIEW_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/:id',
+    CREATE_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/new',
+
+    /** Warehouses */
+    WAREHOUSE: '/inventory-management/warehouses',
+    VIEW_WAREHOUSE: '/inventory-management/warehouses/:id',
+    CREATE_WAREHOUSE: '/inventory-management/warehouses/new',
+    UPDATE_WAREHOUSE: '/inventory-management/warehouses/:id/edit',
+
+    /** Warehouses */
+    PAY_CALENDAR: '/human-resources/payrolls/pay-calendars',
+    CREATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/new',
+    UPDATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/:id/edit',
+
+    /** Warehouses */
+    RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/run-payrolls',
+    CREATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/new',
+    UPDATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/:id/edit',
+
+    /** Employees */
+    EMPLOYEE: '/human-resources/employees',
+    CREATE_EMPLOYEE: '/human-resources/employees/new',
+    VIEW_EMPLOYEE: '/human-resources/employees/:id',
+    UPDATE_EMPLOYEE: '/human-resources/employees/:id/edit',
+
+
+    REPORTS: '/reports',
+
+    REPORT_EXPENSE_SUMMARY: '/reports/expense-summary',
+    REPORT_INCOME_SUMMARY: '/reports/income-summary',
+
     SETTINGS: '/settings',
 
     /** Taxes */
@@ -136,33 +169,6 @@ const PATH =
     SALARY_BENEFIT: '/settings/salary-benefits',
     CREATE_SALARY_BENEFIT: '/settings/salary-benefits/new',
     UPDATE_SALARY_BENEFIT: '/settings/salary-benefits/:id/edit',
-
-    /** Stock adjustments */
-    STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments',
-    VIEW_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/:id',
-    CREATE_STOCK_ADJUSTMENT: '/inventory-management/stock-adjustments/new',
-
-    /** Warehouses */
-    WAREHOUSE: '/inventory-management/warehouses',
-    VIEW_WAREHOUSE: '/inventory-management/warehouses/:id',
-    CREATE_WAREHOUSE: '/inventory-management/warehouses/new',
-    UPDATE_WAREHOUSE: '/inventory-management/warehouses/:id/edit',
-
-    /** Warehouses */
-    PAY_CALENDAR: '/human-resources/payrolls/pay-calendars',
-    CREATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/new',
-    UPDATE_PAY_CALENDAR: '/human-resources/payrolls/pay-calendars/:id/edit',
-
-    /** Warehouses */
-    RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/run-payrolls',
-    CREATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/new',
-    UPDATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/:id/edit',
-
-    /** Employees */
-    EMPLOYEE: '/human-resources/employees',
-    CREATE_EMPLOYEE: '/human-resources/employees/new',
-    VIEW_EMPLOYEE: '/human-resources/employees/:id',
-    UPDATE_EMPLOYEE: '/human-resources/employees/:id/edit',
 };
 
 
