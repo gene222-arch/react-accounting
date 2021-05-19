@@ -127,6 +127,12 @@ const PATH =
     REPORT_INCOME_SUMMARY: '/reports/income-summary',
     REPORT_INCOME_VS_EXPENSE_SUMMARY: '/reports/income-vs-expense-summary',
 
+    ACCOUNTING_REPORT_BALANCE_SHEET: '/reports/accounting/balance-sheet',
+    ACCOUNTING_REPORT_GENERAL_LEDGER: '/reports/accounting/general-ledger',
+    ACCOUNTING_REPORT_PROFIT_AND_LOSS: '/reportsaccounting/profit-and-loss',
+    ACCOUNTING_REPORT_TAX_SUMMARY: '/reports/accounting/tax-summary',
+    ACCOUNTING_REPORT_TRIAL_BALANCE: '/reports/accounting/trial-balance',
+
     SETTINGS: '/settings',
 
     /** Taxes */

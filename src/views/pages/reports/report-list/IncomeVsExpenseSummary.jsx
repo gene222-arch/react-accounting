@@ -10,27 +10,13 @@ import incomeVsExpenseSummaryAsync from './../../../../services/reports/income.v
 import Grid from '@material-ui/core/Grid'
 import { Table, TableHead, TableCell, TableBody, TableRow, Typography } from '@material-ui/core'
 
+/** Utils */
 import * as NUMERIC_HELPER from '../../../../utils/numeric'
+import * as DATE_HELPER from '../../../../utils/date'
 
 HighchartsExporting(Highcharts);
 
 const MONTHLY_EXPENSE_DEFAULT = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-const MONTH_NAMES = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-];
-
 
 const incomeAndExpenseSummaryTable = (incomeAndExpenseCategories, monthlyIncomeVsExpense) => 
 {
@@ -121,7 +107,7 @@ const IncomeVsExpenseSummary = () =>
                 Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
         },
         xAxis: {
-            categories: MONTH_NAMES,
+            categories: DATE_HELPER.MONTH_NAMES,
         },
         tooltip: {
             shared: true,
@@ -185,7 +171,7 @@ const IncomeVsExpenseSummary = () =>
                         <TableRow>
                             <TableCell><Typography variant='subtitle1' color='textSecondary'>Category</Typography></TableCell>
                             {
-                                MONTH_NAMES.map((month, index) => (
+                                DATE_HELPER.MONTH_NAMES.map((month, index) => (
                                     <TableCell key={ index }>
                                         <Typography variant='subtitle2' color='textSecondary'>{ month }</Typography>
                                     </TableCell>

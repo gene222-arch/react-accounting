@@ -51,8 +51,9 @@ const Reports = () =>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={4}>
                     <ReportItem 
-                        title='Income vs Expense' 
-                        description='Quarterly tax summary.'
+                        title='Tax Summary' 
+                        description='Monthly tax summary.'
+                        path={ PATH.ACCOUNTING_REPORT_TAX_SUMMARY }
                         amount={ 0 }
                     />
                 </Grid>
