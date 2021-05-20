@@ -58,7 +58,6 @@ const BankAccountTransfer = ({ alert, transferProp }) =>
             icon: () => <SettingsBackupRestoreIcon className={ classes.reverseTransactionIcon }/>,
             tooltip: 'Reverse Transaction',
             onClick: (event, { id }) => {
-                console.log(id)
                 setId(id);
                 setReverseTransacDialog(true);
             }
@@ -107,7 +106,11 @@ const BankAccountTransfer = ({ alert, transferProp }) =>
         setIds([]);
     };
 
-    const onLoadFetchAll = () => dispatch(BANK_ACCOUNT_TRANSFER.getBankAccountTransfers());
+    const onLoadFetchAll = () => {
+        if (!transferProp.bankAccountTransfers.length) {
+            dispatch(BANK_ACCOUNT_TRANSFER.getBankAccountTransfers());
+        }
+    }
 
     useEffect(() => {
         onLoadFetchAll();

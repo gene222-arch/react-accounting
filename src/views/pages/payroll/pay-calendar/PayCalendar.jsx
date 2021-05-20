@@ -40,7 +40,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const PayCalendar = ({ alert, payCalendar }) => 
+const PayCalendar = ({ alert, payCalendarProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -84,7 +84,11 @@ const PayCalendar = ({ alert, payCalendar }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(PAY_CALENDAR.getPayCalendars());
+    const onLoadFetchAll = () => {
+        if (!payCalendarProp.payCalendars.length) {
+            dispatch(PAY_CALENDAR.getPayCalendars());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(PAY_CALENDAR.destroyPayCalendars({ ids }));
@@ -106,8 +110,8 @@ const PayCalendar = ({ alert, payCalendar }) =>
             <MaterialTable
                 actions={ actions }
                 columns={ columns }      
-                data={ payCalendar.payCalendars }  
-                isLoading={ payCalendar.isLoading }
+                data={ payCalendarProp.payCalendars }  
+                isLoading={ payCalendarProp.isLoading }
                 options={ options }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
@@ -125,7 +129,7 @@ const PayCalendar = ({ alert, payCalendar }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    payCalendar: selectPayCalendar
+    payCalendarProp: selectPayCalendar
 });
 
 export default connect(mapStateToProps, null)(PayCalendar)

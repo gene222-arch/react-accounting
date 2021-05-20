@@ -40,7 +40,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Invoice = ({ alert, invoice }) => 
+const Invoice = ({ alert, invoiceProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -83,7 +83,11 @@ const Invoice = ({ alert, invoice }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(INVOICE.getInvoices());
+    const onLoadFetchAll = () => {
+        if (!invoiceProp.invoices.length) {
+            dispatch(INVOICE.getInvoices());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(INVOICE.destroyInvoices({ ids }));
@@ -104,8 +108,8 @@ const Invoice = ({ alert, invoice }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ invoice.invoices }  
-                isLoading={ invoice.isLoading }
+                data={ invoiceProp.invoices }  
+                isLoading={ invoiceProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -122,7 +126,7 @@ const Invoice = ({ alert, invoice }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    invoice: selectInvoice
+    invoiceProp: selectInvoice
 });
 
 export default connect(mapStateToProps, null)(Invoice)

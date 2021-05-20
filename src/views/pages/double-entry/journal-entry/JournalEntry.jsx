@@ -33,7 +33,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     ? <AddButton onClickEventCallback={ handleClickRedirect } />
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
-const JournalEntry = ({ alert, journalEntry }) => 
+const JournalEntry = ({ alert, journalEntryProp }) => 
 {
     const classes = journalEntryUseStyles();
     const dispatch = useDispatch();
@@ -46,16 +46,20 @@ const JournalEntry = ({ alert, journalEntry }) =>
         { 
             title: 'Date', 
             field: 'date',
-            render: row => <StyledNavLink to={ PATH.UPDATE_JOURNAL_ENTRY.replace(':id', row.id) } text={ row.date } />
+            render: ({ id, date }) => <StyledNavLink to={ PATH.UPDATE_JOURNAL_ENTRY.replace(':id', id) } text={ date } />
         },
         { title: 'Amount', field: 'amount' },
         { title: 'Reference', field: 'reference' },
         { title: 'Description', field: 'description' }
     ];
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
-    const onLoadFetchAll = () => dispatch(JOURNAL_ENTRY.getJournalEntries());
+    const onLoadFetchAll = () => {
+        if (!journalEntryProp.journalEntries.length) {
+            dispatch(JOURNAL_ENTRY.getJournalEntries());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(JOURNAL_ENTRY.destroyJournalEntries({ ids }));
@@ -76,8 +80,8 @@ const JournalEntry = ({ alert, journalEntry }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ journalEntry.journalEntries }  
-                isLoading={ journalEntry.isLoading }
+                data={ journalEntryProp.journalEntries }  
+                isLoading={ journalEntryProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -94,7 +98,7 @@ const JournalEntry = ({ alert, journalEntry }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    journalEntry: selectJournalEntry
+    journalEntryProp: selectJournalEntry
 });
 
 export default connect(mapStateToProps, null)(JournalEntry)

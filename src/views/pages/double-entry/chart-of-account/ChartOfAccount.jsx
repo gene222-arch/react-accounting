@@ -22,6 +22,7 @@ import { makeStyles } from '@material-ui/core';
 import AddButton from './../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from './../../../../components/AlertPopUp';
+import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
 
 import PATH from './../../../../routes/path';
 
@@ -34,7 +35,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     ? <AddButton onClickEventCallback={ handleClickRedirect } />
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
-const ChartOfAccount = ({ alert, chartOfAccount }) => 
+const ChartOfAccount = ({ alert, chartOfAccountProp }) => 
 {
     const history = useHistory();
     const classes = chartOfAccountUseStyles();
@@ -44,7 +45,11 @@ const ChartOfAccount = ({ alert, chartOfAccount }) =>
     
     const columns = [
         { title: 'id', field: 'id', hidden: true },
-        { title: 'Type', field: 'type' },
+        { 
+            title: 'Type', 
+            field: 'type',
+            render: ({ id, type }) => <StyledNavLink to={ PATH.UPDATE_CHART_OF_ACCOUNT.replace(':id', id) } text={ type } /> 
+        },
         { title: 'Code', field: 'code' },
         { title: 'Name', field: 'name' },
         { title: 'Description', field: 'description' },
@@ -62,7 +67,11 @@ const ChartOfAccount = ({ alert, chartOfAccount }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(CHART_OF_ACCOUNT.getChartOfAccounts());
+    const onLoadFetchAll = () => {
+        if (!chartOfAccountProp.chartOfAccounts.length) {
+            dispatch(CHART_OF_ACCOUNT.getChartOfAccounts());
+        }
+    };
 
     const handleClickDestroy = () => {
         dispatch(CHART_OF_ACCOUNT.destroyChartOfAccounts({ ids }));
@@ -83,8 +92,8 @@ const ChartOfAccount = ({ alert, chartOfAccount }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ chartOfAccount.chartOfAccounts }  
-                isLoading={ chartOfAccount.isLoading }
+                data={ chartOfAccountProp.chartOfAccounts }  
+                isLoading={ chartOfAccountProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -101,7 +110,7 @@ const ChartOfAccount = ({ alert, chartOfAccount }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    chartOfAccount: selectChartOfAccount
+    chartOfAccountProp: selectChartOfAccount
 });
 
 export default connect(mapStateToProps, null)(ChartOfAccount)

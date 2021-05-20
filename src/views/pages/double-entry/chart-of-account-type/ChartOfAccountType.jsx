@@ -25,7 +25,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     ? <AddButton onClickEventCallback={ handleClickRedirect } />
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
-const ChartOfAccountType = ({ alert, chartOfAccountType }) => 
+const ChartOfAccountType = ({ alert, chartOfAccountTypeProp }) => 
 {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -37,15 +37,19 @@ const ChartOfAccountType = ({ alert, chartOfAccountType }) =>
         { 
             title: 'Category', 
             field: 'category',
-            render: row => <StyledNavLink to={ PATH.UPDATE_CHART_OF_ACCOUNT_TYPE.replace(':id', row.id) } text={ row.category } /> 
+            render: ({ id, category }) => <StyledNavLink to={ PATH.UPDATE_CHART_OF_ACCOUNT_TYPE.replace(':id', id) } text={ category } /> 
         },
         { title: 'Name', field: 'name' },
         { title: 'Description', field: 'description' },
     ];
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
-    const onLoadFetchAll = () => dispatch(CHART_OF_ACCOUNT_TYPE.getChartOfAccountTypes());
+    const onLoadFetchAll = () => {
+        if (!chartOfAccountTypeProp.chartOfAccountTypes.length) {
+            dispatch(CHART_OF_ACCOUNT_TYPE.getChartOfAccountTypes());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(CHART_OF_ACCOUNT_TYPE.destroyChartOfAccountTypes({ ids }));
@@ -66,8 +70,8 @@ const ChartOfAccountType = ({ alert, chartOfAccountType }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ chartOfAccountType.chartOfAccountTypes }  
-                isLoading={ chartOfAccountType.isLoading }
+                data={ chartOfAccountTypeProp.chartOfAccountTypes }  
+                isLoading={ chartOfAccountTypeProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -83,7 +87,7 @@ const ChartOfAccountType = ({ alert, chartOfAccountType }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    chartOfAccountType: selectChartOfAccountType
+    chartOfAccountTypeProp: selectChartOfAccountType
 });
 
 export default connect(mapStateToProps, null)(ChartOfAccountType)

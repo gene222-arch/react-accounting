@@ -43,7 +43,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Warehouse = ({ alert, warehouse }) => 
+const Warehouse = ({ alert, warehouseProp }) => 
 {
     const history = useHistory();
     const classes = warehouseUseStyles();
@@ -94,7 +94,11 @@ const Warehouse = ({ alert, warehouse }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(WAREHOUSE.getWarehouses());
+    const onLoadFetchAll = () => {
+        if (!warehouseProp.warehouses.length) {
+            dispatch(WAREHOUSE.getWarehouses());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(WAREHOUSE.destroyWarehouses({ ids }));
@@ -117,8 +121,8 @@ const Warehouse = ({ alert, warehouse }) =>
                 actions={ actions }
                 columns={ columns }      
                 options={ options }
-                data={ warehouse.warehouses }  
-                isLoading={ warehouse.isLoading }
+                data={ warehouseProp.warehouses }  
+                isLoading={ warehouseProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -135,7 +139,7 @@ const Warehouse = ({ alert, warehouse }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    warehouse: selectWarehouse
+    warehouseProp: selectWarehouse
 });
 
 export default connect(mapStateToProps, null)(Warehouse)

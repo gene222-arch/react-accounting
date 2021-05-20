@@ -35,7 +35,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const PaymentMethod = ({ alert, paymentMethod }) => 
+const PaymentMethod = ({ alert, paymentMethodProp }) => 
 {
     const history = useHistory();
     const classes = paymentMethodUseStyles();
@@ -64,7 +64,11 @@ const PaymentMethod = ({ alert, paymentMethod }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(PAYMENT_METHOD.getPaymentMethods());
+    const onLoadFetchAll = () => {
+        if (!paymentMethodProp.paymentMethods.length) {
+            dispatch(PAYMENT_METHOD.getPaymentMethods());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(PAYMENT_METHOD.destroyPaymentMethods({ ids }));
@@ -85,8 +89,8 @@ const PaymentMethod = ({ alert, paymentMethod }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ paymentMethod.paymentMethods }  
-                isLoading={ paymentMethod.isLoading }
+                data={ paymentMethodProp.paymentMethods }  
+                isLoading={ paymentMethodProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -103,7 +107,7 @@ const PaymentMethod = ({ alert, paymentMethod }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    paymentMethod: selectPaymentMethod
+    paymentMethodProp: selectPaymentMethod
 });
 
 export default connect(mapStateToProps, null)(PaymentMethod)

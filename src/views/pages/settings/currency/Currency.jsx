@@ -35,7 +35,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     ? <AddButton onClickEventCallback={ handleClickRedirect } />
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
-const Currency = ({ alert, currency }) => 
+const Currency = ({ alert, currencyProp }) => 
 {
     const history = useHistory();
     const classes = taxUseStyles();
@@ -66,7 +66,11 @@ const Currency = ({ alert, currency }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(CURRENCY.getCurrencies());
+    const onLoadFetchAll = () => {
+        if (!currencyProp.currencies.length) {
+            dispatch(CURRENCY.getCurrencies());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(CURRENCY.destroyCurrencies({ ids }));
@@ -87,8 +91,8 @@ const Currency = ({ alert, currency }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ currency.currencies }  
-                isLoading={ currency.isLoading }
+                data={ currencyProp.currencies }  
+                isLoading={ currencyProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -105,7 +109,7 @@ const Currency = ({ alert, currency }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    currency: selectCurrency
+    currencyProp: selectCurrency
 });
 
 export default connect(mapStateToProps, null)(Currency)

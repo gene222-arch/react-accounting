@@ -36,7 +36,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const ExpenseCategory = ({ alert, expenseCategory }) => 
+const ExpenseCategory = ({ alert, expenseCategoryProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -69,7 +69,11 @@ const ExpenseCategory = ({ alert, expenseCategory }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(EXPENSE_CATEGORY.getExpenseCategories());
+    const onLoadFetchAll = () => {
+        if (!expenseCategoryProp.expenseCategories.length) {
+            dispatch(EXPENSE_CATEGORY.getExpenseCategories());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(EXPENSE_CATEGORY.destroyExpenseCategories({ ids }));
@@ -90,8 +94,8 @@ const ExpenseCategory = ({ alert, expenseCategory }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ expenseCategory.expenseCategories }  
-                isLoading={ expenseCategory.isLoading }
+                data={ expenseCategoryProp.expenseCategories }  
+                isLoading={ expenseCategoryProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -108,7 +112,7 @@ const ExpenseCategory = ({ alert, expenseCategory }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    expenseCategory: selectExpenseCategory
+    expenseCategoryProp: selectExpenseCategory
 });
 
 export default connect(mapStateToProps, null)(ExpenseCategory)

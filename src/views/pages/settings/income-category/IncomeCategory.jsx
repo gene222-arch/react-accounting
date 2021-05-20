@@ -36,7 +36,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const IncomeCategory = ({ alert, incomeCategory }) => 
+const IncomeCategory = ({ alert, incomeCategoryProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -69,7 +69,11 @@ const IncomeCategory = ({ alert, incomeCategory }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(INCOME_CATEGORY.getIncomeCategories());
+    const onLoadFetchAll = () => {
+        if (!incomeCategoryProp.incomeCategories.length) {
+            dispatch(INCOME_CATEGORY.getIncomeCategories());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(INCOME_CATEGORY.destroyIncomeCategories({ ids }));
@@ -90,8 +94,8 @@ const IncomeCategory = ({ alert, incomeCategory }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ incomeCategory.incomeCategories }  
-                isLoading={ incomeCategory.isLoading }
+                data={ incomeCategoryProp.incomeCategories }  
+                isLoading={ incomeCategoryProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -108,7 +112,7 @@ const IncomeCategory = ({ alert, incomeCategory }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    incomeCategory: selectIncomeCategory
+    incomeCategoryProp: selectIncomeCategory
 });
 
 export default connect(mapStateToProps, null)(IncomeCategory)

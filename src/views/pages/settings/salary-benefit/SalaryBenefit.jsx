@@ -65,7 +65,11 @@ const SalaryBenefit = ({ alert, salaryBenefitProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(SALARY_BENEFIT.getSalaryBenefits());
+    const onLoadFetchAll = () => {
+        if (!salaryBenefitProp.salaryBenefits.length) {
+            dispatch(SALARY_BENEFIT.getSalaryBenefits());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(SALARY_BENEFIT.destroySalaryBenefits({ ids }));

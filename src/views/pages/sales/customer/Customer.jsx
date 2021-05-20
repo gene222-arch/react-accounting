@@ -36,7 +36,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Customer = ({ alert, customer }) => 
+const Customer = ({ alert, customerProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -69,7 +69,11 @@ const Customer = ({ alert, customer }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(CUSTOMER.getCustomers());
+    const onLoadFetchAll = () => {
+        if (!customerProp.customers.length) {
+            dispatch(CUSTOMER.getCustomers());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(CUSTOMER.destroyCustomers({ ids }));
@@ -90,8 +94,8 @@ const Customer = ({ alert, customer }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ customer.customers }  
-                isLoading={ customer.isLoading }
+                data={ customerProp.customers }  
+                isLoading={ customerProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -108,7 +112,7 @@ const Customer = ({ alert, customer }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    customer: selectCustomer
+    customerProp: selectCustomer
 });
 
 export default connect(mapStateToProps, null)(Customer)

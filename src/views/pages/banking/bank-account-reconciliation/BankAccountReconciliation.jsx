@@ -35,7 +35,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const BankAccountReconciliation = ({ alert, transferProp }) => 
+const BankAccountReconciliation = ({ alert, reconciliationProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -81,7 +81,11 @@ const BankAccountReconciliation = ({ alert, transferProp }) =>
         setIds([]);
     };
 
-    const onLoadFetchAll = () => dispatch(BANK_ACCOUNT_RECONCILIATION.getBankAccountReconciliations());
+    const onLoadFetchAll = () => {
+        if (!reconciliationProp.bankAccountReconciliations.length) {
+            dispatch(BANK_ACCOUNT_RECONCILIATION.getBankAccountReconciliations());
+        }
+    }
 
     useEffect(() => {
         onLoadFetchAll();
@@ -97,8 +101,8 @@ const BankAccountReconciliation = ({ alert, transferProp }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ transferProp.bankAccountReconciliations }  
-                isLoading={ transferProp.isLoading }
+                data={ reconciliationProp.bankAccountReconciliations }  
+                isLoading={ reconciliationProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -115,7 +119,7 @@ const BankAccountReconciliation = ({ alert, transferProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    transferProp: selectBankAccountReconciliation
+    reconciliationProp: selectBankAccountReconciliation
 });
 
 export default connect(mapStateToProps, null)(BankAccountReconciliation)

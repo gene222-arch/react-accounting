@@ -36,7 +36,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Vendor = ({ alert, vendor }) => 
+const Vendor = ({ alert, vendorProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -69,7 +69,11 @@ const Vendor = ({ alert, vendor }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(VENDOR.getVendors());
+    const onLoadFetchAll = () => {
+        if (!vendorProp.vendors.length) {
+            dispatch(VENDOR.getVendors());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(VENDOR.destroyVendors({ ids }));
@@ -90,8 +94,8 @@ const Vendor = ({ alert, vendor }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ vendor.vendors }  
-                isLoading={ vendor.isLoading }
+                data={ vendorProp.vendors }  
+                isLoading={ vendorProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -108,7 +112,7 @@ const Vendor = ({ alert, vendor }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    vendor: selectVendor
+    vendorProp: selectVendor
 });
 
 export default connect(mapStateToProps, null)(Vendor)

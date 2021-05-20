@@ -36,7 +36,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Employee = ({ alert, employee }) => 
+const Employee = ({ alert, employeeProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -73,7 +73,11 @@ const Employee = ({ alert, employee }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(EMPLOYEE.getEmployees());
+    const onLoadFetchAll = () => {
+        if (!employeeProp.employees.length) {
+            dispatch(EMPLOYEE.getEmployees());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(EMPLOYEE.destroyEmployees({ ids }));
@@ -94,8 +98,8 @@ const Employee = ({ alert, employee }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ employee.employees }  
-                isLoading={ employee.isLoading }
+                data={ employeeProp.employees }  
+                isLoading={ employeeProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -112,7 +116,7 @@ const Employee = ({ alert, employee }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    employee: selectEmployee
+    employeeProp: selectEmployee
 });
 
 export default connect(mapStateToProps, null)(Employee)

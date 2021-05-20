@@ -35,7 +35,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     ? <AddButton onClickEventCallback={ handleClickRedirect } />
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
-const Tax = ({ alert, tax }) => 
+const Tax = ({ alert, taxProp }) => 
 {
     const history = useHistory();
     const classes = taxUseStyles();
@@ -66,7 +66,11 @@ const Tax = ({ alert, tax }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => dispatch(TAX.getTaxes());
+    const onLoadFetchAll = () => {
+        if (!taxProp.taxes.length) {
+            dispatch(TAX.getTaxes());
+        }
+    }
 
     const handleClickDestroy = () => {
         dispatch(TAX.destroyTaxes({ ids }));
@@ -87,8 +91,8 @@ const Tax = ({ alert, tax }) =>
             />
             <MaterialTable
                 columns={ columns }      
-                data={ tax.taxes }  
-                isLoading={ tax.isLoading }
+                data={ taxProp.taxes }  
+                isLoading={ taxProp.isLoading }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
                     <ActionButton 
@@ -105,7 +109,7 @@ const Tax = ({ alert, tax }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    tax: selectTax
+    taxProp: selectTax
 });
 
 export default connect(mapStateToProps, null)(Tax)
