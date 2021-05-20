@@ -21,6 +21,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import PATH from './../../../../routes/path';
 
 
+
+const PAYROLL_DEFAULT_PROPS = { 
+    totalPayment: 0, 
+    totalBenefit: 0, 
+    totalDeduction: 0, 
+    paymentHistories: [],
+    benefitHistories: [],
+    contributionHistories: [],
+    taxHistories: []
+};
+
 const viewEmployeeUseStyles = makeStyles(theme => ({
     btn: {
         '&:hover': {
@@ -37,15 +48,7 @@ const ViewEmployee = ({ employeeProp, match }) =>
     const history = useHistory();
     const { id } = match.params;
 
-    const [ payrollsState, setPayrollsState ] = useState({ 
-        totalPayment: 0, 
-        totalBenefit: 0, 
-        totalDeduction: 0, 
-        paymentHistories: [],
-        benefitHistories: [],
-        contributionHistories: [],
-        taxHistories: []
-    });
+    const [ payrollsState, setPayrollsState ] = useState(PAYROLL_DEFAULT_PROPS);
     const [ employeeState, setEmployeeState ] = useState(employeeProp.employee);
     const [ salaryState, setSalaryState ] = useState(employeeProp.salary);
     const [ selectedSlide, setSelectedSlide ] = useState('profile');

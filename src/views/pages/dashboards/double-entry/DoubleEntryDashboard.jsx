@@ -56,7 +56,13 @@ const DoubleEntryDashboard = () =>
         try {
             const { data, message, status } = await fetchDashboardAsync();
             
-            setDashboardData(data);
+            if (status !== 'success') {
+
+            }
+
+            if (status === 'success') {
+                setDashboardData(data);
+            }
         } catch ({ message }) {
             
         }
@@ -67,7 +73,13 @@ const DoubleEntryDashboard = () =>
         try {
             const { data, message, status } = await fetchDashboardAsync({ dateFrom, dateTo });
             
-            setDashboardData(data);
+            if (status !== 'success') {
+
+            }
+
+            if (status === 'success') {
+                setDashboardData(data);
+            }
         } catch ({ message }) {
             
         }
