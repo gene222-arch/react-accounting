@@ -52,6 +52,14 @@ const Reports = () =>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={4}>
                     <ReportItem 
+                        title='General Ledger' 
+                        description='Detailed list of all transactions'
+                        path={ PATH.ACCOUNTING_REPORT_GENERAL_LEDGER }
+                        amount={ 0 }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                    <ReportItem 
                         title='Profit and Loss' 
                         description='Monthly profit and loss by category.'
                         amount={ 0 }

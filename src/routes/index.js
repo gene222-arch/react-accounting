@@ -105,6 +105,7 @@ const CreateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-be
 const UpdateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/UpdateSalaryBenefit'))
 const Reports = lazy(() => import('../views/pages/reports/Reports'))
 const BalanceSheet = lazy(() => import('../views/pages/reports/report-list/BalanceSheet'))
+const GeneralLedger = lazy(() => import('../views/pages/reports/report-list/GeneralLedger'))
 const ExpenseSummary = lazy(() => import('../views/pages/reports/report-list/ExpenseSummary'))
 const IncomeSummary = lazy(() => import('../views/pages/reports/report-list/IncomeSummary'))
 const IncomeVsExpenseSummary = lazy(() => import('../views/pages/reports/report-list/IncomeVsExpenseSummary'))
@@ -1047,6 +1048,15 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: IncomeSummary,
         access: 'View Income Summary',
+        restricted: true
+    },
+    {
+        path: PATH.ACCOUNTING_REPORT_GENERAL_LEDGER,
+        key: 'GeneralLedger',
+        icon: '',
+        exact: true,
+        component: GeneralLedger,
+        access: 'View General Ledger',
         restricted: true
     },
     {
