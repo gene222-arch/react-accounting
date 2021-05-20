@@ -8,11 +8,18 @@ import { Table, TableHead, TableCell, TableBody, TableRow } from '@material-ui/c
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
+import { makeStyles } from '@material-ui/core/styles';
 
 /** Utils */
-import * as DATE_HELPER from '../../../../utils/date'
 import * as STRING_HELPER from '../../../../utils/string'
 
+
+const trialBalanceUseStyles = makeStyles(theme => ({
+    table: {
+        tableLayout: 'fixed',
+        width: '100%'
+    }
+}));
 
 const displayGeneralLedgerData = (generalLedgerDataSet) => 
 {
@@ -29,6 +36,7 @@ const displayGeneralLedgerData = (generalLedgerDataSet) =>
 
 const displayGeneralLedgerTable = (generalLedger) => 
 {
+    const classes = trialBalanceUseStyles();
     let elem = [];
 
     for (const key in generalLedger) {
@@ -42,7 +50,7 @@ const displayGeneralLedgerTable = (generalLedger) =>
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12}>
-                            <Table>
+                            <Table className={ classes.table }>
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Date</TableCell>

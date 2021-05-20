@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { lazy } from 'react'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
-import ReportItem from './ReportItem';
-
 import PATH from './../../../routes/path';
 
-const Reports = () => 
+const ReportItem = lazy(() => import('./ReportItem'))
+
+const Reports = () =>
 {
     return (
         <>
@@ -70,6 +70,14 @@ const Reports = () =>
                         title='Tax Summary' 
                         description='Monthly tax summary.'
                         path={ PATH.ACCOUNTING_REPORT_TAX_SUMMARY }
+                        amount={ 0 }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                    <ReportItem 
+                        title='Trial Balance' 
+                        description='Balance all of your chart accounts.'
+                        path={ PATH.ACCOUNTING_REPORT_TRIAL_BALANCE }
                         amount={ 0 }
                     />
                 </Grid>

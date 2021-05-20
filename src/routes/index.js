@@ -110,7 +110,7 @@ const ExpenseSummary = lazy(() => import('../views/pages/reports/report-list/Exp
 const IncomeSummary = lazy(() => import('../views/pages/reports/report-list/IncomeSummary'))
 const IncomeVsExpenseSummary = lazy(() => import('../views/pages/reports/report-list/IncomeVsExpenseSummary'))
 const TaxSummary = lazy(() => import('../views/pages/reports/report-list/TaxSummary'))
-
+const TrialBalance = lazy(() => import('../views/pages/reports/report-list/TrialBalance'))
 
 export const AUTH_ROUTES = [
     {
@@ -1075,6 +1075,15 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: TaxSummary,
         access: 'View Tax Summary',
+        restricted: true
+    },
+    {
+        path: PATH.ACCOUNTING_REPORT_TRIAL_BALANCE,
+        key: 'TrialBalance',
+        icon: '',
+        exact: true,
+        component: TrialBalance,
+        access: 'View Trial Balance',
         restricted: true
     },
 ];
