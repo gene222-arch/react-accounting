@@ -44,6 +44,14 @@ const Reports = () =>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={4}>
                     <ReportItem 
+                        title='Balance Sheet' 
+                        description='Snapshot of your Assets, Liabilities, and more...'
+                        path={ PATH.ACCOUNTING_REPORT_BALANCE_SHEET }
+                        amount={ 0 }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                    <ReportItem 
                         title='Profit and Loss' 
                         description='Monthly profit and loss by category.'
                         amount={ 0 }

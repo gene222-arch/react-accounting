@@ -4,13 +4,21 @@ import React, { useState, useEffect } from 'react'
 import taxSummaryAsync from './../../../../services/reports/accounting/tax.summary';
 
 /** Material UI Components */
-import { Table, TableCell, TableBody, TableHead, TableRow } from '@material-ui/core'
+import { Table, TableCell, TableBody, TableHead, TableRow, Button } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles';
 
 /** Utils */
 import * as DATE_HELPER from '../../../../utils/date'
 
+
+
+const taxSummaryUseStyles = makeStyles(theme => ({
+    btnActions: {
+   
+    }
+}));
 
 const taxSummaryTableData = (taxSummaryData) => 
 {
@@ -95,6 +103,7 @@ const taxSummaryTable = (taxSummaries) =>
 
 const TaxSummary = () => 
 {
+    const classes = taxSummaryUseStyles();
     const [ taxSummaries, setTaxSummaries ] = useState({});
 
     const fetchTaxSummaryReport = async () => 
@@ -114,6 +123,10 @@ const TaxSummary = () =>
         }
     }
 
+    const handleClickExport = () => alert('Exported');
+
+    const handleClickPrint = () => alert('Printed');
+
     useEffect(() => {
         fetchTaxSummaryReport();
     }, []);
@@ -121,6 +134,30 @@ const TaxSummary = () =>
     return (
         <>
             <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Grid container spacing={1} justify='flex-end'>
+                        <Grid item>
+                            <Button
+                                size='small'
+                                variant='contained'
+                                color='default'
+                                onClick={ handleClickPrint }
+                            >
+                              Print
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                size='small'
+                                variant='contained'
+                                color='default'
+                                onClick={ handleClickExport }
+                            >
+                              Export
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
                 {
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Table>

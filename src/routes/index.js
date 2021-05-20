@@ -104,6 +104,7 @@ const SalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/
 const CreateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/CreateSalaryBenefit'))
 const UpdateSalaryBenefit = lazy(() => import('../views/pages/settings/salary-benefit/UpdateSalaryBenefit'))
 const Reports = lazy(() => import('../views/pages/reports/Reports'))
+const BalanceSheet = lazy(() => import('../views/pages/reports/report-list/BalanceSheet'))
 const ExpenseSummary = lazy(() => import('../views/pages/reports/report-list/ExpenseSummary'))
 const IncomeSummary = lazy(() => import('../views/pages/reports/report-list/IncomeSummary'))
 const IncomeVsExpenseSummary = lazy(() => import('../views/pages/reports/report-list/IncomeVsExpenseSummary'))
@@ -1019,6 +1020,15 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: Reports,
         access: '',
+        restricted: true
+    },
+    {
+        path: PATH.ACCOUNTING_REPORT_BALANCE_SHEET,
+        key: 'BalanceSheet',
+        icon: '',
+        exact: true,
+        component: BalanceSheet,
+        access: 'View Balance Sheet',
         restricted: true
     },
     {
