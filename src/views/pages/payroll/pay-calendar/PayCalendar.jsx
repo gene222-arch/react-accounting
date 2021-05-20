@@ -40,7 +40,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const PayCalendar = ({ alert, payCalendarProp }) => 
+const PayCalendar = ({ alert, payCalendar }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -106,8 +106,8 @@ const PayCalendar = ({ alert, payCalendarProp }) =>
             <MaterialTable
                 actions={ actions }
                 columns={ columns }      
-                data={ payCalendarProp.payCalendars }  
-                isLoading={ payCalendarProp.isLoading }
+                data={ payCalendar.payCalendars }  
+                isLoading={ payCalendar.isLoading }
                 options={ options }
                 onSelectionChange={ rows => onSelectionChange(rows) }
                 title={ 
@@ -125,7 +125,7 @@ const PayCalendar = ({ alert, payCalendarProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    payCalendarProp: selectPayCalendar
+    payCalendar: selectPayCalendar
 });
 
 export default connect(mapStateToProps, null)(PayCalendar)

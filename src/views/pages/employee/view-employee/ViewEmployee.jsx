@@ -37,6 +37,15 @@ const ViewEmployee = ({ employeeProp, match }) =>
     const history = useHistory();
     const { id } = match.params;
 
+    const [ payrollsState, setPayrollsState ] = useState({ 
+        totalPayment: 0, 
+        totalBenefit: 0, 
+        totalDeduction: 0, 
+        paymentHistories: [],
+        benefitHistories: [],
+        contributionHistories: [],
+        taxHistories: []
+    });
     const [ employeeState, setEmployeeState ] = useState(employeeProp.employee);
     const [ salaryState, setSalaryState ] = useState(employeeProp.salary);
     const [ selectedSlide, setSelectedSlide ] = useState('profile');
@@ -48,7 +57,7 @@ const ViewEmployee = ({ employeeProp, match }) =>
         }
 
         if (selectedSlide === 'payroll') {
-            return <EmployeePayroll employee={ employeeState } />
+            return <EmployeePayroll payrolls={ payrollsState } />
         }
     }
 
@@ -59,12 +68,54 @@ const ViewEmployee = ({ employeeProp, match }) =>
         try {
             const { data, message, status } = await findAsync({ id });
 
+            console.log(data);
+
             if (status !== 'success') {
 
             }
 
-            if (status === 'success') {
-                const { salary, role, ...employee } = data;
+            if (status === 'success') 
+            {
+                const { salary, role, payrolls, benefits, contributions, taxes, ...employee } = data;
+                let totalBenefit = 0;
+                let totalDeduction = 0;
+                let totalPayment = 0;
+                let benefitHistories = [];
+                let contributionHistories = [];
+                let paymentHistories = [];
+                let taxHistories = [];
+
+                paymentHistories = payrolls.map(({ id, payment_date, name, pivot }) => ({
+                    id,
+                    paymentDate: payment_date,
+                    name,
+                    salary: pivot.salary,
+                    totalBenefit: pivot.benefit,
+                    totalDeduction: pivot.deduction,
+                    totalPayment: pivot.total_amount
+                }));
+
+                totalBenefit = paymentHistories.reduce((total, { totalBenefit }) => total + parseFloat(totalBenefit), 0).toFixed(2);
+                totalDeduction = paymentHistories.reduce((total, { totalDeduction }) => total + parseFloat(totalDeduction), 0).toFixed(2);
+                totalPayment = paymentHistories.reduce((total, { totalPayment }) => total + parseFloat(totalPayment), 0).toFixed(2);
+
+                benefitHistories = benefits.map(({ id, type, amount, ...benefit }) => ({
+                    id,
+                    type,
+                    amount
+                }));
+
+                contributionHistories = contributions.map(({ id, name, pivot, ...contribution }) => ({
+                    id,
+                    name,
+                    amount: pivot.amount
+                }));
+
+                taxHistories = taxes.map(({ id, name, pivot, ...tax }) => ({
+                    id,
+                    name,
+                    amount: pivot.amount
+                }));
 
                 setEmployeeState({
                     ...employee,
@@ -73,6 +124,17 @@ const ViewEmployee = ({ employeeProp, match }) =>
                 });
 
                 setSalaryState(salary);
+                
+                setPayrollsState({
+                    ...payrollsState,
+                    totalBenefit,
+                    totalDeduction,
+                    totalPayment,
+                    paymentHistories,
+                    benefitHistories,
+                    contributionHistories,
+                    taxHistories
+                });
             }
         } catch ({ message }) {
             alert(404);
@@ -115,20 +177,23 @@ const ViewEmployee = ({ employeeProp, match }) =>
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Card>
-                        <CardContent>{ displaySlideOnClick() }</CardContent>
-                    </Card>
+                    { displaySlideOnClick() }
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Button 
-                        variant="contained" 
-                        color="default" 
-                        fullWidth
-                        onClick={ () => history.push(PATH.UPDATE_EMPLOYEE.replace(':id', id))}
-                    >
-                        Edit
-                    </Button>
-                </Grid>
+                {
+                    selectedSlide !== 'payroll' && (
+                        <Grid item xs={12} sm={12} md={12} lg={12}>
+                            <Button 
+                                variant="contained" 
+                                color="default" 
+                                fullWidth
+                                onClick={ () => history.push(PATH.UPDATE_EMPLOYEE.replace(':id', id))}
+                            >
+                                Edit
+                            </Button>
+                        </Grid>
+                    )
+
+                }
             </Grid>
         </>
     )

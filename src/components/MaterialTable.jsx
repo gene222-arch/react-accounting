@@ -42,7 +42,7 @@ const MaterialTable = (props) => (
         options={{  
             selection: true,
             actionsColumnIndex: -1,
-            showTextRowsSelected: false
+            showTextRowsSelected: false,
         }} 
         icons={ tableIcons } 
         { ...props } 

@@ -48,7 +48,7 @@ function* fetchPayCalendarsSaga (payload)
 
             const payCalendars = data.map(({ payroll, ...payCalendar }) => ({
                 ...payCalendar,
-                payroll_id: payroll.id
+                payroll_id: payroll?.id ?? 0
             }));
 
             yield put(getPayCalendarsSuccess({ payCalendars }));

@@ -61,18 +61,18 @@ const RunPayroll = ({ alert, runPayrollProp }) =>
     const [ ids, setIds ] = useState([]);
     
     const actions = [
-        ({ pay_calendar_id }) => ({
+        ({ status }) => ({
             icon: () => (
                 <ApproveIcon 
                     className={ clsx({
-                        [classes.iconApproved]: Boolean(pay_calendar_id),
-                        [classes.approveIcon]: Boolean(pay_calendar_id)
+                        [classes.iconApproved]: status === 'Approved',
+                        [classes.approveIcon]: status !== 'Approved'
                     })}
                 />
             ),
-            tooltip: !pay_calendar_id ? 'Approve Payroll' : 'Payroll Approved',
+            tooltip: status !== 'Approved' ? 'Approve Payroll' : 'Payroll Approved',
             onClick: (event, { id }) => dispatch(RUN_PAYROLL.approveRunPayroll({ id })),
-            disabled: Boolean(pay_calendar_id)
+            disabled: status === 'Approved'
         })
     ];
 
