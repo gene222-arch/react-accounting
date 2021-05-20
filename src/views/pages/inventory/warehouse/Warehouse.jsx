@@ -94,11 +94,7 @@ const Warehouse = ({ alert, warehouseProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!warehouseProp.warehouses.length) {
-            dispatch(WAREHOUSE.getWarehouses());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(WAREHOUSE.getWarehouses());
 
     const handleClickDestroy = () => {
         dispatch(WAREHOUSE.destroyWarehouses({ ids }));

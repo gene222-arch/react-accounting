@@ -69,11 +69,7 @@ const ExpenseCategory = ({ alert, expenseCategoryProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!expenseCategoryProp.expenseCategories.length) {
-            dispatch(EXPENSE_CATEGORY.getExpenseCategories());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(EXPENSE_CATEGORY.getExpenseCategories());
 
     const handleClickDestroy = () => {
         dispatch(EXPENSE_CATEGORY.destroyExpenseCategories({ ids }));

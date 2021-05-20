@@ -85,11 +85,7 @@ const StockAdjustment = ({ alert, stockAdjustmentProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!stockAdjustmentProp.stockAdjustments.length) {
-            dispatch(STOCK_ADJUSTMENT.getStockAdjustments());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(STOCK_ADJUSTMENT.getStockAdjustments());
 
     const handleClickDestroy = () => {
         dispatch(STOCK_ADJUSTMENT.destroyStockAdjustments({ ids }));

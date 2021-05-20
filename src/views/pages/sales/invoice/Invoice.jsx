@@ -83,11 +83,7 @@ const Invoice = ({ alert, invoiceProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!invoiceProp.invoices.length) {
-            dispatch(INVOICE.getInvoices());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(INVOICE.getInvoices());
 
     const handleClickDestroy = () => {
         dispatch(INVOICE.destroyInvoices({ ids }));

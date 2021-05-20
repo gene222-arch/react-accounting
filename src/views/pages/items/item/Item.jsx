@@ -66,13 +66,9 @@ const Item = ({ alert, itemProp }) =>
         },
     ];
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
-    const onLoadFetchAll = () => {
-        if (!itemProp.items.length) {
-            dispatch(ITEM.getItems({ includeStockTable: false }));
-        }
-    }
+    const onLoadFetchAll = () => dispatch(ITEM.getItems({ includeStockTable: false }));
 
     const handleClickDestroy = () => {
         dispatch(ITEM.destroyItems({ ids }));

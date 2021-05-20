@@ -66,11 +66,7 @@ const Tax = ({ alert, taxProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!taxProp.taxes.length) {
-            dispatch(TAX.getTaxes());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(TAX.getTaxes());
 
     const handleClickDestroy = () => {
         dispatch(TAX.destroyTaxes({ ids }));

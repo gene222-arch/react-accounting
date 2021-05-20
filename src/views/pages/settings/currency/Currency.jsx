@@ -66,11 +66,7 @@ const Currency = ({ alert, currencyProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!currencyProp.currencies.length) {
-            dispatch(CURRENCY.getCurrencies());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(CURRENCY.getCurrencies());
 
     const handleClickDestroy = () => {
         dispatch(CURRENCY.destroyCurrencies({ ids }));

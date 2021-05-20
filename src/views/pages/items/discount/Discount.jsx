@@ -69,11 +69,7 @@ const Item = ({ alert, discountProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!discountProp.discounts.length) {
-            dispatch(DISCOUNT.getDiscounts());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(DISCOUNT.getDiscounts());
 
     const handleClickDestroy = () => {
         dispatch(DISCOUNT.destroyDiscounts({ ids }));

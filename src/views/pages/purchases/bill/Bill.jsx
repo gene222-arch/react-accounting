@@ -81,11 +81,7 @@ const Invoice = ({ alert, billProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!billProp.bills.length) {
-            dispatch(BILL.getBills());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(BILL.getBills());
 
     const handleClickDestroy = () => {
         dispatch(BILL.destroyBills({ ids }));

@@ -73,11 +73,7 @@ const Employee = ({ alert, employeeProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!employeeProp.employees.length) {
-            dispatch(EMPLOYEE.getEmployees());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(EMPLOYEE.getEmployees());
 
     const handleClickDestroy = () => {
         dispatch(EMPLOYEE.destroyEmployees({ ids }));

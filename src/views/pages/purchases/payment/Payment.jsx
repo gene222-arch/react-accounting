@@ -71,11 +71,7 @@ const Payment = ({ alert, paymentProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!paymentProp.payments.length) {
-            dispatch(PAYMENT.getPayments());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(PAYMENT.getPayments());
 
     const handleClickDestroy = () => {
         dispatch(PAYMENT.destroyPayments({ ids }));

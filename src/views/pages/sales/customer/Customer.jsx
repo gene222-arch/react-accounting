@@ -67,13 +67,9 @@ const Customer = ({ alert, customerProp }) =>
         },
     ];
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
-    const onLoadFetchAll = () => {
-        if (!customerProp.customers.length) {
-            dispatch(CUSTOMER.getCustomers());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(CUSTOMER.getCustomers());
 
     const handleClickDestroy = () => {
         dispatch(CUSTOMER.destroyCustomers({ ids }));

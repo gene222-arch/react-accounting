@@ -84,11 +84,7 @@ const PayCalendar = ({ alert, payCalendarProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!payCalendarProp.payCalendars.length) {
-            dispatch(PAY_CALENDAR.getPayCalendars());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(PAY_CALENDAR.getPayCalendars());
 
     const handleClickDestroy = () => {
         dispatch(PAY_CALENDAR.destroyPayCalendars({ ids }));

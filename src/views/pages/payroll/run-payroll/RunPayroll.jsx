@@ -107,11 +107,7 @@ const RunPayroll = ({ alert, runPayrollProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!runPayrollProp.runPayrolls.length) {
-            dispatch(RUN_PAYROLL.getRunPayrolls());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(RUN_PAYROLL.getRunPayrolls());
 
     const handleClickDestroy = () => {
         dispatch(RUN_PAYROLL.destroyRunPayrolls({ ids }));

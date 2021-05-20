@@ -55,11 +55,7 @@ const JournalEntry = ({ alert, journalEntryProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
-    const onLoadFetchAll = () => {
-        if (!journalEntryProp.journalEntries.length) {
-            dispatch(JOURNAL_ENTRY.getJournalEntries());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(JOURNAL_ENTRY.getJournalEntries());
 
     const handleClickDestroy = () => {
         dispatch(JOURNAL_ENTRY.destroyJournalEntries({ ids }));

@@ -67,11 +67,7 @@ const ChartOfAccount = ({ alert, chartOfAccountProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!chartOfAccountProp.chartOfAccounts.length) {
-            dispatch(CHART_OF_ACCOUNT.getChartOfAccounts());
-        }
-    };
+    const onLoadFetchAll = () => dispatch(CHART_OF_ACCOUNT.getChartOfAccounts());
 
     const handleClickDestroy = () => {
         dispatch(CHART_OF_ACCOUNT.destroyChartOfAccounts({ ids }));

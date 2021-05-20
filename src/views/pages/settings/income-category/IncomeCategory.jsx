@@ -69,11 +69,7 @@ const IncomeCategory = ({ alert, incomeCategoryProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!incomeCategoryProp.incomeCategories.length) {
-            dispatch(INCOME_CATEGORY.getIncomeCategories());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(INCOME_CATEGORY.getIncomeCategories());
 
     const handleClickDestroy = () => {
         dispatch(INCOME_CATEGORY.destroyIncomeCategories({ ids }));

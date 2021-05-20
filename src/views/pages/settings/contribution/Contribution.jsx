@@ -65,11 +65,7 @@ const Contribution = ({ alert, contributionProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!contributionProp.contributions.length) {
-            dispatch(CONTRIBUTION.getContributions());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(CONTRIBUTION.getContributions());
 
     const handleClickDestroy = () => {
         dispatch(CONTRIBUTION.destroyContributions({ ids }));

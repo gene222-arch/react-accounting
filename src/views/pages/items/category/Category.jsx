@@ -69,11 +69,7 @@ const Category = ({ alert, categoryProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!categoryProp.categories.length) {
-            dispatch(CATEGORY.getCategories());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(CATEGORY.getCategories());
 
     const handleClickDestroy = () => {
         dispatch(CATEGORY.destroyCategories({ ids }));

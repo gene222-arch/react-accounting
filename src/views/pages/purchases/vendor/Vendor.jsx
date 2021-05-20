@@ -69,11 +69,7 @@ const Vendor = ({ alert, vendorProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!vendorProp.vendors.length) {
-            dispatch(VENDOR.getVendors());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(VENDOR.getVendors());
 
     const handleClickDestroy = () => {
         dispatch(VENDOR.destroyVendors({ ids }));

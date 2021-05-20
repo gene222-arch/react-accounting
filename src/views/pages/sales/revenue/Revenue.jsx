@@ -71,11 +71,7 @@ const Revenue = ({ alert, revenueProp }) =>
 
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
-    const onLoadFetchAll = () => {
-        if (!revenueProp.revenues.length) {
-            dispatch(REVENUE.getRevenues());
-        }
-    }
+    const onLoadFetchAll = () => dispatch(REVENUE.getRevenues());
 
     const handleClickDestroy = () => {
         dispatch(REVENUE.destroyRevenues({ ids }));
