@@ -403,20 +403,20 @@ export const PRIVATE_ROUTES = [
         restricted: true
     },
     {
-        path: PATH.VIEW_INVOICE,
-        key: 'ViewInvoice',
-        icon: '',
-        exact: true,
-        component: ViewInvoice,
-        access: 'Manage Invoices',
-        restricted: true
-    },
-    {
         path: PATH.CREATE_INVOICE,
         key: 'CreateInvoice',
         icon: '',
         exact: true,
         component: CreateInvoice,
+        access: 'Manage Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_INVOICE,
+        key: 'ViewInvoice',
+        icon: '',
+        exact: true,
+        component: ViewInvoice,
         access: 'Manage Invoices',
         restricted: true
     },

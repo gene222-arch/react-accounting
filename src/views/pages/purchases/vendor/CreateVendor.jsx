@@ -24,9 +24,6 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Divider from '@material-ui/core/Divider'
 
-/** API */
-import { findAsync } from '../../../../services/purchases/vendor';
-
 /** Material Ui Styles */
 import { makeStyles } from '@material-ui/core';
 

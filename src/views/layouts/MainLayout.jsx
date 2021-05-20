@@ -157,9 +157,6 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                     >
                         <FormatAlignRightIcon className={ classes.menuBarIcon }/>
                     </IconButton>
-                    <Typography variant="h6" noWrap className={ classes.header }>
-                        { mainLayout.currentSelectedItem }
-                    </Typography>
                     <Header 
                         user={ auth.user } 
                         handleClickLogout={ handleClickLogout }
