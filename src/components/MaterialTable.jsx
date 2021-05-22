@@ -16,6 +16,14 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import { makeStyles } from '@material-ui/core/styles';
+
+const tableUseStyles = makeStyles(theme => ({
+    table: {
+        width: '100%',
+        overflowX: 'auto'
+    }
+}));
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -37,16 +45,21 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-const MaterialTable = (props) => (
-    <MaterialTable_ 
-        options={{  
-            selection: true,
-            actionsColumnIndex: -1,
-            showTextRowsSelected: false,
-        }} 
-        icons={ tableIcons } 
-        { ...props } 
-    />
-)
+const MaterialTable = (props) => 
+{
+    const classes = tableUseStyles();
+
+    return (
+        <MaterialTable_ 
+            options={{  
+                selection: true,
+                actionsColumnIndex: -1,
+                showTextRowsSelected: false,
+            }} 
+            icons={ tableIcons } 
+            { ...props }
+        />
+    )
+}
 
 export default MaterialTable

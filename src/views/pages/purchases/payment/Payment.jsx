@@ -7,24 +7,30 @@ import MaterialTable from '../../../../components/MaterialTable'
 /** Selectors */
 import { selectPayment } from '../../../../redux/modules/payment/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectUser } from '../../../../redux/modules/auth/selector';
 
 /** Actions */
 import * as PAYMENT from '../../../../redux/modules/payment/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
+/** File saver */
+import { generatePaymentExcelAsync } from './../../../../services/exports/excel/payment';
+import { generatePaymentCSVAsync } from './../../../../services/exports/csv/payment';
+
 /** Material UI Components */
 import Switch from '@material-ui/core/Switch';
 
 /** Material Ui Styles */
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 
 /** Components */
 import AddButton from '../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from '../../../../components/AlertPopUp';
+import ImportExportActions from '../../../../components/ImportExportActions';
+import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
 
 import PATH from '../../../../routes/path';
-import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
 
 
 const paymentUseStyles = makeStyles(theme => ({
@@ -36,7 +42,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Payment = ({ alert, paymentProp }) => 
+const Payment = ({ alert, userProp, paymentProp }) => 
 {
     const history = useHistory();
     const classes = paymentUseStyles();
@@ -69,7 +75,11 @@ const Payment = ({ alert, paymentProp }) =>
         },
     ];
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const handleClickExportPaymentExcel = () => generatePaymentExcelAsync(userProp.email);
+    
+    const handleClickExportPaymentCSV = () => generatePaymentCSVAsync(userProp.email);
+
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
     const onLoadFetchAll = () => dispatch(PAYMENT.getPayments());
 
@@ -90,27 +100,39 @@ const Payment = ({ alert, paymentProp }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <MaterialTable
-                columns={ columns }      
-                data={ paymentProp.payments }  
-                isLoading={ paymentProp.isLoading }
-                onSelectionChange={ rows => onSelectionChange(rows) }
-                title={ 
-                    <ActionButton 
-                        classes={ classes } 
-                        ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_PAYMENT) }
-                        handleClickDestroy={ handleClickDestroy }
-                    /> }
-                onSelectionChange={rows => onSelectionChange(rows)}
-            />   
+            <Grid container spacing={1}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <ImportExportActions 
+                        title='Bills'
+                        handleClickExportExcel={ handleClickExportPaymentExcel }
+                        handleClickExportCSV={ handleClickExportPaymentCSV }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <MaterialTable
+                        columns={ columns }      
+                        data={ paymentProp.payments }  
+                        isLoading={ paymentProp.isLoading }
+                        onSelectionChange={ rows => onSelectionChange(rows) }
+                        title={ 
+                            <ActionButton 
+                                classes={ classes } 
+                                ids={ ids } 
+                                handleClickRedirect = { () => history.push(PATH.CREATE_PAYMENT) }
+                                handleClickDestroy={ handleClickDestroy }
+                            /> }
+                        onSelectionChange={rows => onSelectionChange(rows)}
+                    />  
+                </Grid>
+            </Grid> 
         </>
     );
 }
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    paymentProp: selectPayment
+    paymentProp: selectPayment,
+    userProp: selectUser
 });
 
 export default connect(mapStateToProps, null)(Payment)

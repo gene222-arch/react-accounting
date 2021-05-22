@@ -7,6 +7,7 @@ import { isEqual } from 'date-fns';
 /** Selectors */
 import { selectBill } from '../../../../redux/modules/bill/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectUser } from '../../../../redux/modules/auth/selector';
 
 /** Actions */
 import * as BILL from '../../../../redux/modules/bill/actions';
@@ -16,7 +17,7 @@ import * as ALERT from '../../../../redux/modules/alert/actions'
 import Switch from '@material-ui/core/Switch';
 
 /** Material Ui Styles */
-import { makeStyles, Button, Typography } from '@material-ui/core';
+import { makeStyles, Grid, Button, Typography } from '@material-ui/core';
 
 /** Components */
 import MaterialTable from '../../../../components/MaterialTable'
@@ -24,11 +25,13 @@ import AddButton from '../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from '../../../../components/AlertPopUp';
 import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
+import ImportExportActions from '../../../../components/ImportExportActions';
 import InvoiceStatus from './BillStatus';
 
 import PATH from '../../../../routes/path';
 import * as DATE from '../../../../utils/date'
-
+import { generateBillExcelAsync } from './../../../../services/exports/excel/bill';
+import { generateBillCSVAsync } from './../../../../services/exports/csv/bill';
 
 
 const itemUseStyles = makeStyles(theme => ({
@@ -40,7 +43,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Invoice = ({ alert, billProp }) => 
+const Invoice = ({ alert, userProp, billProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -79,7 +82,11 @@ const Invoice = ({ alert, billProp }) =>
         },
     ];
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const handleClickExportBillExcel = () => generateBillExcelAsync(userProp.email);
+    
+    const handleClickExportBillCSV = () => generateBillCSVAsync(userProp.email);
+
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
     const onLoadFetchAll = () => dispatch(BILL.getBills());
 
@@ -100,27 +107,39 @@ const Invoice = ({ alert, billProp }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <MaterialTable
-                columns={ columns }      
-                data={ billProp.bills }  
-                isLoading={ billProp.isLoading }
-                onSelectionChange={ rows => onSelectionChange(rows) }
-                title={ 
-                    <ActionButton 
-                        classes={ classes } 
-                        ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_BILL) }
-                        handleClickDestroy={ handleClickDestroy }
-                    /> }
-                onSelectionChange={rows => onSelectionChange(rows)}
-            />   
+            <Grid container spacing={1}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <ImportExportActions 
+                        title='Bills'
+                        handleClickExportExcel={ handleClickExportBillExcel }
+                        handleClickExportCSV={ handleClickExportBillCSV }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <MaterialTable
+                        columns={ columns }      
+                        data={ billProp.bills }  
+                        isLoading={ billProp.isLoading }
+                        onSelectionChange={ rows => onSelectionChange(rows) }
+                        title={ 
+                            <ActionButton 
+                                classes={ classes } 
+                                ids={ ids } 
+                                handleClickRedirect = { () => history.push(PATH.CREATE_BILL) }
+                                handleClickDestroy={ handleClickDestroy }
+                            /> }
+                        onSelectionChange={rows => onSelectionChange(rows)}
+                    />
+                </Grid>
+            </Grid>   
         </>
     );
 }
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    billProp: selectBill
+    billProp: selectBill,
+    userProp: selectUser
 });
 
 export default connect(mapStateToProps, null)(Invoice)

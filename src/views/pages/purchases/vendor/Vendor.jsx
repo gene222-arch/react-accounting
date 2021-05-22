@@ -7,25 +7,30 @@ import MaterialTable from '../../../../components/MaterialTable'
 /** Selectors */
 import { selectVendor } from '../../../../redux/modules/vendor/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectUser } from '../../../../redux/modules/auth/selector';
 
 /** Actions */
 import * as VENDOR from '../../../../redux/modules/vendor/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
+/** File saver */
+import { generateVendorExcelAsync } from './../../../../services/exports/excel/vendor';
+import { generateVendorCSVAsync } from './../../../../services/exports/csv/vendor';
+
 /** Material UI Components */
 import Switch from '@material-ui/core/Switch';
 
 /** Material Ui Styles */
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 
 /** Components */
 import AddButton from '../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from '../../../../components/AlertPopUp';
-
-import PATH from '../../../../routes/path';
+import ImportExportActions from '../../../../components/ImportExportActions';
 import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
 
+import PATH from '../../../../routes/path';
 
 const itemUseStyles = makeStyles(theme => ({
 }));
@@ -36,7 +41,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Vendor = ({ alert, vendorProp }) => 
+const Vendor = ({ alert, userProp, vendorProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -67,7 +72,11 @@ const Vendor = ({ alert, vendorProp }) =>
         },
     ];
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const handleClickExportVendorExcel = () => generateVendorExcelAsync(userProp.email);
+    
+    const handleClickExportVendorCSV = () => generateVendorCSVAsync(userProp.email);
+
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
     const onLoadFetchAll = () => dispatch(VENDOR.getVendors());
 
@@ -88,27 +97,39 @@ const Vendor = ({ alert, vendorProp }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <MaterialTable
-                columns={ columns }      
-                data={ vendorProp.vendors }  
-                isLoading={ vendorProp.isLoading }
-                onSelectionChange={ rows => onSelectionChange(rows) }
-                title={ 
-                    <ActionButton 
-                        classes={ classes } 
-                        ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_VENDOR) }
-                        handleClickDestroy={ handleClickDestroy }
-                    /> }
-                onSelectionChange={rows => onSelectionChange(rows)}
-            />   
+            <Grid container spacing={1}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <ImportExportActions 
+                        title='Vendors'
+                        handleClickExportExcel={ handleClickExportVendorExcel }
+                        handleClickExportCSV={ handleClickExportVendorCSV }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <MaterialTable
+                        columns={ columns }      
+                        data={ vendorProp.vendors }  
+                        isLoading={ vendorProp.isLoading }
+                        onSelectionChange={ rows => onSelectionChange(rows) }
+                        title={ 
+                            <ActionButton 
+                                classes={ classes } 
+                                ids={ ids } 
+                                handleClickRedirect = { () => history.push(PATH.CREATE_VENDOR) }
+                                handleClickDestroy={ handleClickDestroy }
+                            /> }
+                        onSelectionChange={rows => onSelectionChange(rows)}
+                    />
+                </Grid>
+            </Grid>   
         </>
     );
 }
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    vendorProp: selectVendor
+    vendorProp: selectVendor,
+    userProp: selectUser
 });
 
 export default connect(mapStateToProps, null)(Vendor)

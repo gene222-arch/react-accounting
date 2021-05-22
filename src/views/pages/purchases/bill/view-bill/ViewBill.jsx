@@ -62,6 +62,7 @@ const ViewBill = ({ authProp, alert, billProp, match }) =>
                 setHistories(histories);
                 setTransactions(transactions);
                 setPaymentDetail(payment_detail);
+                console.log(itemList)
             }
 
         } catch ({ message }) {

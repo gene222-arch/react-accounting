@@ -7,26 +7,31 @@ import MaterialTable from '../../../../components/MaterialTable'
 /** Selectors */
 import { selectBankAccountTransfer } from '../../../../redux/modules/bank-account-transfer/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectUser } from '../../../../redux/modules/auth/selector';
 
 /** Actions */
 import * as BANK_ACCOUNT_TRANSFER from '../../../../redux/modules/bank-account-transfer/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
+/** File saver */
+import { generateTransferExcelAsync } from './../../../../services/exports/excel/bank.account.transfer';
+import { generateTransferCSVAsync } from './../../../../services/exports/csv/bank.account.transfer';
+
 /** Material Ui Styles */
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 
 /** Components */
 import AddButton from '../../../../components/AddButton';
 import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from '../../../../components/AlertPopUp';
 import DualOptionDialog from './../../../../components/DualOptionDialog';
+import ImportExportActions from '../../../../components/ImportExportActions';
+import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
 
 /** Material UI Icons */
 import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
 
 import PATH from '../../../../routes/path';
-import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
-
 
 
 const itemUseStyles = makeStyles(theme => ({
@@ -43,7 +48,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const BankAccountTransfer = ({ alert, transferProp }) => 
+const BankAccountTransfer = ({ alert, userProp, transferProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -95,7 +100,11 @@ const BankAccountTransfer = ({ alert, transferProp }) =>
         actionsColumnIndex: -1
     };
 
-    const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
+    const handleClickExportTransferExcel = () => generateTransferExcelAsync(userProp.email);
+    
+    const handleClickExportTransferCSV = () => generateTransferCSVAsync(userProp.email);
+
+    const onSelectionChange = (rows) => setIds(rows.map(({ id }) => id));
 
     const handleClickCloseReverseTransac = () => setReverseTransacDialog(false);
 
@@ -131,29 +140,41 @@ const BankAccountTransfer = ({ alert, transferProp }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <MaterialTable
-                actions={ actions }
-                columns={ columns }      
-                options={ options }
-                data={ transferProp.bankAccountTransfers }  
-                isLoading={ transferProp.isLoading }
-                onSelectionChange={ rows => onSelectionChange(rows) }
-                title={ 
-                    <ActionButton 
-                        classes={ classes } 
-                        ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_BANK_ACCOUNT_TRANSFER) }
-                        handleClickDestroy={ handleClickDestroy }
-                    /> }
-                onSelectionChange={rows => onSelectionChange(rows)}
-            />   
+            <Grid container spacing={1}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <ImportExportActions 
+                        title='Transfers'
+                        handleClickExportExcel={ handleClickExportTransferExcel }
+                        handleClickExportCSV={ handleClickExportTransferCSV }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <MaterialTable
+                        actions={ actions }
+                        columns={ columns }      
+                        options={ options }
+                        data={ transferProp.bankAccountTransfers }  
+                        isLoading={ transferProp.isLoading }
+                        onSelectionChange={ rows => onSelectionChange(rows) }
+                        title={ 
+                            <ActionButton 
+                                classes={ classes } 
+                                ids={ ids } 
+                                handleClickRedirect = { () => history.push(PATH.CREATE_BANK_ACCOUNT_TRANSFER) }
+                                handleClickDestroy={ handleClickDestroy }
+                            /> }
+                        onSelectionChange={rows => onSelectionChange(rows)}
+                    /> 
+                </Grid>
+            </Grid>  
         </>
     );
 }
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
-    transferProp: selectBankAccountTransfer
+    transferProp: selectBankAccountTransfer,
+    userProp: selectUser
 });
 
 export default connect(mapStateToProps, null)(BankAccountTransfer)

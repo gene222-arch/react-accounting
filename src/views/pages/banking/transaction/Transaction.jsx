@@ -2,21 +2,26 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 
+/** Selectors */
+import { selectUser } from '../../../../redux/modules/auth/selector';
+
 /** API */
 import { fetchAllAsync } from '../../../../services/banking/transaction';
 
+/** File saver */
+import { generateTransactionExcelAsync } from './../../../../services/exports/excel/transaction';
+import { generateTransactionCSVAsync } from './../../../../services/exports/csv/transaction';
+
 /** Material Ui Styles */
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 
 /** Components */
-import AddButton from '../../../../components/AddButton';
-import DeleteButton from '../../../../components/DeleteButton';
+import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
 import MaterialTable from '../../../../components/MaterialTable'
+import ImportExportActions from '../../../../components/ImportExportActions';
 
 import PATH from '../../../../routes/path';
-import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
-
-
+import { createStructuredSelector } from 'reselect';
 
 const itemUseStyles = makeStyles(theme => ({
 }));
@@ -34,21 +39,21 @@ const findPathByModel = (model_id = 0, model_type = '') =>
     }
 
     if (model_type.includes('Bill')) {
-        
+        path = PATH.VIEW_BILL
     }
 
     if (model_type.includes('Payment')) {
-        
-    }
+        path = PATH.UPDATE_PAYMENT
+    }   
 
     if (model_type.includes('Payroll')) {
-        
+        path = PATH.UPDATE_RUN_PAYROLL
     }
 
     return path.replace(':id', model_id);
 }
 
-const Transaction = () => 
+const Transaction = ({ userProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -86,6 +91,10 @@ const Transaction = () =>
         },
     ];
 
+    const handleClickExportTransactionExcel = () => generateTransactionExcelAsync(userProp.email);
+    
+    const handleClickExportTransactionCSV = () => generateTransactionCSVAsync(userProp.email);
+
     const onLoadFetchTransactions = async () => 
     {
         const { data, message, status } = await fetchAllAsync();
@@ -116,13 +125,28 @@ const Transaction = () =>
 
     return (
         <>
-            <MaterialTable
-                columns={ columns }      
-                data={ transactions }
-                title={ 'Transactions' }
-            />   
+            <Grid container spacing={1}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <ImportExportActions 
+                        title='Transactions'
+                        handleClickExportExcel={ handleClickExportTransactionExcel }
+                        handleClickExportCSV={ handleClickExportTransactionCSV }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <MaterialTable
+                        columns={ columns }      
+                        data={ transactions }
+                        title={ 'Transactions' }
+                    />
+                </Grid>
+            </Grid>   
         </>
     );
 }
 
-export default Transaction
+const mapStateToProps = createStructuredSelector({
+    userProp: selectUser
+});
+
+export default connect(mapStateToProps, null)(Transaction)

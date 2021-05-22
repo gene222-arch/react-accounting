@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { isEqual } from 'date-fns';
 
 /** Selectors */
+import { selectUser } from './../../../../redux/modules/auth/selector';
 import { selectInvoice } from '../../../../redux/modules/invoice/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 
@@ -12,11 +13,15 @@ import { selectAlert } from '../../../../redux/modules/alert/selector';
 import * as INVOICE from '../../../../redux/modules/invoice/actions';
 import * as ALERT from '../../../../redux/modules/alert/actions'
 
+/** File saver */
+import { generateInvoiceExcelAsync } from './../../../../services/exports/excel/invoice';
+import { generateInvoiceCSVAsync } from './../../../../services/exports/csv/invoice';
+
 /** Material UI Components */
 import Switch from '@material-ui/core/Switch';
 
 /** Material Ui Styles */
-import { makeStyles, Button, Typography } from '@material-ui/core';
+import { makeStyles, Button, Typography, Grid } from '@material-ui/core';
 
 /** Components */
 import MaterialTable from '../../../../components/MaterialTable'
@@ -25,10 +30,10 @@ import DeleteButton from '../../../../components/DeleteButton';
 import AlertPopUp from '../../../../components/AlertPopUp';
 import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
 import InvoiceStatus from './InvoiceStatus';
+import ImportExportActions from '../../../../components/ImportExportActions';
 
 import PATH from '../../../../routes/path';
 import * as DATE from '../../../../utils/date'
-
 
 
 const itemUseStyles = makeStyles(theme => ({
@@ -40,7 +45,7 @@ const ActionButton = ({ ids, handleClickDestroy, handleClickRedirect }) => !ids.
     : <DeleteButton onClickEventCallback={ handleClickDestroy } />
 
 
-const Invoice = ({ alert, invoiceProp }) => 
+const Invoice = ({ alert, userProp, invoiceProp }) => 
 {
     const history = useHistory();
     const classes = itemUseStyles();
@@ -81,6 +86,10 @@ const Invoice = ({ alert, invoiceProp }) =>
         },
     ];
 
+    const handleClickExportInvoicesExcel = () => generateInvoiceExcelAsync(userProp.email);
+    
+    const handleClickExportInvoicesCSV = () => generateInvoiceCSVAsync(userProp.email);
+
     const onSelectionChange = (rows) => setIds(rows.map(row => row.id));
 
     const onLoadFetchAll = () => dispatch(INVOICE.getInvoices());
@@ -102,26 +111,38 @@ const Invoice = ({ alert, invoiceProp }) =>
                 open={ alert.isOpen }
                 handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
             />
-            <MaterialTable
-                columns={ columns }      
-                data={ invoiceProp.invoices }  
-                isLoading={ invoiceProp.isLoading }
-                onSelectionChange={ rows => onSelectionChange(rows) }
-                title={ 
-                    <ActionButton 
-                        classes={ classes } 
-                        ids={ ids } 
-                        handleClickRedirect = { () => history.push(PATH.CREATE_INVOICE) }
-                        handleClickDestroy={ handleClickDestroy }
-                    /> }
-                onSelectionChange={rows => onSelectionChange(rows)}
-            />   
+            <Grid container spacing={1}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <ImportExportActions 
+                        title='Invoices'
+                        handleClickExportExcel={ handleClickExportInvoicesExcel }
+                        handleClickExportCSV={ handleClickExportInvoicesCSV }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <MaterialTable
+                        columns={ columns }      
+                        data={ invoiceProp.invoices }  
+                        isLoading={ invoiceProp.isLoading }
+                        onSelectionChange={ rows => onSelectionChange(rows) }
+                        title={ 
+                            <ActionButton 
+                                classes={ classes } 
+                                ids={ ids } 
+                                handleClickRedirect = { () => history.push(PATH.CREATE_INVOICE) }
+                                handleClickDestroy={ handleClickDestroy }
+                            /> }
+                        onSelectionChange={rows => onSelectionChange(rows)}
+                    />
+                </Grid>
+            </Grid>   
         </>
     );
 }
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    userProp: selectUser,
     invoiceProp: selectInvoice
 });
 

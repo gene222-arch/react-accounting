@@ -132,7 +132,9 @@ const MainLayout = ({ auth, children, mainLayout }) =>
     const handleClickLogout = () => dispatch(AUTH.logoutStart());
 
     useEffect(() => {
-        dispatch(AUTH.authUser());
+        if (!auth.isAuthenticated) {
+            dispatch(AUTH.authUser());
+        }
     }, []);
 
     return auth.user && (
