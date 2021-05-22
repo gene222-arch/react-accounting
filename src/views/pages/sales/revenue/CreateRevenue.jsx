@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { KeyboardDatePicker } from '@material-ui/pickers';
+import { format } from 'date-fns'
 
 /** Selectors */
 import { selectRevenue } from '../../../../redux/modules/revenue/selector';
@@ -66,7 +67,7 @@ const CreateRevenue = ({
 
     const handleChange = (e) => setRevenueState({ ...revenueState, [e.target.name]: e.target.value });
 
-    const handleChangeDate = (date) => setRevenueState({ ...revenueState, date });
+    const handleChangeDate = (date) => setRevenueState({ ...revenueState, date: format(date, 'Y-m-d') });
 
     const onLoadFetchAccounts = () => dispatch(ACCOUNT.getAccounts());
 

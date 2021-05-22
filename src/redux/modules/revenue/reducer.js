@@ -24,7 +24,7 @@ const REVENUE_DEFAULT_PROPS = {
     number: '',
     account_id: 0,
     customer_id: 0,
-    income_revenue_id: 0,
+    income_category_id: 0,
     payment_method_id: 0,
     currency_id: 0,
     date: DATE.today(),
