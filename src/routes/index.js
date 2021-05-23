@@ -97,6 +97,7 @@ const UpdateCompany = lazy(() => import('../views/pages/settings/company/UpdateC
 const PaymentMethod = lazy(() => import('../views/pages/settings/payment-method/PaymentMethod'))
 const CreatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/CreatePaymentMethod'))
 const UpdatePaymentMethod = lazy(() => import('../views/pages/settings/payment-method/UpdatePaymentMethod'))
+const UpdateDefaultSettings = lazy(() => import('../views/pages/settings/default-settings/UpdateDefaultSettings'))
 const Contribution = lazy(() => import('../views/pages/settings/contribution/Contribution'))
 const CreateContribution = lazy(() => import('../views/pages/settings/contribution/CreateContribution'))
 const UpdateContribution = lazy(() => import('../views/pages/settings/contribution/UpdateContribution'))
@@ -805,6 +806,15 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdatePaymentMethod,
         access: 'Manage Payment Methods',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_DEFAULT_SETTINGS,
+        key: 'UpdateDefaultSettings',
+        icon: '',
+        exact: true,
+        component: UpdateDefaultSettings,
+        access: 'Manage Default Settings',
         restricted: true
     },
     {

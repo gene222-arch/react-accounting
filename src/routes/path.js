@@ -112,7 +112,7 @@ const PATH =
     /** Warehouses */
     RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/run-payrolls',
     CREATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/new',
-    UPDATE_RUN_PAYROLL: '/human-resources/payrolls/pay-calendars/:payCalendarId/run-payrolls/:id/edit',
+    UPDATE_RUN_PAYROLL: '/human-resources/payrolls/run-payrolls/:id/edit',
 
     /** Employees */
     EMPLOYEE: '/human-resources/employees',
@@ -134,6 +134,8 @@ const PATH =
     ACCOUNTING_REPORT_TRIAL_BALANCE: '/reports/accounting/trial-balance',
 
     SETTINGS: '/settings',
+
+    UPDATE_DEFAULT_SETTINGS: '/settings/default-settings',
 
     /** Taxes */
     TAX: '/settings/taxes',

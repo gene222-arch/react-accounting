@@ -40,7 +40,7 @@ const Cards = ({ generalAnalytics }) =>
                                     <Typography variant="subtitle2" color="initial">Receivables</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h6" color="initial">50 / { receivables.amount }</Typography>
+                                    <Typography variant="h6" color="initial">{ receivables }</Typography>
                                 </Grid>
                             </Grid>
                         </CardContent>
@@ -69,7 +69,7 @@ const Cards = ({ generalAnalytics }) =>
                                     <Typography variant="subtitle2" color="initial">Payables</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h6" color="initial">50 / { payables.amount }</Typography>
+                                    <Typography variant="h6" color="initial">{ payables }</Typography>
                                 </Grid>
                             </Grid>
                         </CardContent>
@@ -98,7 +98,7 @@ const Cards = ({ generalAnalytics }) =>
                                     <Typography variant="subtitle2" color="initial">Upcoming</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h6" color="initial">50 / { upcoming.amount }</Typography>
+                                    <Typography variant="h6" color="initial">{ upcoming }</Typography>
                                 </Grid>
                             </Grid>
                         </CardContent>

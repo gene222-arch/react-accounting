@@ -26,6 +26,7 @@ import expenseCategoryReducer from './modules/expense-category/reducer'
 import contributionReducer from './modules/contribution/reducer'
 import salaryBenefitReducer from './modules/salary-benefit/reducer'
 import paymentMethodReducer from './modules/payment-method/reducer'
+import defaultSettingsReducer from './modules/default-settings/reducer'
 import vendorReducer from './modules/vendor/reducer'
 import billReducer from './modules/bill/reducer'
 import paymentReducer from './modules/payment/reducer'
@@ -62,6 +63,7 @@ const rootReducer = (history) => combineReducers({
     tax: taxReducer,
     currency: currencyReducer,
     company: companyReducer,
+    defaultSettings: defaultSettingsReducer,
     incomeCategory: incomeCategoryReducer,
     expenseCategory: expenseCategoryReducer,
     paymentMethod: paymentMethodReducer,

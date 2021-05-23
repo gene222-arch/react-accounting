@@ -64,7 +64,6 @@ const MainDashboard = () =>
             }
 
             if (status === 'success') {
-                console.log(data)
                 setDashboardData(data);
             }
 

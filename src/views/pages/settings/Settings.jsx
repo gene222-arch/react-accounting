@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { connect } from 'react-redux';
 
 /** Selectors */
@@ -20,8 +20,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 /** Components */
-import SettingItem from './SettingItem';
 import PATH from './../../../routes/path';
+
+const SettingItem = lazy(() => import('./SettingItem'))
 
 
 
@@ -79,6 +80,14 @@ const Settings = ({ auth }) =>
                                     primaryText='Contribution'
                                     secondaryText='Create and manage contributions and set their rates'
                                     path={ PATH.CONTRIBUTION }
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4} md={4} lg={4}>
+                                <SettingItem
+                                    icon={ MonetizationOnIcon }
+                                    primaryText='Default Settings'
+                                    secondaryText='Manage default settings'
+                                    path={ PATH.UPDATE_DEFAULT_SETTINGS }
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4} md={4} lg={4}>

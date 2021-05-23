@@ -30,7 +30,7 @@ const UpdateRunPayroll = ({ alert, runPayrollProp, match }) =>
 {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { payCalendarId, id } = match.params;
+    const { id } = match.params;
 
     const { isLoading, runPayroll, error } = runPayrollProp;
 
@@ -210,7 +210,6 @@ const UpdateRunPayroll = ({ alert, runPayrollProp, match }) =>
 
         dispatch(RUN_PAYROLL.updateRunPayroll({
             ...runPayrollState,
-            pay_calendar_id: payCalendarId,
             status,
             details,
             benefits,

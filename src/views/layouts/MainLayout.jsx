@@ -26,6 +26,7 @@ import EmployeeIcon from '@material-ui/icons/People';
 /** Actions */
 import * as AUTH from '../../redux/modules/auth/actions'
 import * as MAIN_LAYOUT from '../../redux/modules/main-layout/actions'
+import * as DEFAULT_SETTINGS from './../../redux/modules/default-settings/actions';
 
 /** Selectors */
 import { selectAuth } from './../../redux/modules/auth/selector';
@@ -135,6 +136,8 @@ const MainLayout = ({ auth, children, mainLayout }) =>
         if (!auth.isAuthenticated) {
             dispatch(AUTH.authUser());
         }
+
+        dispatch(DEFAULT_SETTINGS.getDefaultSettings());
     }, []);
 
     return auth.user && (

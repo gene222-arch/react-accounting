@@ -39,7 +39,7 @@ const Cards = ({totalExpense, totalIncome, totalProfit, receivables, payables, u
                                     <Typography variant="subtitle2" color="initial">Receivables</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h6" color="initial">50 / { receivables.amount }</Typography>
+                                    <Typography variant="h6" color="initial">{ receivables.amount }</Typography>
                                 </Grid>
                             </Grid>
                         </CardContent>
@@ -70,7 +70,7 @@ const Cards = ({totalExpense, totalIncome, totalProfit, receivables, payables, u
                                     <Typography variant="subtitle2" color="initial">Payables</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h6" color="initial">50 / { payables.amount }</Typography>
+                                    <Typography variant="h6" color="initial">{ payables.amount }</Typography>
                                 </Grid>
                             </Grid>
                         </CardContent>
@@ -101,7 +101,7 @@ const Cards = ({totalExpense, totalIncome, totalProfit, receivables, payables, u
                                     <Typography variant="subtitle2" color="initial">Upcoming</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h6" color="initial">50 / { upcoming.amount }</Typography>
+                                    <Typography variant="h6" color="initial">{ upcoming.amount }</Typography>
                                 </Grid>
                             </Grid>
                         </CardContent>
