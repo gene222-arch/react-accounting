@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectAccount } from '../../../../redux/modules/account/selector';
 import { selectCurrency } from '../../../../redux/modules/currency/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectDefaultSettings } from './../../../../redux/modules/default-settings/selector';
 
 /** Actions */
 import * as ACCOUNT from '../../../../redux/modules/account/actions';
@@ -33,14 +34,20 @@ import AlertPopUp from '../../../../components/AlertPopUp';
 
 import PATH from '../../../../routes/path';
 
-const CreateAccount = ({ alert, currencyProp, accountProp }) => 
+
+const CreateAccount = ({ alert, defaultSettingsProp, currencyProp, accountProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const { isLoading, account, error } = accountProp;
 
-    const [ accountState, setAccountState ] = useState(account);
+    const DEFAULT_ACCOUNT_PROPS = {
+        ...account,
+        currency_id: defaultSettingsProp.defaultSettings.currency_id
+    };
+
+    const [ accountState, setAccountState ] = useState(DEFAULT_ACCOUNT_PROPS);
 
     const handleChange = (e) => {
         const { name, value, checked } = e.target;
@@ -198,6 +205,7 @@ const CreateAccount = ({ alert, currencyProp, accountProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     currencyProp: selectCurrency,
     accountProp: selectAccount
 });

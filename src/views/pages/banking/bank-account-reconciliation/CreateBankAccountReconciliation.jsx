@@ -11,6 +11,7 @@ import { findByAccountAsync } from '../../../../services/banking/transaction';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 import { selectAccount } from '../../../../redux/modules/account/selector';
 import { selectBankAccountReconciliation } from '../../../../redux/modules/bank-account-reconciliation/selector';
+import { selectDefaultSettings } from './../../../../redux/modules/default-settings/selector';
 
 /** Actions */
 import * as ACCOUNT from '../../../../redux/modules/account/actions';
@@ -43,11 +44,7 @@ import PATH from '../../../../routes/path';
 import TransactionBalance from './TransactionBalance';
 
 
-const CreateBankAccountReconciliation = ({ 
-    alert, 
-    accountProp,
-    bankAccountReconciliationProp
-    }) => 
+const CreateBankAccountReconciliation = ({ alert, defaultSettingsProp, accountProp, bankAccountReconciliationProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -78,11 +75,16 @@ const CreateBankAccountReconciliation = ({
         }
     ];
 
+    const RECONCILIATION_DEFAULT_PROPS = {
+        ...bankAccountReconciliation,
+        account_id: defaultSettingsProp.defaultSettings.account_id
+    };
+
+    const [ bankAccountReconciliationState, setBankAccountReconciliationState ] = useState(RECONCILIATION_DEFAULT_PROPS);
     const [ ids, setIds ] = useState([]);
     const [ account, setAccount ] = useState(accountProp.account);
     const [ transactions, setTransactions ] = useState([]);
     const [ transactionBalance, setTransactionBalance ] = useState(0);
-    const [ bankAccountReconciliationState, setBankAccountReconciliationState ] = useState(bankAccountReconciliation);
 
     const handleSelectionChange = (row) => setIds(row.map(({ id }) => id));
 
@@ -285,6 +287,7 @@ const CreateBankAccountReconciliation = ({
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     accountProp: selectAccount,
     bankAccountReconciliationProp: selectBankAccountReconciliation
 });

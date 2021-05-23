@@ -11,6 +11,7 @@ import { selectAccount } from '../../../../redux/modules/account/selector';
 import { selectVendor } from '../../../../redux/modules/vendor/selector';
 import { selectExpenseCategory } from '../../../../redux/modules/expense-category/selector';
 import { selectPaymentMethod } from '../../../../redux/modules/payment-method/selector';
+import { selectDefaultSettings } from './../../../../redux/modules/default-settings/selector';
 
 /** Actions */
 import * as PAYMENT from '../../../../redux/modules/payment/actions';
@@ -50,6 +51,7 @@ const RECURRING_LIST = [
 
 const CreatePayment = ({ 
     alert, 
+    defaultSettingsProp,
     accountProp,
     vendorProp,
     expenseCategoryProp,
@@ -61,7 +63,13 @@ const CreatePayment = ({
 
     const { isLoading, payment, error } = paymentProp;
 
-    const [ paymentState, setPaymentState ] = useState(payment);
+    const PAYMENT_DEFAULT_PROPS = {
+        ...payment,
+        account_id: defaultSettingsProp.defaultSettings.account_id,
+        payment_method_id: defaultSettingsProp.defaultSettings.payment_method_id,
+        expense_category_id: defaultSettingsProp.defaultSettings.expense_category_id
+    };
+    const [ paymentState, setPaymentState ] = useState(PAYMENT_DEFAULT_PROPS);
 
     const handleChange = (e) => setPaymentState({ ...paymentState, [e.target.name]: e.target.value });
 
@@ -280,6 +288,7 @@ const CreatePayment = ({
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     accountProp: selectAccount,
     vendorProp: selectVendor,
     expenseCategoryProp: selectExpenseCategory,

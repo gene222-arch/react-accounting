@@ -14,6 +14,7 @@ import * as RUN_PAYROLL from '../../../../redux/modules/run-payroll/actions'
 /** Selectors */
 import { selectAlert } from '../../../../redux/modules/alert/selector';
 import { selectRunPayroll } from './../../../../redux/modules/run-payroll/selector';
+import { selectDefaultSettings } from './../../../../redux/modules/default-settings/selector';
 
 /** Material UI Components */
 import Grid from '@material-ui/core/Grid'
@@ -26,7 +27,7 @@ import ApprovalStep from './ApprovalStep';
 import PaySlipsStep from './PaySlipsStep';
 
 
-const CreateRunPayroll = ({ alert, runPayrollProp, match }) => 
+const CreateRunPayroll = ({ alert, defaultSettingsProp, runPayrollProp, match }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -34,12 +35,20 @@ const CreateRunPayroll = ({ alert, runPayrollProp, match }) =>
 
     const { isLoading, runPayroll, error } = runPayrollProp;
 
+    const RUN_PAYROLL_DEFAULT_PROPS = {
+        ...runPayroll,
+        account_id: defaultSettingsProp.defaultSettings.account_id,
+        payment_method_id: defaultSettingsProp.defaultSettings.payment_method_id,
+        expense_category_id: defaultSettingsProp.defaultSettings.expense_category_id
+    };
+
     const [activeStep, setActiveStep] = useState(0);
+    const [ employeesState, setEmployeesState ] = useState([]); 
+    const [ runPayrollState, setRunPayrollState ] = useState(RUN_PAYROLL_DEFAULT_PROPS);
     const [ contributionsState, setContributionsState ] = useState([]);
     const [ salaryBenefitsState, setSalaryBenefitsState ] = useState([]);
     const [ taxesState, setTaxesState ] = useState([]);
-    const [ employeesState, setEmployeesState ] = useState([]); 
-    const [ runPayrollState, setRunPayrollState ] = useState(runPayroll);
+
     const [ stepHasError, setStepHasError ] = useState({
         employeeStep: {
             label: 'Employees',
@@ -296,6 +305,7 @@ const CreateRunPayroll = ({ alert, runPayrollProp, match }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     runPayrollProp: selectRunPayroll
 });
 

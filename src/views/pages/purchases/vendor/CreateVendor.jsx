@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectVendor } from '../../../../redux/modules/vendor/selector';
 import { selectCurrency } from '../../../../redux/modules/currency/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectDefaultSettings } from './../../../../redux/modules/default-settings/selector';
 
 /** Actions */
 import * as VENDOR from '../../../../redux/modules/vendor/actions';
@@ -33,14 +34,20 @@ import AlertPopUp from '../../../../components/AlertPopUp';
 
 import PATH from '../../../../routes/path';
 
-const CreateVendor = ({ alert, currencyProp, vendorProp }) => 
+
+const CreateVendor = ({ alert, defaultSettingsProp, currencyProp, vendorProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const { isLoading, vendor, error } = vendorProp;
 
-    const [ vendorState, setVendorState ] = useState(vendor);
+    const VENDOR_DEFAULT_PROPS = { 
+        ...vendor,
+        currency_id: defaultSettingsProp.defaultSettings.currency_id
+    };
+
+    const [ vendorState, setVendorState ] = useState(VENDOR_DEFAULT_PROPS);
 
     const handleChange = (e) => {
         const { name, value, checked } = e.target;
@@ -205,6 +212,7 @@ const CreateVendor = ({ alert, currencyProp, vendorProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     currencyProp: selectCurrency,
     vendorProp: selectVendor
 });
