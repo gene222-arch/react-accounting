@@ -212,9 +212,9 @@ const CreateEmployee = ({ alert, accessRightProp, employeeProp }) =>
                                                 <Switch 
                                                     checked={ Boolean(employeeState.enabled) } 
                                                     onChange={ handleChangeEmployee } 
-                                                    name="enabled" 
+                                                    name='enabled' 
                                                 />}
-                                            label="Enabled"
+                                            label='Enabled'
                                         />
                                     </Grid>
                                     <Grid item>
@@ -223,9 +223,9 @@ const CreateEmployee = ({ alert, accessRightProp, employeeProp }) =>
                                                 <Switch 
                                                     checked={ Boolean(createUser) } 
                                                     onChange={ handleChangeCreateUser } 
-                                                    name="createUser" 
+                                                    name='createUser' 
                                                 />}
-                                            label="Create User"
+                                            label='Create User'
                                         />
                                     </Grid>
                                 </Grid>

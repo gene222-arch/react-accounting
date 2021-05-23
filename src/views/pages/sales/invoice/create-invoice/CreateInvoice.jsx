@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { format } from 'date-fns'
 
 /** Selectors */
+import { selectDefaultSettings } from './../../../../../redux/modules/default-settings/selector';
 import { selectInvoice } from '../../../../../redux/modules/invoice/selector';
 import { selectCustomer } from '../../../../../redux/modules/customer/selector';
 import { selectCurrency } from '../../../../../redux/modules/currency/selector';
@@ -37,19 +38,27 @@ import * as DATE from '../../../../../utils/date'
 import PATH from '../../../../../routes/path';
 
 
-const CreateInvoice = ({ alert, currencyProp, customerProp, invoiceProp }) => 
+const CreateInvoice = ({ alert, defaultSettingsProp, currencyProp, customerProp, invoiceProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const { isLoading, invoice, paymentDetail, error } = invoiceProp;
+    const {  defaultSettings } = defaultSettingsProp;
 
-    const [ invoiceState, setInvoiceState ] = useState(invoice);
+    /** Default props */
+    const CURRENCY_DEFAULT_PROPS = { id: defaultSettings.currency_id, rate: 0 };
+    const INVOICE_DEFAULT_PROPS = { ...invoice, income_category_id: defaultSettings.income_category_id };
+    const DISCOUNT_DEFAULT_PROPS = { id: 0, rate: 0 };
+    const TAX_DEFAULT_PROPS = { id: defaultSettings.tax_id, rate: 0 };
+
+    /** States */
+    const [ invoiceState, setInvoiceState ] = useState(INVOICE_DEFAULT_PROPS);
     const [ paymentDetailState, setPaymentDetailState ] = useState(paymentDetail);
-    const [ currency, setCurrency ] = useState({ id: 0, rate: 0 });
+    const [ currency, setCurrency ] = useState(CURRENCY_DEFAULT_PROPS);
+    const [ discount, setDiscount ] = useState(DISCOUNT_DEFAULT_PROPS);
     const [ items, setItems ] = useState([]);
-    const [ discount, setDiscount ] = useState({ id: 0, rate: 0 });
-    const [ tax, setTax ] = useState({ id: 0, rate: 0 });
+    const [ tax, setTax ] = useState(TAX_DEFAULT_PROPS);
 
     const handleChange = (e) => setInvoiceState({ ...invoiceState, [e.target.name]: e.target.value });
 
@@ -165,9 +174,10 @@ const CreateInvoice = ({ alert, currencyProp, customerProp, invoiceProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     currencyProp: selectCurrency,
     customerProp: selectCustomer,
-    invoiceProp: selectInvoice
+    invoiceProp: selectInvoice,
 });
 
 export default connect(mapStateToProps, null)(CreateInvoice)

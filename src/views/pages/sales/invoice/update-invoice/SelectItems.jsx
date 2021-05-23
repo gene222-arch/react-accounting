@@ -74,25 +74,26 @@ const SelectItems = ({ discount, discounts, tax, taxes, alert, itemProp, items, 
 
     const updatePaymentDetails = () => 
     {
-        const DISCOUNT_RATE = discounts[discount.id]?.rate / 100;
-        const TAX_RATE = taxes[tax.id]?.rate/ 100;
-
-        const subTotal = items.reduce((total, item) => total + parseFloat(item.amount), 0).toFixed(2);
-        let total = parseFloat(items.reduce((total, item) => total + item.amount, 0));
-
-        const totalDiscount = DISCOUNT_RATE * total;
-        const totalTax = TAX_RATE * total;
-
-        total += totalTax - totalDiscount;
-        
-        setPaymentDetailState({
-            ...paymentDetailState,
-            sub_total: subTotal,
-            total,
-            total_discounts: totalDiscount.toFixed(2),
-            total_taxes: totalTax.toFixed(2),
-            amount_due: total,
-        });
+        if (discounts.length && taxes.length) 
+        {
+            const DISCOUNT_RATE = (discounts.find(({ id }) => id === discount.id).rate / 100);
+            const TAX_RATE = (taxes.find(({ id }) => id === tax.id).rate / 100);
+    
+            const sub_total = items.reduce((total, { amount }) => total + parseFloat(amount), 0);
+            
+            const total_discounts = (DISCOUNT_RATE * sub_total);
+            const total_taxes = (TAX_RATE * sub_total);
+            let total = (sub_total + total_taxes) - total_discounts;
+            
+            setPaymentDetailState({
+                ...paymentDetailState,
+                sub_total: sub_total.toFixed(2),
+                total: total.toFixed(2),
+                total_discounts: total_discounts.toFixed(2),
+                total_taxes: total_taxes.toFixed(2),
+                amount_due: total.toFixed(2),
+            });
+        }
     }
 
     const handleChangeQuantity = (e, index) => 

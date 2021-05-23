@@ -45,6 +45,7 @@ import RecurringAndMore from './RecurringAndMore';
 import * as DATE from '../../../../../utils/date'
 import PATH from '../../../../../routes/path';
 
+const ITEM_DISCOUNT_TAX_DEFAULT_PROPS = { id: 0, rate: 0 };
 
 const UpdateInvoice = ({ alert, currencyProp, discountProp, taxProp, customerProp, invoiceProp, match }) => 
 {
@@ -57,10 +58,11 @@ const UpdateInvoice = ({ alert, currencyProp, discountProp, taxProp, customerPro
     const [ isFetching, setIsFetching ] = useState(false);
     const [ invoiceState, setInvoiceState ] = useState(invoice);
     const [ paymentDetailState, setPaymentDetailState ] = useState(paymentDetail);
-    const [ currency, setCurrency ] = useState({ id: 0, rate: 0 });
+    const [ currency, setCurrency ] = useState(ITEM_DISCOUNT_TAX_DEFAULT_PROPS);
+    const [ discount, setDiscount ] = useState(ITEM_DISCOUNT_TAX_DEFAULT_PROPS);
     const [ items, setItems ] = useState([]);
-    const [ discount, setDiscount ] = useState({ id: 0, rate: 0 });
-    const [ tax, setTax ] = useState({ id: 0, rate: 0 });
+    const [ tax, setTax ] = useState(ITEM_DISCOUNT_TAX_DEFAULT_PROPS);
+
 
     const handleChange = (e) => setInvoiceState({ ...invoiceState, [e.target.name]: e.target.value });
 
@@ -74,27 +76,30 @@ const UpdateInvoice = ({ alert, currencyProp, discountProp, taxProp, customerPro
     {
         setIsFetching(true);
 
-        const { data, message, status } = await findAsync({ id });
+        try {
+            const { data, message, status } = await findAsync({ id });
 
-        if (status !== 'success') {
+            if (status !== 'success') {
+    
+            }
+    
+            if (status === 'success') 
+            {
+                const { items: itemList, payment_detail, histories, transactions, ...details } = data;
+                const { customer, currency, income_category, ...invoiceData } = details;
+
+                setCurrency({ id: details.currency.id });
+                setDiscount({ ...discount, id: payment_detail.discount_id });
+                setTax({ ...tax, id: payment_detail.tax_id });
+                setInvoiceState(invoiceData);
+                setItems(itemList.map(({ pivot }) => pivot));
+                setPaymentDetailState(payment_detail);
+            }
+        } catch ({ message }) {
 
         }
 
-        if (status === 'success') 
-        {
-            const { items: itemList, payment_detail, histories, transactions, ...details } = data;
-
-            const { customer, currency, income_category, ...invoiceData } = details;
-
-            setCurrency({ id: details.currency.id });
-            setDiscount({ ...discount, id: payment_detail.discount_id });
-            setTax({ ...tax, id: payment_detail.tax_id });
-            setInvoiceState(invoiceData);
-            setItems(itemList.map(({ pivot }) => pivot));
-            setPaymentDetailState(payment_detail);
-
-            setIsFetching(false);
-        }
+        setIsFetching(false);
     }
 
     const onLoadFetchCustomers = () => dispatch(CUSTOMER.getCustomers());
@@ -119,11 +124,11 @@ const UpdateInvoice = ({ alert, currencyProp, discountProp, taxProp, customerPro
     };
 
     useEffect(() => {
+        onLoadFetchInvoice();
         onLoadFetchCustomers();
         onLoadFetchCurrencies();
         onLoadFetchDiscounts();
         onLoadFetchTaxes();
-        onLoadFetchInvoice();
     }, []);
 
     return !isFetching && (

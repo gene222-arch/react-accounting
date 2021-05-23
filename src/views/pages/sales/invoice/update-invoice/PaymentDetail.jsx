@@ -43,8 +43,6 @@ const PaymentDetail = ({
 {
     const dispatch = useDispatch();
 
-    const { sub_total, total, total_discounts, total_taxes } = paymentDetailState;
-
     const handleChangeCurrency = (e) => 
     {
         if (!items.length) {
@@ -74,7 +72,7 @@ const PaymentDetail = ({
             const id = e.target.value;
 
             const findDiscount = discounts.find(discount => discount.id === id);
-            const totalDiscounts = ((findDiscount.rate / 100) * sub_total).toFixed(2);
+            const totalDiscounts = ((findDiscount.rate / 100) * paymentDetailState.sub_total);
     
             setDiscount(findDiscount);
     
@@ -86,7 +84,7 @@ const PaymentDetail = ({
             const items_ = items.map(item => ({ 
                 ...item, 
                 discount_id: id, 
-                discount: ((findDiscount.rate / 100) * item.amount).toFixed(2)
+                discount: ((findDiscount.rate / 100) * item.amount)
             }));
     
             setItems(items_);
@@ -105,7 +103,7 @@ const PaymentDetail = ({
             const id = e.target.value;
 
             const findTax = taxes.find(tax => tax.id === id);
-            const totalTax = ((findTax.rate / 100) * sub_total).toFixed(2);
+            const totalTax = ((findTax.rate / 100) * paymentDetailState.sub_total);
     
             setTax(findTax);
     
@@ -117,7 +115,7 @@ const PaymentDetail = ({
             const items_ = items.map(item => ({ 
                 ...item, 
                 tax_id: id, 
-                tax: ((findTax.rate / 100) * item.amount).toFixed(2)
+                tax: ((findTax.rate / 100) * item.amount)
             }));
     
             setItems(items_);
@@ -137,7 +135,7 @@ const PaymentDetail = ({
                     <TableBody>
                         <TableRow>
                             <TableCell align="right"><strong>Subtotal</strong></TableCell>
-                            <TableCell align="right">{ sub_total } </TableCell>
+                            <TableCell align="right">{ (paymentDetailState.sub_total) } </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="right">
@@ -154,7 +152,7 @@ const PaymentDetail = ({
                                     </Select>
                                 </FormControl>  
                             </TableCell>
-                            <TableCell align="right">{ total_taxes }</TableCell>
+                            <TableCell align="right">{ (paymentDetailState.total_taxes) }</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="right">
@@ -171,7 +169,7 @@ const PaymentDetail = ({
                                     </Select>
                                 </FormControl>                            
                             </TableCell>
-                            <TableCell align="right">{ total_discounts } </TableCell>
+                            <TableCell align="right">{ (paymentDetailState.total_discounts) } </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell align="right">
@@ -187,7 +185,7 @@ const PaymentDetail = ({
                                     </Select>
                                 </FormControl> 
                             </TableCell>
-                            <TableCell align="right">{ total }</TableCell>
+                            <TableCell align="right">{ (paymentDetailState.total) }</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
