@@ -8,7 +8,7 @@ import * as ITEM from '../../../../../redux/modules/item/actions'
 import * as ALERT from '../../../../../redux/modules/alert/actions'
 
 /** Selectors */
-import { selectItem } from '../../../../../redux/modules/item/selector';
+import { selectItem } from './../../../../../redux/modules/item/selector';
 import { selectAlert } from '../../../../../redux/modules/alert/selector';
 
 /** Material UI Components */

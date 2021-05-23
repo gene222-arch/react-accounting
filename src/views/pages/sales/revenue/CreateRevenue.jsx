@@ -40,6 +40,7 @@ import SaveCancelButtons from '../../../../components/SaveCancelButtons';
 import AlertPopUp from '../../../../components/AlertPopUp';
 
 import PATH from '../../../../routes/path';
+import { selectDefaultSettings } from './../../../../redux/modules/default-settings/selector';
 
 
 const RECURRING_LIST = [
@@ -52,6 +53,7 @@ const RECURRING_LIST = [
 
 const CreateRevenue = ({ 
     alert, 
+    defaultSettingsProp,
     accountProp,
     customerProp,
     incomeCategoryProp,
@@ -63,7 +65,14 @@ const CreateRevenue = ({
 
     const { isLoading, revenue, error } = revenueProp;
 
-    const [ revenueState, setRevenueState ] = useState(revenue);
+    const REVENUE_DEFAULT_PROPS = {
+        ...revenue,
+        account_id: defaultSettingsProp.defaultSettings.account_id,
+        income_category_id: defaultSettingsProp.defaultSettings.income_category_id,
+        payment_method_id: defaultSettingsProp.defaultSettings.payment_method_id
+    };
+
+    const [ revenueState, setRevenueState ] = useState(REVENUE_DEFAULT_PROPS);
 
     const handleChange = (e) => setRevenueState({ ...revenueState, [e.target.name]: e.target.value });
 
@@ -280,6 +289,7 @@ const CreateRevenue = ({
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     accountProp: selectAccount,
     customerProp: selectCustomer,
     incomeCategoryProp: selectIncomeCategory,

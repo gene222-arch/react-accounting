@@ -128,10 +128,12 @@ const SelectItems = ({ discount, discounts, tax, taxes, alert, itemProp, items, 
 
     const handleChangeItem = (e) => 
     {
-        const itemIsSelected = items.find(({ item_id }) => item_id === e.target.value);
+        const selectedItemId = parseInt(e.target.value);
+
+        const itemIsSelected = items.find(({ item_id }) => item_id === selectedItemId);
 
         if (!itemIsSelected) {
-            const { id: item_id, name: item, price } = itemProp.items.find(({ id }) => id === e.target.value);
+            const { id: item_id, name: item, price } = itemProp.items.find(({ id }) => id === selectedItemId);
 
             setItems([ ...items, {
                 item_id,

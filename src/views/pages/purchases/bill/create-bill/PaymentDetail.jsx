@@ -3,10 +3,10 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Selectors */
-import { selectDiscount } from '../../../../../redux/modules/discount/selector';
-import { selectTax } from '../../../../../redux/modules/tax/selector';
+import { selectDiscount } from './../../../../../redux/modules/discount/selector';
+import { selectTax } from './../../../../../redux/modules/tax/selector';
 import { selectAlert } from '../../../../../redux/modules/alert/selector';
-import { selectCurrency } from '../../../../../redux/modules/currency/selector';
+import { selectCurrency } from './../../../../../redux/modules/currency/selector';
 
 /** Actions */
 import * as ALERT from '../../../../../redux/modules/alert/actions'

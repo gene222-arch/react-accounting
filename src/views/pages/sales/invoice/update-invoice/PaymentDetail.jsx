@@ -100,7 +100,7 @@ const PaymentDetail = ({
             }))
         }
         else {
-            const id = e.target.value;
+            const id = parseInt(e.target.value);
 
             const findTax = taxes.find(tax => tax.id === id);
             const totalTax = ((findTax.rate / 100) * paymentDetailState.sub_total);

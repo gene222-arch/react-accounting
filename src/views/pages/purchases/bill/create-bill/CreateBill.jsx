@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { format } from 'date-fns'
 
 /** Selectors */
+import { selectDefaultSettings } from './../../../../../redux/modules/default-settings/selector';
 import { selectBill } from '../../../../../redux/modules/bill/selector';
 import { selectVendor } from '../../../../../redux/modules/vendor/selector';
 import { selectCurrency } from '../../../../../redux/modules/currency/selector';
@@ -37,19 +38,25 @@ import * as DATE from '../../../../../utils/date'
 import PATH from '../../../../../routes/path';
 
 
-const CreateBill = ({ alert, vendorProp, billProp }) => 
+const CreateBill = ({ alert, currencyProp, defaultSettingsProp, vendorProp, billProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const { isLoading, bill, paymentDetail, error } = billProp;
+    const { defaultSettings } = defaultSettingsProp; 
 
-    const [ billState, setBillState ] = useState(bill);
+    /** Default props */
+    const CURRENCY_DEFAULT_PROPS = { id: defaultSettings.currency_id, rate: 0 };
+    const BILL_DEFAULT_PROPS = { ...bill, income_category_id: defaultSettings.income_category_id };
+    const DISCOUNT_TAX_DEFAULT_PROPS = { id: 0, rate: 0 };
+
+    const [ billState, setBillState ] = useState(BILL_DEFAULT_PROPS);
     const [ paymentDetailState, setPaymentDetailState ] = useState(paymentDetail);
-    const [ currency, setCurrency ] = useState({ id: 0, rate: 0 });
+    const [ currency, setCurrency ] = useState(CURRENCY_DEFAULT_PROPS);
     const [ items, setItems ] = useState([]);
-    const [ discount, setDiscount ] = useState({ id: 0, rate: 0 });
-    const [ tax, setTax ] = useState({ id: 0, rate: 0 });
+    const [ discount, setDiscount ] = useState(DISCOUNT_TAX_DEFAULT_PROPS);
+    const [ tax, setTax ] = useState(DISCOUNT_TAX_DEFAULT_PROPS);
 
     const handleChange = (e) => setBillState({ ...billState, [e.target.name]: e.target.value });
 
@@ -165,6 +172,7 @@ const CreateBill = ({ alert, vendorProp, billProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     currencyProp: selectCurrency,
     vendorProp: selectVendor,
     billProp: selectBill

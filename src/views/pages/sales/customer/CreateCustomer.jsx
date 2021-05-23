@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectCustomer } from '../../../../redux/modules/customer/selector';
 import { selectCurrency } from '../../../../redux/modules/currency/selector';
 import { selectAlert } from '../../../../redux/modules/alert/selector';
+import { selectDefaultSettings } from './../../../../redux/modules/default-settings/selector';
 
 /** Actions */
 import * as CUSTOMER from '../../../../redux/modules/customer/actions';
@@ -33,14 +34,19 @@ import AlertPopUp from '../../../../components/AlertPopUp';
 
 import PATH from '../../../../routes/path';
 
-const CreateCustomer = ({ alert, currencyProp, customerProp }) => 
+const CreateCustomer = ({ alert, defaultSettingsProp, currencyProp, customerProp }) => 
 {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const { isLoading, customer, error } = customerProp;
 
-    const [ customerState, setCustomerState ] = useState(customer);
+    const CUSTOMER_DEFAULT_PROPS = {
+        ...customer,
+        currency_id: defaultSettingsProp.defaultSettings.currency_id,
+    };
+
+    const [ customerState, setCustomerState ] = useState(CUSTOMER_DEFAULT_PROPS);
 
     const handleChange = (e) => {
         const { name, value, checked } = e.target;
@@ -209,6 +215,7 @@ const CreateCustomer = ({ alert, currencyProp, customerProp }) =>
 
 const mapStateToProps = createStructuredSelector({
     alert: selectAlert,
+    defaultSettingsProp: selectDefaultSettings,
     currencyProp: selectCurrency,
     customerProp: selectCustomer
 });
