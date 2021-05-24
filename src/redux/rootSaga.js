@@ -13,6 +13,7 @@ import categorySaga from './modules/category/saga'
 import discountSaga from './modules/discount/saga'
 import customerSaga from './modules/customer/saga'
 import invoiceSaga from './modules/invoice/saga'
+import estimateInvoiceSaga from './modules/estimate-invoice/saga'
 import revenueSaga from './modules/revenue/saga'
 import taxSaga from './modules/tax/saga'
 import currencySaga from './modules/currency/saga'
@@ -50,6 +51,7 @@ export default function* ()
         discountSaga(),
         customerSaga(),
         invoiceSaga(),
+        estimateInvoiceSaga(),
         revenueSaga(),
         categorySaga(),
         incomeCategorySaga(),

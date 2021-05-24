@@ -24,7 +24,6 @@ import * as ALERT from '../../../../../redux/modules/alert/actions'
 /** API */
 import { findAsync } from '../../../../../services/sales/invoice';
 
-
 /** Material UI Components */
 import { Card, CardContent, CardActions } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'

@@ -38,6 +38,10 @@ const Invoice = lazy(() => import('../views/pages/sales/invoice/Invoice'))
 const ViewInvoice = lazy(() => import('../views/pages/sales/invoice/view-invoice/ViewInvoice'))
 const CreateInvoice = lazy(() => import('../views/pages/sales/invoice/create-invoice/CreateInvoice'))
 const UpdateInvoice = lazy(() => import('../views/pages/sales/invoice/update-invoice/UpdateInvoice'))
+const EstimateInvoice = lazy(() => import('../views/pages/sales/estimate-invoice/EstimateInvoice'))
+const ViewEstimateInvoice = lazy(() => import('../views/pages/sales/estimate-invoice/view-estimate-invoice/ViewEstimateInvoice'))
+const CreateEstimateInvoice = lazy(() => import('../views/pages/sales/estimate-invoice/CreateEstimateInvoice'))
+const UpdateEstimateInvoice = lazy(() => import('../views/pages/sales/estimate-invoice/UpdateEstimateInvoice'))
 const Revenue = lazy(() => import('../views/pages/sales/revenue/Revenue'))
 const CreateRevenue = lazy(() => import('../views/pages/sales/revenue/CreateRevenue'))
 const UpdateRevenue = lazy(() => import('../views/pages/sales/revenue/UpdateRevenue'))
@@ -428,6 +432,42 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateInvoice,
         access: 'Manage Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.ESTIMATE_INVOICE,
+        key: 'EstimateInvoice',
+        icon: '',
+        exact: true,
+        component: EstimateInvoice,
+        access: 'Manage Estimate Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_ESTIMATE_INVOICE,
+        key: 'CreateEstimateInvoice',
+        icon: '',
+        exact: true,
+        component: CreateEstimateInvoice,
+        access: 'Manage Estimate Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_ESTIMATE_INVOICE,
+        key: 'ViewEstimateInvoice',
+        icon: '',
+        exact: true,
+        component: ViewEstimateInvoice,
+        access: 'Manage Estimate Invoices',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_ESTIMATE_INVOICE,
+        key: 'UpdateEstimateInvoice',
+        icon: '',
+        exact: true,
+        component: UpdateEstimateInvoice,
+        access: 'Manage Estimate Invoices',
         restricted: true
     },
     {

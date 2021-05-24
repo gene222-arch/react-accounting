@@ -151,15 +151,17 @@ const CreateRunPayroll = ({ alert, defaultSettingsProp, runPayrollProp, match })
                         id: employee.id,
                         name: `${ employee.first_name } ${ employee.last_name }`,
                         position: role.name,
-                        salary: salary.amount,
+                        salary: parseFloat(salary.amount),
                         benefit: 0,
                         deduction: 0,
-                        total_amount: salary.amount,
+                        total_amount: parseFloat(salary.amount),
                         tax_number: salary.tax_number,
                         bank_account_number: salary.bank_account_number
                     }));
 
                     setEmployeesState(employees_);
+
+                    console.log(employees_)
                 }
             }
         } catch ({ message }) {

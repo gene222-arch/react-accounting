@@ -17,6 +17,7 @@ import categoryReducer from './modules/category/reducer'
 import discountReducer from './modules/discount/reducer'
 import customerReducer from './modules/customer/reducer'
 import invoiceReducer from './modules/invoice/reducer'
+import estimateInvoiceReducer from './modules/estimate-invoice/reducer'
 import revenueReducer from './modules/revenue/reducer'
 import taxReducer from './modules/tax/reducer'
 import currencyReducer from './modules/currency/reducer'
@@ -57,6 +58,7 @@ const rootReducer = (history) => combineReducers({
     discount: discountReducer,
     customer: customerReducer,
     invoice: invoiceReducer,
+    estimateInvoice: estimateInvoiceReducer,
     revenue: revenueReducer,
 
     /** Settings */

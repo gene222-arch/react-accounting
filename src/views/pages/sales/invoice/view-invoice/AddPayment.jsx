@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { format } from 'date-fns'
+import { createStructuredSelector } from 'reselect';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 /** Actions */
@@ -30,7 +31,6 @@ import SaveCancelButtons from '../../../../../components/SaveCancelButtons';
 import Grid from '@material-ui/core/Grid'
 
 import * as DATE from '../../../../../utils/date'
-import { createStructuredSelector } from 'reselect';
 
 
 const ADD_PAYMENT_DEFAULT_PROPS = {
@@ -55,7 +55,7 @@ const AddPayment = ({ accountProp, currencyProp, paymentMethodProp, invoiceProp,
 
     const handleChange = (e) => setAddPaymentState({ ...addPaymentState, [e.target.name]: e.target.value });
 
-    const handleChangeDate = (date) => setAddPaymentState({ ...addPaymentState, date });
+    const handleChangeDate = (date) => setAddPaymentState({ ...addPaymentState, date: format(date, 'yyyy-mm-dd') });
 
     const handleClickOpen = () => setOpenAddPayment(true);
 

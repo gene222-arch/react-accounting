@@ -73,11 +73,13 @@ const Sales = ({
                     {/* Estimates */}
                     {
                         canManageEstimates && (
-                            <ListItem button selected={ salesEstimate } onClick={ selectSalesEstimate }>
-                                <ListItemText primary={
-                                    <Typography variant="subtitle2" color="initial">Estimates</Typography>
-                                }/>
-                            </ListItem>
+                            <StyledNavLink to={ PATH.ESTIMATE_INVOICE } text={ 
+                                <ListItem button selected={ salesEstimate } onClick={ selectSalesEstimate }>
+                                    <ListItemText primary={
+                                        <Typography variant="subtitle2" color="initial">Estimates</Typography>
+                                    }/>
+                                </ListItem>
+                            } />
                         )
                     }
 

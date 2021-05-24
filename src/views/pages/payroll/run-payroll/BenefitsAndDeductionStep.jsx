@@ -21,7 +21,7 @@ import BenefitsAndDeduction from './BenefitsAndDeduction';
 const EMPLOYEE_PROFILE_DEFAULT_PROPS = {
     id: '',
     name: '',
-    salary: '',
+    salary: 0,
     benefit: 0,
     deduction: 0,
     total_amount: 0

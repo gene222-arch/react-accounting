@@ -88,6 +88,12 @@ const PATH =
     CREATE_INVOICE: '/sales/invoices/new',
     UPDATE_INVOICE: '/sales/invoices/:id/edit',
 
+    /** Estimate Invoices */
+    ESTIMATE_INVOICE: '/sales/estimate-invoices',
+    VIEW_ESTIMATE_INVOICE: '/sales/estimate-invoices/:id',
+    CREATE_ESTIMATE_INVOICE: '/sales/estimate-invoices/new',
+    UPDATE_ESTIMATE_INVOICE: '/sales/estimate-invoices/:id/edit',
+
     /** Revenues */
     REVENUE: '/sales/revenues',
     CREATE_REVENUE: '/sales/revenues/new',
