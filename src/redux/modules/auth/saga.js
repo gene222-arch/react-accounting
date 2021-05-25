@@ -196,7 +196,7 @@ function* registerSaga (payload)
             }));
         }
 
-        yield put(push(PATH.EMAIL_VERIFICATION));
+        yield put(push(PATH.LOGIN));
 
     } catch ({ message }) {
 

@@ -13,6 +13,11 @@ const PATH =
     PAYROLL_DASHBOARD: '/payroll',
     DOUBLE_ENTRY_DASHBOARD: '/double-entry',
 
+    /** Access Rights */
+    ACCESS_RIGHT: '/access-rights',
+    CREATE_ACCESS_RIGHT: '/access-rights/new',
+    UPDATE_ACCESS_RIGHT: '/access-rights/:id/edit',
+
     /** Chart of account types */
     CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types',
     CREATE_CHART_OF_ACCOUNT_TYPE: '/double-entry/chart-of-account-types/new',

@@ -13,6 +13,9 @@ const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPassword
 const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
+const AccessRight = lazy(() => import('../views/pages/access-right/AccessRight'))
+const CreateAccessRight = lazy(() => import('../views/pages/access-right/CreateAccessRight'))
+const UpdateAccessRight = lazy(() => import('../views/pages/access-right/UpdateAccessRight'))
 const ChartOfAccountType = lazy(() => import('../views/pages/double-entry/chart-of-account-type/ChartOfAccountType'))
 const CreateChartOfAccountType = lazy(() => import('../views/pages/double-entry/chart-of-account-type/CreateChartOfAccountType'))
 const UpdateChartOfAccountType = lazy(() => import('../views/pages/double-entry/chart-of-account-type/UpdateChartOfAccountType'))
@@ -207,6 +210,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: DoubleEntryDashboard,
         access: 'View Double Entry Dashboard',
+        restricted: true
+    },
+    {
+        path: PATH.ACCESS_RIGHT,
+        key: 'AccessRight',
+        icon: '',
+        exact: true,
+        component: AccessRight,
+        access: 'Manage Access Rights',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_ACCESS_RIGHT,
+        key: 'CreateAccessRight',
+        icon: '',
+        exact: true,
+        component: CreateAccessRight,
+        access: 'Manage Access Rights',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_ACCESS_RIGHT,
+        key: 'UpdateAccessRight',
+        icon: '',
+        exact: true,
+        component: UpdateAccessRight,
+        access: 'Manage Access Rights',
         restricted: true
     },
     {

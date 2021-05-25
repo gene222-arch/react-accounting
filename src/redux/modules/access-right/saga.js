@@ -6,11 +6,18 @@ import ACTION_TYPES from './action.types';
 
 /** Api calls */
 import { fetchAllAsync, createAsync, updateAsync, destroyAsync } from '../../../services/access-right/access.right';
+import { fetchRolesAsync } from '../../../services/access-right/role';
+import { fetchPermissionsAsync } from '../../../services/access-right/permission';
+
 
 /** Actions */
 import { 
     getAccessRightsSuccess, 
     getAccessRightsFailed, 
+    getPermissionsSuccess, 
+    getPermissionsFailed, 
+    getRolesSuccess, 
+    getRolesFailed, 
     destroyAccessRightsSuccess, 
     destroyAccessRightsFailed, 
     createAccessRightSuccess, 
@@ -27,6 +34,8 @@ import PATH from './../../../routes/path';
 
 const {
     GET_ACCESS_RIGHTS_START,
+    GET_PERMISSIONS_START,
+    GET_ROLES_START,
     CREATE_ACCESS_RIGHT_START,
     UPDATE_ACCESS_RIGHT_START,
     DESTROY_ACCESS_RIGHTS_START
@@ -50,6 +59,40 @@ function* fetchAccessRightsSaga (payload)
 
     } catch ({ message }) {
         yield put(getAccessRightsFailed({ errorMessages: message }));
+    }
+}
+
+function* fetchPermissionsSaga ()
+{
+    try {
+        const { status, message, data: permissions } = yield call(fetchPermissionsAsync);
+
+        if (status !== 'success') {
+        }
+
+        if (status === 'success') {
+            yield put(getPermissionsSuccess({ permissions }));
+        }
+
+    } catch ({ message }) {
+        yield put(getPermissionsFailed({ errorMessages: message }));
+    }
+}
+
+function* fetchRolesSaga (payload)
+{
+    try {
+        const { status, message, data: roles } = yield call(fetchRolesAsync, payload);
+
+        if (status !== 'success') {
+        }
+
+        if (status === 'success') {
+            yield put(getRolesSuccess({ roles }));
+        }
+
+    } catch ({ message }) {
+        yield put(getRolesFailed({ errorMessages: message }));
     }
 }
 
@@ -144,6 +187,26 @@ function* fetchAccessRightsWatcher ()
     }
 }
 
+function* fetchRolesWatcher ()
+{
+    while (true) 
+    {
+        const { payload } = yield take(GET_ROLES_START);
+
+        yield call(fetchRolesSaga, payload);
+    }
+}
+
+function* fetchPermissionsWatcher ()
+{
+    while (true) 
+    {
+        yield take(GET_PERMISSIONS_START);
+
+        yield call(fetchPermissionsSaga);
+    }
+}
+
 function* createAccessRightWatcher ()
 {
     while (true) 
@@ -181,6 +244,8 @@ function* destroyAccessRightsWatcher ()
  {
     yield all([
         fetchAccessRightsWatcher(),
+        fetchPermissionsWatcher(),
+        fetchRolesWatcher(),
         createAccessRightWatcher(),
         updateAccessRightWatcher(),
         destroyAccessRightsWatcher()

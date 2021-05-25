@@ -22,6 +22,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
 import EmployeeIcon from '@material-ui/icons/People';
+import AccessRightIcon from '@material-ui/icons/VpnKey';
 
 /** Actions */
 import * as AUTH from '../../redux/modules/auth/actions'
@@ -124,11 +125,13 @@ const MainLayout = ({ auth, children, mainLayout }) =>
 
     const selectPayrollRunPayroll = () => dispatch(MAIN_LAYOUT.selectPayrollRunPayroll());
 
+    const selectEmployees = () => dispatch(MAIN_LAYOUT.selectEmployees());
+
+    const selectAccessRights = () => dispatch(MAIN_LAYOUT.selectAccessRights());
+
     const selectReports = () => dispatch(MAIN_LAYOUT.selectReports());
 
     const selectSettings = () => dispatch(MAIN_LAYOUT.selectSettings());
-
-    const selectEmployees = () => dispatch(MAIN_LAYOUT.selectEmployees());
 
     const handleClickLogout = () => dispatch(AUTH.logoutStart());
 
@@ -319,6 +322,16 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                                 <EmployeeIcon fontSize='small' />
                             </ListItemIcon>
                             <ListItemText primary={'Employees'} />
+                        </ListItem>
+                    } />
+
+                    {/* Access Rights */}
+                    <StyledNavLink to={ PATH.ACCESS_RIGHT } text={ 
+                        <ListItem button selected={ mainLayout.accessRights } onClick={ selectAccessRights }>
+                            <ListItemIcon>
+                                <AccessRightIcon fontSize='small' />
+                            </ListItemIcon>
+                            <ListItemText primary={'Access Rights'} />
                         </ListItem>
                     } />
 

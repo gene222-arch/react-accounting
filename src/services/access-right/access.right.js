@@ -13,7 +13,7 @@ export const fetchAllAsync = async ({ enabled = false }) =>
 export const findAsync = async ({ id }) => 
 {
     return await axiosInstance()
-        .get(`/access-rights/${id}`)
+        .get(`/access-rights/${id}/show`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

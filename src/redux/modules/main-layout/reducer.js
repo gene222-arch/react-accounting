@@ -47,6 +47,7 @@ const {
     SELECT_PAYROLL_RUN_PAYROLL,
 
     EMPLOYEES,
+    ACCESS_RIGHTS,
     REPORTS,
     SETTINGS
 } = ACTION_TYPES;
@@ -98,6 +99,7 @@ const DEFAULT_STATE = {
     payrollRunPayroll: false,
 
     employees: false,
+    accessRights: false,
     reports: false,
     settings: false,
 };
@@ -155,6 +157,7 @@ const initialState = {
     payrollRunPayroll: false,
 
     employees: false,
+    accessRights: false,
     reports: false,
     settings: false,
 
@@ -205,6 +208,7 @@ export default (state = initialState, { type }) =>
         payrollPayCalendar,
         payrollRunPayroll,
         employees,
+        accessRights,
         reports,
         settings
     } = state;
@@ -568,6 +572,14 @@ export default (state = initialState, { type }) =>
                 employees: !employees,
                 currentSelectedItem: 'Employees',
                 currentSelectedDropdownItem: 'employees'
+            };  
+
+        case ACCESS_RIGHTS:
+            return {
+                ...DEFAULT_STATE,
+                accessRights: !accessRights,
+                currentSelectedItem: 'Access Rights',
+                currentSelectedDropdownItem: 'accessRights'
             };  
 
         case REPORTS:

@@ -59,7 +59,7 @@ const CreateEmployee = ({ alert, accessRightProp, employeeProp }) =>
 
     const handleChangeCreateUser = (e) => setCreateUser(e.target.checked); 
 
-    const onLoadFetchAccessRights = () => dispatch(ACCESS_RIGHT.getAccessRights());
+    const onLoadFetchAccessRights = () => dispatch(ACCESS_RIGHT.getRoles());
 
     const onSubmitCreateEmployee = (e) => {
         e.preventDefault();
@@ -181,7 +181,7 @@ const CreateEmployee = ({ alert, accessRightProp, employeeProp }) =>
                                                 fullWidth
                                             >
                                                 {
-                                                    accessRightProp.accessRights.map(({ id, name }) => (
+                                                    accessRightProp.roles.map(({ id, name }) => (
                                                         <MenuItem key={ id } value={ id }>
                                                             { name }
                                                         </MenuItem>

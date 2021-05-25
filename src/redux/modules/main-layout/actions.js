@@ -47,7 +47,7 @@ const {
     SELECT_PAYROLL_RUN_PAYROLL,
 
     EMPLOYEES,
-
+    ACCESS_RIGHTS,
     REPORTS,
     SETTINGS
 } = ACTION_TYPES;
@@ -231,6 +231,13 @@ export const selectPayrollRunPayroll = () => ({
  */
 export const selectEmployees = () => ({
     type: EMPLOYEES
+});
+
+/**
+ * Access Rights
+ */
+ export const selectAccessRights = () => ({
+    type: ACCESS_RIGHTS
 });
 
 /**

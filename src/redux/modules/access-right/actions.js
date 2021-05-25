@@ -1,6 +1,15 @@
 import ACTION_TYPES from './action.types';
 
 const {
+
+    GET_PERMISSIONS_START,
+    GET_PERMISSIONS_SUCCESS,
+    GET_PERMISSIONS_FAILED,
+
+    GET_ROLES_START,
+    GET_ROLES_SUCCESS,
+    GET_ROLES_FAILED,
+
     GET_ACCESS_RIGHTS_START,
     GET_ACCESS_RIGHTS_SUCCESS,
     GET_ACCESS_RIGHTS_FAILED,
@@ -31,6 +40,36 @@ export const getAccessRightsSuccess = (payload) => ({
 
 export const getAccessRightsFailed = (payload) => ({
     type: GET_ACCESS_RIGHTS_FAILED,
+    payload
+});
+
+export const getPermissions = (payload = {}) => ({
+    type: GET_PERMISSIONS_START,
+    payload
+});
+
+export const getPermissionsSuccess = (payload) => ({
+    type: GET_PERMISSIONS_SUCCESS,
+    payload
+});
+
+export const getPermissionsFailed = (payload) => ({
+    type: GET_PERMISSIONS_FAILED,
+    payload
+});
+
+export const getRoles = (payload = {}) => ({
+    type: GET_ROLES_START,
+    payload
+});
+
+export const getRolesSuccess = (payload) => ({
+    type: GET_ROLES_SUCCESS,
+    payload
+});
+
+export const getRolesFailed = (payload) => ({
+    type: GET_ROLES_FAILED,
     payload
 });
 
